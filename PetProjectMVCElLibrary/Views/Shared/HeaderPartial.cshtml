@@ -1,0 +1,35 @@
+﻿<div id="header-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<header id="header">
+					<h1><a asp-area="" asp-controller="Home" asp-action="Index" id="logo">@Config.CompanyName</a></h1>
+						<nav id="nav">
+							<a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+							<a asp-area="" asp-controller="BooksShow" asp-action="Index" asp-route-id="">Книги</a>
+							<a asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
+							
+							@if (User.IsInRole("admin"))
+							{
+								<a asp-area="Admin" asp-controller="Home" asp-action="Index">Панель администратора</a>
+							}
+							@if (User.IsInRole("moderator"))
+							{
+								<a asp-area="Moderator" asp-controller="Home" asp-action="Index">Панель модератора</a>
+							}
+							@if (User.Identity.IsAuthenticated)
+							{
+								<a asp-area="" asp-controller="BookingShow" asp-action="Index">Брони</a>
+								<a asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+							}
+							else
+							{
+								<a asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+								<a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+							}
+						</nav>
+				</header>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+﻿@* @model BooksListViewModel
+
+    <section>
+        <h2>Новинки</h2>
+        <ul class="small-image-list">
+            @foreach (var entity in Model.Books)
+            {
+                <li>
+                    <a asp-area="" asp-controller="BooksShow" asp-action="Index" asp-route-id="@entity.Id">
+                        <img src="~/images/@entity.TitleImagePath" alt="" class="left UlImage">
+                    </a>
+                    <h4>
+                        @entity.Title
+                    </h4>
+                    <p>
+                        @entity.SubTitle
+                    </p>
+                </li>
+            }
+        </ul>
+    </section>
+ *@
