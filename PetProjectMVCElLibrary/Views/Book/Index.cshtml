@@ -1,0 +1,19 @@
+﻿@model IEnumerable<IBookViewModel>
+@{
+    string strTitle = "Книги по вашему запросу";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <ul class="big-image-list">
+        @foreach (IBookViewModel entity in Model)
+        {
+            <li>
+                <a asp-area="" asp-controller="BooksShow" asp-action="Index" asp-route-id="@entity.Id">
+                    <img src="~/images/@entity.TitleImagePath" alt="" class="left UlImage">
+                </a>
+                <h4>@entity.Title</h4>
+                <p>@entity.SubTitle</p>
+            </li>
+        }
+    </ul>
+</div>
