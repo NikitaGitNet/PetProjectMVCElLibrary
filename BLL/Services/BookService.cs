@@ -15,22 +15,22 @@ using System.Threading.Tasks;
 namespace BLL.Services
 {
     /// <summary>
-    /// Класс обслуживаюший BookDTO, содержит бизнесс логику для работы с ним
+    /// Сервис обслуживаюший BookDTO, содержит бизнесс логику для работы с ним
     /// </summary>
     public class BookService : IBookService
     {
-        private readonly UnitOfWork Database;
+        private readonly UnitOfWorkRepository Database;
         private readonly IMapper mapper;
         public BookService(AppDbContext context)
         {
-            Database = new UnitOfWork(context);
+            Database = new UnitOfWorkRepository(context);
             mapper = new MapperConfiguration(cfg => cfg.CreateMap<Book, BookDTO>()).CreateMapper();
         }
         /// <summary>
         /// Обращаемся к BookRepository, получаем все книги, конвертируем в BookDTO
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<IBookDTO>> GetAllBooks()
+        public async Task<IEnumerable<BookDTO>> GetAllBooks()
         {
             // Получаем из базы коллекцию
             IEnumerable<Book> books = await Database.BookRepository.GetAllEntityesAsync();
@@ -52,13 +52,13 @@ namespace BLL.Services
         {
             // Получаем из базы книгу по Id
             Book? book = await Database.BookRepository.GetEntityByIdAsync(id);
-            // Если null, выбрасываем исключение "Книга не найдена"
-            if (book == null)
+            if (book != null)
             {
-                throw new ValidationException("Книга не найдена", "");
+                // Если не null, возвращаем DTO
+                return mapper.Map<Book, BookDTO>(book);
             }
-            // Если не null, возвращаем DTO
-            return mapper.Map<Book, BookDTO>(book);
+            // Если null, выбрасываем исключение "Книга не найдена"
+            throw new ValidationException("Книга не найдена", "");
         }
         /// <summary>
         /// Добавляем книгу в базу
@@ -66,7 +66,7 @@ namespace BLL.Services
         /// <param name="bookDTO"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public async Task CreateBook(IBookDTO bookDTO)
+        public async Task CreateBook(BookDTO bookDTO)
         {
             Book? book = await Database.BookRepository.GetEntityByIdAsync(bookDTO.Id);
             if (book != null)
@@ -82,6 +82,57 @@ namespace BLL.Services
             {
                 throw new ValidationException("Не удалось сохранить книгу", "");
             }
+        }
+        /// <summary>
+        /// Получение книг по жанру и мапинг их в ДТО
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
+        public async Task<IEnumerable<BookDTO>> GetBookByGenre(Guid genreId)
+        {
+            IEnumerable<Book> books = await Database.BookRepository.GetEntityesByGenreAsync(genreId);
+            // Если книг нет, генерим исключение, что книг нету
+            if (!books.Any())
+            {
+                throw new ValidationException("Книги не найдены", "");
+            }
+            // Конвертируем в DTO, возвращаем коллекцию DTO
+            return mapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
+        }
+        /// <summary>
+        /// Получение  книг по автору и маппинг их в ДТО
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
+        public async Task<IEnumerable<BookDTO>> GetBookByAuthor(Guid authorId)
+        {
+            IEnumerable<Book> books = await Database.BookRepository.GetEntityesByAuthorAsync(authorId);
+            // Если книг нет, генерим исключение, что книг нету
+            if (!books.Any())
+            {
+                throw new ValidationException("Книги не найдены", "");
+            }
+            // Конвертируем в DTO, возвращаем коллекцию DTO
+            return mapper.Map<IEnumerable<Book>, List<BookDTO>>(books);
+        }
+        /// <summary>
+        /// Удаление книги из БД, на основании ИД
+        /// </summary>
+        /// <param name="bookId"></param>
+        public void DeleteBook(Guid bookId)
+        {
+            Database.BookRepository.DeleteEntity(bookId);
+        }
+        /// <summary>
+        /// Маппинг BookDTO в ентити, удаление ентити из БД, на основании массива ентити
+        /// </summary>
+        /// <param name="entityes"></param>
+        public void DeleteRangeBooks(IEnumerable<BookDTO> entityes)
+        {
+            IEnumerable<Book> books = mapper.Map<IEnumerable<BookDTO>, IEnumerable<Book>>(entityes);
+            Database.BookRepository.DeleteRangeEntityes(books);
         }
     }
 }

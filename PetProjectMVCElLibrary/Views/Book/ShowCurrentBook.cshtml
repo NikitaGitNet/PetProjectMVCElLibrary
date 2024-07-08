@@ -1,0 +1,77 @@
+﻿@model IBookViewModel
+@{
+    string? strTitle = @Model.Title;
+    ViewBag.Title = strTitle;
+}
+
+<script src="~/js/ckeditor/ckeditor.js"></script>
+
+<div>
+    <h4 class="H2Title">@Model.Title</h4>
+    <h3>@Model.SubTitle</h3>
+    <div>
+        <img class="img-block UlImage" src="~/images/@Model.TitleImagePath">
+    </div>
+    <div class="indent"></div>
+    <div>
+        <h3>Автор: @Model.AuthorName</h3>
+        <h3>Жанр: @Model.GenreName</h3>
+    </div>
+</div>
+<div>
+    <h3>Описание книги: @Html.Raw(Model.Text)</h3>
+</div>
+<form asp-controller="Comment" asp-action="AddComment" method="post" enctype="multipart/form-data">
+    <div class="div-box">
+        <h2>Введите комментарий</h2>
+        <div class="inputBox">
+            <input type="text" name="name">
+        </div>
+        <input style="display: inline-block;" type="submit" class="glo" value="Найти">
+    </div>
+</form>
+<hr>
+<h3 class="H2Title">Комментарии пользователей:</h3>
+<hr>
+@if (Model.Comments.Any())
+{
+    <div class="BooksShow">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="Comment">
+                <h3>@comment.UserName</h3>
+                <p>@comment.CreateOn</p>
+            </div>
+            <div class="CommentText">
+                @Html.Raw(comment.Text)
+            </div>
+            @if (User.IsInRole("moderator") || User.IsInRole("admin"))
+            {
+                <form style="display: inline-block;" id="form-@comment.Id" asp-area="" asp-controller="Comment" asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="@comment.Id">
+                    <input hidden name="BookId" value="@Model.Id">
+                    <a href="#" onclick="document.getElementById('form-@comment.Id').submit();">Удалить</a>
+                </form>
+            }
+            @if (comment.UserId == Model.CurentUserId && !(User.IsInRole("moderator") || User.IsInRole("admin")))
+            {
+                <form style="display: inline-block;" id="form-@comment.Id" asp-area="" asp-controller="Comment" asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="@comment.Id">
+                    <input hidden name="BookId" value="@Model.Id">
+                    <a href="#" onclick="document.getElementById('form-@comment.Id').submit();">Удалить</a>
+                </form>
+            }
+            <hr>
+        }
+    </div>
+}
+else
+{
+    <h2>Комментариев нет</h2>
+}
+<script>
+    window.onload = function () {
+        var newCKEdit = CKEDITOR.replace('@Html.IdFor(x => x.CommentText)');
+        newCKEdit.updateElement();
+    }
+</script>

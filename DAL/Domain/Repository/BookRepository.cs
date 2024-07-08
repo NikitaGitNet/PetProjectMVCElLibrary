@@ -1,5 +1,6 @@
 ﻿using DAL.Domain.Entities;
 using DAL.Domain.Interfaces.Repository;
+using DAL.Domain.Interfaces.Repository.Book;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Domain.Repository
@@ -7,7 +8,7 @@ namespace DAL.Domain.Repository
     /// <summary>
     /// Методы взаимодействия с entity Book
     /// </summary>
-    public class BookRepository : IRepository<Book>
+    public class BookRepository : IBookRepository
     {
         private readonly AppDbContext _context;
         public BookRepository(AppDbContext context)
@@ -29,16 +30,30 @@ namespace DAL.Domain.Repository
         /// <returns></returns>
         public async Task<Book?> GetEntityByIdAsync(Guid id)
         {
-            return await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Books
+                .Include(x => x.Author)
+                .Include(x => x.Genre)
+                .Include(x => x.Bookings)
+                .Include(x => x.Comments)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
         /// <summary>
-        /// Получение entityes из БД по массиву идентификаторов
+        /// Получение книг по жанру
         /// </summary>
-        /// <param name="ids"></param>
+        /// <param name="genreId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Book>> GetEntityesByIdsAsync(IEnumerable<Guid> ids)
+        public async Task<IEnumerable<Book>> GetEntityesByGenreAsync(Guid genreId)
+        { 
+            return await _context.Books.Where(x => x.GenreId == genreId).ToListAsync();
+        }
+        /// <summary>
+        /// Получение книг по автору
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Book>> GetEntityesByAuthorAsync(Guid authorId)
         {
-            return await _context.Books.Where(x => ids.Contains(x.Id)).ToListAsync();
+            return await _context.Books.Where(x => x.AuthorId == authorId).ToListAsync();
         }
         /// <summary>
         /// Сохранение entity в БД
@@ -47,17 +62,14 @@ namespace DAL.Domain.Repository
         /// <returns></returns>
         public async Task SaveEntityAsync(Book entity)
         {
-            await _context.Books.AddAsync(entity);
-            _context.SaveChanges();
-        }
-        /// <summary>
-        /// Сохрание коллекции entity в БД
-        /// </summary>
-        /// <param name="entityes"></param>
-        /// <returns></returns>
-        public async Task SaveRangeEntityesAsync(IEnumerable<Book> entityes)
-        {
-            await _context.Books.AddRangeAsync(entityes);
+            if (entity.Id == default)
+            {
+                await _context.Books.AddAsync(entity);
+            }
+            else
+            {
+                _context.Books.Update(entity);
+            }
             _context.SaveChanges();
         }
         /// <summary>
@@ -78,5 +90,7 @@ namespace DAL.Domain.Repository
             _context.Books.RemoveRange(entityes);
             _context.SaveChanges();
         }
+
+        
     }
 }

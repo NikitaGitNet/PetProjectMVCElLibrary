@@ -1,5 +1,6 @@
 ﻿using DAL.Domain.Entities;
 using DAL.Domain.Interfaces.Repository;
+using DAL.Domain.Interfaces.Repository.Booking;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace DAL.Domain.Repository
     /// <summary>
     /// Методы взаимодействия с entity Booking
     /// </summary>
-    public class BookingRepository : IRepository<Booking>
+    public class BookingRepository : IBookingRepository
     {
         private readonly AppDbContext _context;
         public BookingRepository(AppDbContext context)
@@ -37,15 +38,6 @@ namespace DAL.Domain.Repository
             return await _context.Bookings.FirstOrDefaultAsync(x => x.Id == id);
         }
         /// <summary>
-        /// Получение броней из БД по массиву идентификаторов
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Booking>> GetEntityesByIdsAsync(IEnumerable<Guid> ids)
-        {
-            return await _context.Bookings.Where(x => ids.Contains(x.Id)).ToListAsync();
-        }
-        /// <summary>
         /// Сохранение брони в БД
         /// </summary>
         /// <param name="entity"></param>
@@ -53,16 +45,6 @@ namespace DAL.Domain.Repository
         public async Task SaveEntityAsync(Booking entity)
         {
             await _context.Bookings.AddAsync(entity);
-            _context.SaveChanges();
-        }
-        /// <summary>
-        /// Сохрание коллекции броней в БД
-        /// </summary>
-        /// <param name="entityes"></param>
-        /// <returns></returns>
-        public async Task SaveRangeEntityesAsync(IEnumerable<Booking> entityes)
-        {
-            await _context.Bookings.AddRangeAsync(entityes);
             _context.SaveChanges();
         }
         /// <summary>

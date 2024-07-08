@@ -1,6 +1,6 @@
 ﻿using BLL.Interfaces.DTO;
-using DAL.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
+
 
 namespace BLL.Models.DTO.Book
 {
@@ -8,7 +8,7 @@ namespace BLL.Models.DTO.Book
     {
         public BookDTO()
         {
-            //Comments = new List<Comment>();
+            Comments = new List<ICommentDTO>();
         }
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Заполните название книги")]
@@ -17,9 +17,9 @@ namespace BLL.Models.DTO.Book
         [Display(Name = "Краткое описание книги")]
         public string? SubTitle { get; set; }
         [Display(Name = "Полное описание книги")]
-        public string? Author { get; set; }
+        public string? AuthorName { get; set; }
         [Display(Name = "Автор")]
-        public string? Genre { get; set; }
+        public string? GenreName { get; set; }
         [Display(Name = "Жанр")]
         public string? TitleImagePath { get; set; }
         public string? CurentUserId { get; set; }
@@ -27,6 +27,6 @@ namespace BLL.Models.DTO.Book
         public bool IsBooking { get; set; }
         public string? CommentText { get; set; }
         public DateTime DateAdded { get; set; }
-        //public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<ICommentDTO> Comments { get; set; }
     }
 }

@@ -12,8 +12,8 @@ namespace BLL.Interfaces.DTO
         Guid Id { get; set; }
         string? Title { get; set; }
         string? SubTitle { get; set; }
-        string? Author { get; set; }
-        string? Genre { get; set; }
+        string? AuthorName { get; set; }
+        string? GenreName { get; set; }
         string? TitleImagePath { get; set; }
         string? CurentUserId { get; set; }
         string? Text { get; set; }

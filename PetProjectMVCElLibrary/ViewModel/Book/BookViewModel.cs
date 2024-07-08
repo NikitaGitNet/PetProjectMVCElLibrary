@@ -8,7 +8,7 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
     {
         public BookViewModel()
         {
-            //Comments = new List<ICommentViewModel>();
+            Comments = new List<ICommentViewModel>();
         }
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Заполните название книги")]
@@ -17,9 +17,9 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
         [Display(Name = "Краткое описание книги")]
         public string? SubTitle { get; set; }
         [Display(Name = "Полное описание книги")]
-        public string? Author { get; set; }
+        public string? AuthorName { get; set; }
         [Display(Name = "Автор")]
-        public string? Genre { get; set; }
+        public string? GenreName { get; set; }
         [Display(Name = "Жанр")]
         public string? TitleImagePath { get; set; }
         public string? Text { get; set; }
@@ -27,6 +27,6 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
         public string? CommentText { get; set; }
         public DateTime DateAdded { get; set; }
         public string? CurentUserId { get; set; }
-        //public IEnumerable<ICommentViewModel> Comments { get; set; }
+        public IEnumerable<ICommentViewModel> Comments { get; set; }
     }
 }

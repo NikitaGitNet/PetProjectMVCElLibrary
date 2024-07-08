@@ -1,5 +1,6 @@
 using DAL.Domain;
 using DAL.Domain.Entities;
+using DAL.Domain.Interfaces.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PetProjectMVCElLibrary.Service;

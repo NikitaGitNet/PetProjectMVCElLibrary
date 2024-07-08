@@ -8,22 +8,32 @@ using System.Threading.Tasks;
 using BLL.Interfaces;
 using DAL.Domain.Interfaces.Repository;
 using DAL.Domain.Entities;
+using DAL.Domain.Interfaces.Repository.Book;
+using DAL.Domain.Interfaces.Repository.Comment;
+using DAL.Domain.Interfaces.Repository.User;
+using DAL.Domain.Interfaces.Repository.Booking;
 
 namespace BLL.Services
 {
     /// <summary>
     /// Реализация паттерна UnitOfWork
     /// </summary>
-    public class UnitOfWork : IDisposable
+    public class UnitOfWorkRepository : IDisposable
     {
         // Контекст
         private readonly AppDbContext _context;
         // Перечень репозиториев
-        public readonly IRepository<Book> BookRepository;
-        public UnitOfWork(AppDbContext context)
+        public readonly IBookRepository BookRepository;
+        public readonly IBookingRepository BookingRepository;
+        public readonly ICommentRepository CommentRepository;
+        public readonly IApplicationUserRepository ApplicationUserRepository;
+        public UnitOfWorkRepository(AppDbContext context)
         {
             _context = context;
             BookRepository = new BookRepository(_context);
+            CommentRepository = new CommentRepository(_context);
+            ApplicationUserRepository = new ApplicationUserRepository(_context);
+            BookingRepository = new BookingRepository(_context);
         }
         private bool disposed = false;
 

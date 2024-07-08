@@ -1,5 +1,6 @@
 ﻿using DAL.Domain.Entities;
 using DAL.Domain.Interfaces.Repository;
+using DAL.Domain.Interfaces.Repository.Book;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace BLL.Interfaces
 {
     public interface IUnitOfWork
     {
-         IRepository<Book> BookRepository { get; }
+        IBookRepository BookRepository { get; }
     }
 }

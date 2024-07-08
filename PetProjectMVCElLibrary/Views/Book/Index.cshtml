@@ -4,15 +4,30 @@
     ViewBag.Title = strTitle;
 }
 <div>
+    <div class="div-box">
+        <a class="glo" asp-controller="Book" asp-action="SearchBookByAutorOfGenre">Поиск по автору</a>
+        <a class="glo" asp-controller="Book" asp-action="SearchBookByAutorOfGenre">Поиск по жанру</a>
+        <form asp-controller="Book" asp-action="SearchByName" method="post" enctype="multipart/form-data">
+            <div class="div-box">
+                <h2>Поиск по названию</h2>
+                <div class="inputBox">
+                    <input type="text" name="name">
+                </div>
+                <input style="display: inline-block;" type="submit" class="glo" value="Найти">
+            </div>
+        </form>
+    </div>
+<div>
     <ul class="big-image-list">
-        @foreach (IBookViewModel entity in Model)
+        @foreach (IBookViewModel viewModel in Model)
         {
             <li>
-                <a asp-area="" asp-controller="BooksShow" asp-action="Index" asp-route-id="@entity.Id">
-                    <img src="~/images/@entity.TitleImagePath" alt="" class="left UlImage">
+                <a asp-area="" asp-controller="Book" asp-action="ShowCurrentBook" asp-route-id="@viewModel.Id">
+                    <img src="~/images/@viewModel.TitleImagePath" alt="" class="left UlImage">
                 </a>
-                <h4>@entity.Title</h4>
-                <p>@entity.SubTitle</p>
+                <h3>@viewModel.Id</h3>
+                <h4>@viewModel.Title</h4>
+                <p>@viewModel.SubTitle</p>
             </li>
         }
     </ul>

@@ -24,23 +24,11 @@ namespace DAL.Domain.Interfaces.Repository
         /// <returns></returns>
         Task<T?> GetEntityByIdAsync(Guid id);
         /// <summary>
-        /// Получение entityes по массиву Id
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        Task<IEnumerable<T>> GetEntityesByIdsAsync(IEnumerable<Guid> ids);
-        /// <summary>
         /// Сохранение entity в БД
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         Task SaveEntityAsync(T entity);
-        /// <summary>
-        /// Сохранение коллекции entityes в БД
-        /// </summary>
-        /// <param name="entityes"></param>
-        /// <returns></returns>
-        Task SaveRangeEntityesAsync(IEnumerable<T> entityes);
         /// <summary>
         /// Удаление entity из БД на основании Id
         /// </summary>
