@@ -28,7 +28,7 @@ namespace DAL.Domain.Interfaces.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task SaveEntityAsync(T entity);
+        void SaveEntity(T entity);
         /// <summary>
         /// Удаление entity из БД на основании Id
         /// </summary>

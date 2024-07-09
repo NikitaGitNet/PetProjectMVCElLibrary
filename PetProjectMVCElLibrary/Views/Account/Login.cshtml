@@ -1,0 +1,32 @@
+﻿@model LoginViewModel
+@{
+    string strTitle = "Авторизация";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>Авторизация на сайт</h2>
+    <div class="div-box">
+        <form class="formMainInputBox" asp-area="" asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
+            <div asp-validation-summary="All"></div>
+
+            <div class="inputBox">
+                <label asp-for="Email"></label>
+                <input asp-for="Email">
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="inputBox">
+                <label asp-for="Password"></label>
+                <input asp-for="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="inputBox">
+                <label asp-for="RememberMe"></label>
+                <input asp-for="RememberMe">
+                <span asp-validation-for="RememberMe"></span>
+            </div>
+            <div>
+                <input type="submit" value="Войти" class="glo">
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,21 +1,9 @@
-﻿using BLL.Models.DTO.Book;
-using BLL.Models.DTO.Comment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BLL.Models.DTO.Comment;
 
 namespace BLL.Interfaces
 {
     public interface ICommentService
     {
-        /// <summary>
-        /// Сохранение коммента в БД на основе ДТО
-        /// </summary>
-        /// <param name="comment"></param>
-        /// <returns></returns>
-        Task CreateComment(CommentDTO comment);
         /// <summary>
         /// Получение книги из БД, маппинг в ДТО на основании ИД
         /// </summary>
@@ -23,16 +11,22 @@ namespace BLL.Interfaces
         /// <returns></returns>
         Task<CommentDTO> GetComment(Guid id);
         /// <summary>
+        /// Получение комментов для конкретной книги
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<CommentDTO>> GetCommentsByBookId(Guid id);
+        /// <summary>
         /// Получение всех комментов из БД, маппинг в ДТО
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<CommentDTO>> GetAllComments();
         /// <summary>
-        /// Маппинг ДТО в ентити, сохранение ентити в БД
+        /// Сохранение коммента в БД на основе ДТО
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="comment"></param>
         /// <returns></returns>
-        Task SaveCommentAsync(CommentDTO commentDTO);
+        void CreateComment(CommentDTO comment);
         /// <summary>
         /// Удаление книги из БД на основании Id
         /// </summary>

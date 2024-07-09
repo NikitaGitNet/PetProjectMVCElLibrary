@@ -28,20 +28,29 @@ namespace DAL.Domain.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<Comment?> GetEntityByIdAsync(Guid id)
+        public async Task<Comment?> GetEntityByIdAsync(Guid id)
         {
-            return _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Comments.FirstOrDefaultAsync(x => x.Id == id);
+        }
+        /// <summary>
+        /// Получение комментариев для конкретной книги
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Comment>> GetEntityesByBookIdAsync(Guid id)
+        {
+            return await _context.Comments.Where(x => x.BookId == id).ToListAsync();
         }
         /// <summary>
         /// Сохранение комментария в БД
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task SaveEntityAsync(Comment entity)
+        public void SaveEntity(Comment entity)
         {
             if (entity.Id == default)
             {
-                await _context.Comments.AddAsync(entity);
+                _context.Entry(entity).State = EntityState.Added;
             }
             else
             {
@@ -67,5 +76,7 @@ namespace DAL.Domain.Repository
             _context.Comments.RemoveRange(entityes);
             _context.SaveChanges();
         }
+
+        
     }
 }

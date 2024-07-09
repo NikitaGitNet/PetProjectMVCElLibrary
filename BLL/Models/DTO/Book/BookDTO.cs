@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces.DTO;
+using BLL.Models.DTO.Comment;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -8,7 +9,7 @@ namespace BLL.Models.DTO.Book
     {
         public BookDTO()
         {
-            Comments = new List<ICommentDTO>();
+            Comments = new List<CommentDTO>();
         }
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Заполните название книги")]
@@ -27,6 +28,6 @@ namespace BLL.Models.DTO.Book
         public bool IsBooking { get; set; }
         public string? CommentText { get; set; }
         public DateTime DateAdded { get; set; }
-        public IEnumerable<ICommentDTO> Comments { get; set; }
+        public IEnumerable<CommentDTO> Comments { get; set; }
     }
 }

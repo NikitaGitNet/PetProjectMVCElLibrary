@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.ViewModel.Authorization;
-using PetProjectMVCElLibrary.ViewModel.Login;
 
 namespace PetProjectMVCElLibrary.Controllers
 {
@@ -28,7 +27,7 @@ namespace PetProjectMVCElLibrary.Controllers
             _userManager = userManager;
 
         }
-        [HttpPost]
+        //[HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
@@ -82,26 +81,21 @@ namespace PetProjectMVCElLibrary.Controllers
                         model.MaxLengthName = true;
                         return View(model);
                     }
-                    ApplicationUserDTO userDTO = new ApplicationUserDTO()
-                    { 
-                        UserEmail = model.UserName,
-                        UserName = model.UserName,
-                    };
-                    //_applicationUserService.CreateUser(userDTO);
-                    //ApplicationUser user = new() { UserName = model.UserName, Email = model.Email, CreateOn = DateTime.Now };
-                    //var result = await userManager.CreateAsync(user, model.Password);
-                    //if (result.Succeeded)
-                    //{
-                    //    await signInManager.SignInAsync(user, false);
-                    //    return RedirectToAction("Index", "Home");
-                    //}
-                    //else
-                    //{
-                    //    foreach (var error in result.Errors)
-                    //    {
-                    //        ModelState.AddModelError(string.Empty, error.Description);
-                    //    }
-                    //}
+
+                    ApplicationUser user = new() { UserName = model.UserName, Email = model.Email, CreateOn = DateTime.Now };
+                    var result = await _userManager.CreateAsync(user, model.Password ?? "");
+                    if (result.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
                 }
             }
             return View(model);

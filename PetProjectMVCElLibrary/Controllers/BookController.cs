@@ -1,28 +1,33 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BLL.Interfaces.DTO;
 using BLL.Models.DTO.Book;
+using BLL.Models.DTO.Comment;
 using BLL.Services;
 using DAL.Domain;
+using DAL.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.Interfaces.Book;
 using PetProjectMVCElLibrary.ViewModel.Book;
+using PetProjectMVCElLibrary.ViewModel.Comment;
+using System.Security.Claims;
 
 namespace PetProjectMVCElLibrary.Controllers
 {
     public class BookController : Controller
     {
         private readonly AppDbContext _context;
-        //private readonly UnitOfWork unitOfWork;
         private readonly IBookService bookService;
-        private readonly IMapper mapper;
-        //private readonly ILogger _logger;
-        public BookController(AppDbContext context /*ILogger logger*/)
+        private readonly ICommentService commentService;
+        private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _context = context;
-            //unitOfWork = new UnitOfWork(context);
-            bookService = new BookService(context);
-            mapper = new MapperConfiguration(cfg => cfg.CreateMap<BookDTO, BookViewModel>()).CreateMapper();
-            //_logger = logger;
+            _mapper = mapper;
+            bookService = new BookService(context, mapper);
+            commentService = new CommentService(context, mapper);
+            _httpContextAccessor = httpContextAccessor;
         }
         /// <summary>
         /// Вывести все книги на экран
@@ -35,7 +40,7 @@ namespace PetProjectMVCElLibrary.Controllers
             try
             {
                 IEnumerable<BookDTO> bookDTOs = await bookService.GetAllBooks();
-                bookViewModels = mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
+                bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
             }
             catch (Exception e)
             {
@@ -51,7 +56,9 @@ namespace PetProjectMVCElLibrary.Controllers
             try
             {
                 BookDTO bookDTO = await bookService.GetBook(book.Id);
-                bookViewModel = mapper.Map<BookDTO, BookViewModel>(bookDTO);
+                bookViewModel = _mapper.Map<BookViewModel>(bookDTO);
+                IEnumerable<CommentDTO> commentDTOs = await commentService.GetCommentsByBookId(book.Id);
+                bookViewModel.Comments = _mapper.Map<IEnumerable<CommentViewModel>>(commentDTOs);
             }
             catch (Exception e)
             {
@@ -67,7 +74,7 @@ namespace PetProjectMVCElLibrary.Controllers
             try
             {
                 IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByAuthor(authorId);
-                bookViewModels = mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
+                bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
             }
             catch (Exception e)
             {
@@ -83,7 +90,7 @@ namespace PetProjectMVCElLibrary.Controllers
             try
             {
                 IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByGenre(genreId);
-                bookViewModels = mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
+                bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
             }
             catch (Exception e)
             {
@@ -91,6 +98,33 @@ namespace PetProjectMVCElLibrary.Controllers
                 throw;
             }
             return View(bookViewModels);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddComment(CommentViewModel commentViewModel)
+        {
+            HttpContext? httpContent = _httpContextAccessor.HttpContext;
+            if (httpContent != null)
+            {
+                Claim? claim = httpContent.User.FindFirst(ClaimTypes.NameIdentifier);
+                if (claim != null)
+                {
+                    var userId = claim.Value;
+
+                    return Ok();
+                }
+                CommentDTO commentDTO = new CommentDTO()
+                {
+                    CreateOn = DateTime.Now,
+                    CommentText = commentViewModel.CommentText,
+                    UserId = "86d55f40-9544-4d92-aa24-cc5693a5fd96",
+                    BookId = commentViewModel.Id,
+                    UserEmail = "moderator@email.com",
+                    UserName = "moderator"
+                };
+                commentService.CreateComment(commentDTO);
+            }
+            BookDTO bookDTO = await bookService.GetBook(commentViewModel.Id);
+            return View("ShowCurrentBook", _mapper.Map<BookViewModel>(bookDTO));
         }
     }
 }

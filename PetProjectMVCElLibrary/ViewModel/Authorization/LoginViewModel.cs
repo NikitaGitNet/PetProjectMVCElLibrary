@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PetProjectMVCElLibrary.ViewModel.Login
+namespace PetProjectMVCElLibrary.ViewModel.Authorization
 {
     public class LoginViewModel
     {

@@ -18,6 +18,6 @@ namespace PetProjectMVCElLibrary.Interfaces.Book
         bool IsBooking { get; set; }
         string? CommentText { get; set; }
         DateTime DateAdded { get; set; }
-        IEnumerable<ICommentViewModel> Comments { get; set; }
+        IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }

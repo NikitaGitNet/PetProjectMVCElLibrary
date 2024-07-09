@@ -60,11 +60,11 @@ namespace DAL.Domain.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task SaveEntityAsync(Book entity)
+        public void SaveEntity(Book entity)
         {
             if (entity.Id == default)
             {
-                await _context.Books.AddAsync(entity);
+                _context.Books.Add(entity);
             }
             else
             {

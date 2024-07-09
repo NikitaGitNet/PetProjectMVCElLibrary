@@ -9,11 +9,6 @@ namespace DAL.Domain.Entities
 {
     public class Comment
     {
-        public Comment()
-        {
-            User = new ApplicationUser();
-            Book = new Book();
-        }
         public Guid Id { get; set; }
         public string? Text { get; set; }
         public DateTime? CreateOn { get; set; }

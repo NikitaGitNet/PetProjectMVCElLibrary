@@ -21,15 +21,35 @@
 <div>
     <h3>Описание книги: @Html.Raw(Model.Text)</h3>
 </div>
-<form asp-controller="Comment" asp-action="AddComment" method="post" enctype="multipart/form-data">
-    <div class="div-box">
-        <h2>Введите комментарий</h2>
-        <div class="inputBox">
-            <input type="text" name="name">
+<div>
+    <form asp-controller="Book" asp-action="AddComment" method="post" enctype="multipart/form-data">
+        <div class="div-box">
+            <textarea asp-for="CommentText"></textarea>
+            <span asp-validation-for="CommentText"></span>
         </div>
-        <input style="display: inline-block;" type="submit" class="glo" value="Найти">
-    </div>
-</form>
+        <div hidden class="div-box">
+            <textarea asp-for="Id"></textarea>
+            <span asp-validation-for="Id"></span>
+        </div>
+        <input type="submit" value="Оставить комментарий" class="glo">
+    </form>
+    <form asp-controller="Booking" asp-action="Booking" method="post" enctype="multipart/form-data">
+        <div hidden class="div-box">
+            <textarea asp-for="Id"></textarea>
+            <span asp-validation-for="Id"></span>
+        </div>
+        <div class="div-box">
+            @if (Model.IsBooking)
+            {
+                <h2>Книги нет в наличии, бронь не возможна</h2>
+            }
+            else
+            {
+                <input type="submit" value="Бронировать" class="glo">
+            }
+        </div>
+    </form>
+</div>
 <hr>
 <h3 class="H2Title">Комментарии пользователей:</h3>
 <hr>
@@ -43,7 +63,7 @@
                 <p>@comment.CreateOn</p>
             </div>
             <div class="CommentText">
-                @Html.Raw(comment.Text)
+                @Html.Raw(comment.CommentText)
             </div>
             @if (User.IsInRole("moderator") || User.IsInRole("admin"))
             {

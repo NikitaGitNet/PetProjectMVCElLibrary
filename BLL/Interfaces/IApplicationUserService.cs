@@ -8,7 +8,7 @@ namespace BLL.Interfaces
         Task<ApplicationUserDTO> GetUser(Guid id);
         Task<ApplicationUserDTO> GetUserByEmail(string email);
         Task<IEnumerable<ApplicationUserDTO>> GetAllUsers();
-        Task CreateUser(ApplicationUserDTO user);
+        void CreateUser(ApplicationUserDTO user);
         void DeleteUser(string userId);
         void DeleteRangeUsers(IEnumerable<ApplicationUserDTO> users);
     }

@@ -1,5 +1,6 @@
 ﻿using PetProjectMVCElLibrary.Interfaces.Book;
 using PetProjectMVCElLibrary.Interfaces.Comment;
+using PetProjectMVCElLibrary.ViewModel.Comment;
 using System.ComponentModel.DataAnnotations;
 
 namespace PetProjectMVCElLibrary.ViewModel.Book
@@ -8,7 +9,7 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
     {
         public BookViewModel()
         {
-            Comments = new List<ICommentViewModel>();
+            Comments = new List<CommentViewModel>();
         }
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Заполните название книги")]
@@ -27,6 +28,6 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
         public string? CommentText { get; set; }
         public DateTime DateAdded { get; set; }
         public string? CurentUserId { get; set; }
-        public IEnumerable<ICommentViewModel> Comments { get; set; }
+        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }

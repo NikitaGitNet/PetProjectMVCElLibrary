@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using AutoMapper;
+using BLL.Interfaces;
 using DAL.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,9 +12,9 @@ namespace BLL.Services
 {
     public class UnitOfWorkService
     {
-        public UnitOfWorkService(AppDbContext context)
+        public UnitOfWorkService(AppDbContext context, IMapper mapper)
         {
-            BookService = new BookService(context);
+            BookService = new BookService(context, mapper);
         }
         IBookService BookService;
     }

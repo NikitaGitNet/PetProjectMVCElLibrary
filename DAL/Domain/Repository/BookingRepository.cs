@@ -42,9 +42,9 @@ namespace DAL.Domain.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task SaveEntityAsync(Booking entity)
+        public void SaveEntity(Booking entity)
         {
-            await _context.Bookings.AddAsync(entity);
+            _context.Bookings.Add(entity);
             _context.SaveChanges();
         }
         /// <summary>

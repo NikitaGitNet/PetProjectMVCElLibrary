@@ -40,10 +40,10 @@ namespace BLL.Services
             IEnumerable<ApplicationUser> users = await Database.ApplicationUserRepository.GetAllEntityesAsync();
             return mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserDTO>>(users);
         }
-        public async Task CreateUser(ApplicationUserDTO user)
+        public void CreateUser(ApplicationUserDTO user)
         {
             ApplicationUser applicationUser = mapper.Map<ApplicationUserDTO , ApplicationUser>(user);
-            await Database.ApplicationUserRepository.SaveEntityAsync(applicationUser);
+            Database.ApplicationUserRepository.SaveEntity(applicationUser);
         }
         public void DeleteUser(string userId)
         {

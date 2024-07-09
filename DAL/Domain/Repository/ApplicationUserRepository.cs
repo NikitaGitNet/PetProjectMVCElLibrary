@@ -44,11 +44,11 @@ namespace DAL.Domain.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task SaveEntityAsync(ApplicationUser entity)
+        public void SaveEntity(ApplicationUser entity)
         {
             if (entity.Id == default)
             {
-                await _context.AddAsync(entity);
+                _context.Add(entity);
             }
             else
             {

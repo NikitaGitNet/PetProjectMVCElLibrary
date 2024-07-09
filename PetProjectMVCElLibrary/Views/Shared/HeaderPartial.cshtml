@@ -17,7 +17,7 @@
 							{
 								<a asp-area="Moderator" asp-controller="Home" asp-action="Index">Панель модератора</a>
 							}
-							@if (User.Identity.IsAuthenticated)
+							@if (User.Identity!.IsAuthenticated)
 							{
 								<a asp-area="" asp-controller="BookingShow" asp-action="Index">Брони</a>
 								<a asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
