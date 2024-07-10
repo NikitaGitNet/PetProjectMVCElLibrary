@@ -29,6 +29,15 @@ namespace DAL.Domain.Repository
             return await _context.Bookings.ToListAsync();
         }
         /// <summary>
+        /// Получение броней из БД по ИД пользователя к которому, они привязаны
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Booking>> GetBookingByUserIdAsync(string id)
+        { 
+            return await _context.Bookings.Where(x => x.UserId == id).ToListAsync();
+        }
+        /// <summary>
         /// Получение entity по идентификатору
         /// </summary>
         /// <param name="id"></param>

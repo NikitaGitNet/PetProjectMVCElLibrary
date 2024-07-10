@@ -20,7 +20,7 @@ namespace PetProjectMVCElLibrary.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(AppDbContext context, SignInManager<ApplicationUser> signInManager, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
-            _applicationUserService = new ApplicationUserService(context);
+            _applicationUserService = new ApplicationUserService(context, signInManager, mapper);
             _signInManager = signInManager;
             _mapper = mapper;
             _context = context;
@@ -29,20 +29,13 @@ namespace PetProjectMVCElLibrary.Controllers
         }
         //[HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUserDTO user = await _applicationUserService.GetUserByEmail(model.Email ?? string.Empty);
-                if (user != null)
+                if (await _applicationUserService.SignInResultSucceeded(model.Email ?? "", model.Password ?? "", model.RememberMe))
                 {
-                    ApplicationUser applicationUser = new ApplicationUser();
-                    await _signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(applicationUser, model.Password, model.RememberMe, false);
-                    if (result.Succeeded)
-                    {
-                        return Redirect(returnUrl ?? "/");
-                    }
+                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError(nameof(LoginViewModel.Email), "Неверный email или пароль");
             }

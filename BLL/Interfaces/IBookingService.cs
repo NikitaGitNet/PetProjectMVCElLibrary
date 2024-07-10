@@ -15,7 +15,7 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="book"></param>
         /// <returns></returns>
-        Task CreateBooking(BookingDTO book);
+        void CreateBooking(BookingDTO book);
         /// <summary>
         /// Получение брони на основе ИД
         /// </summary>
@@ -27,6 +27,12 @@ namespace BLL.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<BookingDTO>> GetAllBookings();
+        /// <summary>
+        /// Получение броней на основании ИД пользователя, маппинг их в ДТО
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<BookingDTO>> GetBookingByUserId(string id);
         /// <summary>
         /// Удаление брони из БД на основании Id
         /// </summary>

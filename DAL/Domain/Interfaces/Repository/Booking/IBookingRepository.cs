@@ -8,6 +8,6 @@ namespace DAL.Domain.Interfaces.Repository.Booking
 {
     public interface IBookingRepository : IRepository<DAL.Domain.Entities.Booking>
     {
-
+        Task<IEnumerable<DAL.Domain.Entities.Booking>> GetBookingByUserIdAsync(string id);
     }
 }

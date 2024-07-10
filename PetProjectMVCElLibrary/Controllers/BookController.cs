@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+using BLL.Infrastructure;
 using BLL.Interfaces;
 using BLL.Interfaces.DTO;
+using BLL.Models.DTO.ApplicationUser;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Comment;
 using BLL.Services;
 using DAL.Domain;
 using DAL.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.Interfaces.Book;
+using PetProjectMVCElLibrary.Interfaces.Comment;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Comment;
 using System.Security.Claims;
@@ -19,14 +23,16 @@ namespace PetProjectMVCElLibrary.Controllers
         private readonly AppDbContext _context;
         private readonly IBookService bookService;
         private readonly ICommentService commentService;
+        private readonly IApplicationUserService applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _mapper = mapper;
             bookService = new BookService(context, mapper);
             commentService = new CommentService(context, mapper);
+            applicationUserService = new ApplicationUserService(context, signInManager, mapper);
             _httpContextAccessor = httpContextAccessor;
         }
         /// <summary>
@@ -59,6 +65,16 @@ namespace PetProjectMVCElLibrary.Controllers
                 bookViewModel = _mapper.Map<BookViewModel>(bookDTO);
                 IEnumerable<CommentDTO> commentDTOs = await commentService.GetCommentsByBookId(book.Id);
                 bookViewModel.Comments = _mapper.Map<IEnumerable<CommentViewModel>>(commentDTOs);
+                HttpContext? httpContent = _httpContextAccessor.HttpContext;
+                if (httpContent != null)
+                {
+                    Claim? claim = httpContent.User.FindFirst(ClaimTypes.NameIdentifier);
+                    if (claim != null)
+                    {
+                        var userId = claim.Value;
+                        bookViewModel.CurentUserId = userId;
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -103,28 +119,39 @@ namespace PetProjectMVCElLibrary.Controllers
         public async Task<IActionResult> AddComment(CommentViewModel commentViewModel)
         {
             HttpContext? httpContent = _httpContextAccessor.HttpContext;
-            if (httpContent != null)
-            {
-                Claim? claim = httpContent.User.FindFirst(ClaimTypes.NameIdentifier);
-                if (claim != null)
-                {
-                    var userId = claim.Value;
-
-                    return Ok();
-                }
-                CommentDTO commentDTO = new CommentDTO()
-                {
-                    CreateOn = DateTime.Now,
-                    CommentText = commentViewModel.CommentText,
-                    UserId = "86d55f40-9544-4d92-aa24-cc5693a5fd96",
-                    BookId = commentViewModel.Id,
-                    UserEmail = "moderator@email.com",
-                    UserName = "moderator"
-                };
-                commentService.CreateComment(commentDTO);
-            }
             BookDTO bookDTO = await bookService.GetBook(commentViewModel.Id);
-            return View("ShowCurrentBook", _mapper.Map<BookViewModel>(bookDTO));
+            if (bookDTO != null)
+            {
+                if (httpContent != null)
+                {
+                    Claim? claim = httpContent.User.FindFirst(ClaimTypes.NameIdentifier);
+                    if (claim != null)
+                    {
+                        var userId = claim.Value;
+                        ApplicationUserDTO userDTO = await applicationUserService.GetUser(userId);
+                        CommentDTO commentDTO = new CommentDTO()
+                        {
+                            CreateOn = DateTime.Now,
+                            CommentText = commentViewModel.CommentText,
+                            UserId = userId,
+                            BookId = commentViewModel.Id,
+                            UserEmail = userDTO.UserEmail,
+                            UserName = userDTO.UserName,
+                        };
+                        commentService.CreateComment(commentDTO);
+                        //return View("ShowCurrentBook", _mapper.Map<BookViewModel>(bookDTO));
+                        return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
+                    }
+                }
+                return View("ShowCurrentBook", _mapper.Map<BookViewModel>(bookDTO));
+            }
+            throw new ValidationException("Книга не найдена", "");
+        }
+        public async Task<IActionResult> DeleteComment(CommentViewModel model)
+        {
+            commentService.DeleteComment(model.Id);
+            BookDTO bookDTO = await bookService.GetBook(model.BookId);
+            return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
         }
     }
 }

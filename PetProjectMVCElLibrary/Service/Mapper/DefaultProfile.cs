@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BLL.Models.DTO.ApplicationUser;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Comment;
 using DAL.Domain.Entities;
@@ -25,6 +26,9 @@ namespace PetProjectMVCElLibrary.Service.Mapper
 
             CreateMap<CommentDTO, CommentViewModel>();
             CreateMap<CommentViewModel, CommentDTO>();
+
+            CreateMap<ApplicationUserDTO, ApplicationUser>();
+            CreateMap<ApplicationUser, ApplicationUserDTO>();
         }
     }
 }
