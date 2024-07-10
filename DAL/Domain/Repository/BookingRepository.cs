@@ -53,7 +53,14 @@ namespace DAL.Domain.Repository
         /// <returns></returns>
         public void SaveEntity(Booking entity)
         {
-            _context.Bookings.Add(entity);
+            if (entity.Id == default)
+            {
+                _context.Bookings.Add(entity);
+            }
+            else
+            {
+                _context.Bookings.Update(entity);
+            }
             _context.SaveChanges();
         }
         /// <summary>

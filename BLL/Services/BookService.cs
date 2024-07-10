@@ -66,22 +66,10 @@ namespace BLL.Services
         /// <param name="bookDTO"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public async Task CreateBook(BookDTO bookDTO)
+        public void CreateBook(BookDTO bookDTO)
         {
-            Book? book = await Database.BookRepository.GetEntityByIdAsync(bookDTO.Id);
-            if (book != null)
-            {
-                throw new ValidationException("Книга уже существует", "");
-            }
-            book = _mapper.Map<Book>(bookDTO);
-            if (book != null)
-            {
-                Database.BookRepository.SaveEntity(book);
-            }
-            else
-            {
-                throw new ValidationException("Не удалось сохранить книгу", "");
-            }
+            Book? book = _mapper.Map<Book>(bookDTO);
+            Database.BookRepository.SaveEntity(book);
         }
         /// <summary>
         /// Получение книг по жанру и мапинг их в ДТО

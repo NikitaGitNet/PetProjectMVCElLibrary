@@ -1,20 +1,22 @@
-﻿@model IApplicationUserViewModel
+﻿@model IEnumerable<BookingViewModel>
 @{
     string strTitle = "Брони";
     ViewBag.Title = strTitle;
 }   
-    <h2>Ваши брони, @Model.Bookings.Count()/5:</h2>
-    @foreach (var booking in Model.Bookings)
+@if (Model.Any())
+{
+    <h2>Ваши брони, @Model.Count()/5:</h2>
+    @foreach (var booking in Model)
     {
         <h3>Название книги: @booking.BooksTitle</h3>
-        
+
         @if (!booking.IssueBooking)
         {
-            <h3 class="Alert">Код для получения книги: @booking.Id</h3>
+            <h3 class="Alert">Код для получения книги: @booking.ReceiptCode</h3>
             <h3>Окончание брони: @booking.FinishedOn</h3>
         }
         else
-        {   
+        {
             <h3 class="Alert">Книга выдана необходимо вернуть до: @booking.FinishedOn</h3>
         }
         @if (!booking.IssueBooking)
@@ -27,3 +29,9 @@
         }
         <hr>
     }
+}
+else
+{
+    <h2>У вас отсутствуют брони!</h2>
+}
+    

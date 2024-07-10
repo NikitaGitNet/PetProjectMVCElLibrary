@@ -50,7 +50,7 @@ namespace DAL.Domain.Repository
         {
             if (entity.Id == default)
             {
-                _context.Entry(entity).State = EntityState.Added;
+                _context.Comments.Add(entity);
             }
             else
             {

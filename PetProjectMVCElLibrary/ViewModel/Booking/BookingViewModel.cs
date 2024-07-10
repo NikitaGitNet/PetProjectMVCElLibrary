@@ -11,5 +11,6 @@ namespace PetProjectMVCElLibrary.ViewModel.Booking
         public string? UserEmail { get; set; }
         public Guid BookId { get; set; }
         public string? BooksTitle { get; set; }
+        public string? ReceiptCode { get; set; }
     }
 }

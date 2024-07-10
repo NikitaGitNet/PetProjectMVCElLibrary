@@ -9,5 +9,6 @@
         string? UserEmail { get; set; }
         Guid BookId { get; set; }
         string? BooksTitle { get; set; }
+        string? ReceiptCode { get; set; }
     }
 }

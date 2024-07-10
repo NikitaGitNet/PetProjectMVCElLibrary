@@ -18,6 +18,6 @@ namespace BLL.Models.DTO.ApplicationUser
         public string UserEmail { get; set; }
         public string UserName { get; set; }
         public ICollection<CommentDTO> Comments { get; set; }
-        public ICollection<BookingDTO> Bookings { get; set; }
+        public IEnumerable<BookingDTO> Bookings { get; set; }
     }
 }

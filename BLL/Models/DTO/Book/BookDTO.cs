@@ -1,6 +1,8 @@
 ﻿using BLL.Interfaces.DTO;
 using BLL.Models.DTO.Comment;
+using DAL.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace BLL.Models.DTO.Book
@@ -24,6 +26,8 @@ namespace BLL.Models.DTO.Book
         [Display(Name = "Жанр")]
         public string? TitleImagePath { get; set; }
         public string? CurentUserId { get; set; }
+        public Guid AuthorId { get; set; }
+        public Guid GenreId { get; set; }
         public string? Text { get; set; }
         public bool IsBooking { get; set; }
         public string? CommentText { get; set; }

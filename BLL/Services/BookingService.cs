@@ -45,7 +45,7 @@ namespace BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<BookingDTO>> GetBookingByUserId(string id)
+        public async Task<IEnumerable<BookingDTO>> GetBookingByUserIdAsync(string id)
         {
             IEnumerable<Booking> bookings = await Database.BookingRepository.GetBookingByUserIdAsync(id);
             return _mapper.Map<IEnumerable<BookingDTO>>(bookings);
@@ -54,9 +54,9 @@ namespace BLL.Services
         /// Маппинг брони ДТО в энтити, сохранение энтити в БД
         /// </summary>
         /// <param name="book"></param>
-        public void CreateBooking(BookingDTO book)
+        public void CreateBooking(BookingDTO bookingDTO)
         {
-            Booking booking = _mapper.Map<Booking>(book);
+            Booking booking = _mapper.Map<Booking>(bookingDTO);
             Database.BookingRepository.SaveEntity(booking);
         }
         /// <summary>
@@ -71,7 +71,15 @@ namespace BLL.Services
         {
             throw new NotImplementedException();
         }
-
-        
+        /// <summary>
+        /// Создание уникального кода для получения книги
+        /// Создаем гуид, режем последние 28 символов, оставляем первые 8, получаем уникальный код
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public string CreateReceiptCode()
+        {
+            return Guid.NewGuid().ToString().Remove(8, 28).ToUpper();
+        }
     }
 }

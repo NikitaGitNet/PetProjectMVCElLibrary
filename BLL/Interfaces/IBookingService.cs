@@ -32,7 +32,7 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IEnumerable<BookingDTO>> GetBookingByUserId(string id);
+        Task<IEnumerable<BookingDTO>> GetBookingByUserIdAsync(string id);
         /// <summary>
         /// Удаление брони из БД на основании Id
         /// </summary>
@@ -43,5 +43,6 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="entityes"></param>
         void DeleteRangeBookings(IEnumerable<BookingDTO> entityes);
+        string CreateReceiptCode();
     }
 }

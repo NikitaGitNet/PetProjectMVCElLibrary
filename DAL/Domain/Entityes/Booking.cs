@@ -12,22 +12,42 @@ namespace DAL.Domain.Entities
     /// </summary>
     public class Booking
     {
-        public Booking()
-        {
-            User = new ApplicationUser();
-            Book = new Book();
-        }
+        /// <summary>
+        /// ИД брони
+        /// </summary>
         public Guid Id { get; set; }
+        /// <summary>
+        /// Дата создания брони
+        /// </summary>
         public DateTime CreateOn { get; set; }
+        /// <summary>
+        /// Дата окончания брони
+        /// </summary>
         public DateTime FinishedOn { get; set; }
+        /// <summary>
+        /// Флаг - выдана книга или нет
+        /// </summary>
         public bool IssueBooking { get; set; }
+        /// <summary>
+        /// Почта пользователя
+        /// </summary>
         public string? UserEmail { get; set; }
+        /// <summary>
+        /// ИД пользователя
+        /// </summary>
         public string? UserId { get; set; }
         [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
-        public Guid BookId { get; set; }
+        public ApplicationUser? User { get; set; }
+        /// <summary>
+        /// ИД книги
+        /// </summary>
         [ForeignKey("Id")]
+        public Guid BookId { get; set; }
+        /// <summary>
+        /// Название книги
+        /// </summary>
         public string? BooksTitle { get; set; }
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
+        public string? ReceiptCode { get; set; }
     }
 }

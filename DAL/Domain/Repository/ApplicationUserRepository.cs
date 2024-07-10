@@ -48,11 +48,11 @@ namespace DAL.Domain.Repository
         {
             if (entity.Id == default)
             {
-                _context.Add(entity);
+                _context.ApplicationUsers.Add(entity);
             }
             else
             {
-                _context.Entry(entity).State = EntityState.Modified;
+                _context.ApplicationUsers.Update(entity);
             }
             _context.SaveChanges();
         }

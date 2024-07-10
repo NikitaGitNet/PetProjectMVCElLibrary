@@ -17,5 +17,6 @@ namespace BLL.Models.DTO.Booking
         public string? UserId { get; set; }
         public Guid BookId { get; set; }
         public string? BooksTitle { get; set; }
+        public string? ReceiptCode { get; set; }
     }
 }

@@ -19,9 +19,9 @@ namespace BLL.Services
             _mapper = mapper;
             _signInManager = signInManager;
         }
-        public async Task<ApplicationUserDTO> GetUser(string id)
+        public async Task<ApplicationUserDTO> GetUser(Guid id)
         {
-            ApplicationUser? user = await Database.ApplicationUserRepository.GetEntityByIdAsync(Guid.Parse(id));
+            ApplicationUser? user = await Database.ApplicationUserRepository.GetEntityByIdAsync(id);
             if (user != null)
             {
                 return _mapper.Map<ApplicationUserDTO>(user);

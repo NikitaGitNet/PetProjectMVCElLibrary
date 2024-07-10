@@ -18,5 +18,6 @@ namespace BLL.Interfaces.DTO
         string? UserId { get; set; }
         Guid BookId { get; set; }
         string? BooksTitle { get; set; }
+        string? ReceiptCode { get; set; }
     }
 }

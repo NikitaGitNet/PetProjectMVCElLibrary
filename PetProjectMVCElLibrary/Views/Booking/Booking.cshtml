@@ -1,0 +1,12 @@
+﻿@model BookingViewModel
+@{
+    string strTitle = "Бронирование";
+    ViewBag.Title = strTitle;
+}
+<h2>Нижеизложеная информация так же будет доступна в разделе "Брони"</h2>
+<h2>Вы забронировали книгу:</h2>
+<h3>Название книги: @Model.BooksTitle</h3>
+<h3>Дата бронирования: @Model.CreateOn</h3>
+<h3>Дата окончания брони: @Model.FinishedOn</h3>
+<h3 class="Alert">Код для получения брони: @Model.ReceiptCode</h3>
+<a asp-area="" asp-controller="Home" asp-action="Index">Вернуться на главную страницу</a>

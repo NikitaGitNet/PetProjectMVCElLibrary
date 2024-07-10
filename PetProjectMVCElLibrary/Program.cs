@@ -2,6 +2,8 @@ using AutoMapper;
 using AutoMapper.Internal;
 using DAL.Domain;
 using DAL.Domain.Entities;
+using DAL.Domain.Interfaces.Repository;
+using DAL.Domain.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PetProjectMVCElLibrary.Service;
@@ -12,7 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(DefaultProfile));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(opts =>
 {
     opts.User.RequireUniqueEmail = true;

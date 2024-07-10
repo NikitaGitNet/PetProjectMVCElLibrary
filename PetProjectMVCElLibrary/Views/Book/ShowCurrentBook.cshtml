@@ -21,35 +21,39 @@
 <div>
     <h3>Описание книги: @Html.Raw(Model.Text)</h3>
 </div>
-<div>
-    <form asp-controller="Book" asp-action="AddComment" method="post" enctype="multipart/form-data">
-        <div class="div-box">
-            <textarea asp-for="CommentText"></textarea>
-            <span asp-validation-for="CommentText"></span>
-        </div>
-        <div hidden class="div-box">
-            <textarea asp-for="Id"></textarea>
-            <span asp-validation-for="Id"></span>
-        </div>
-        <input type="submit" value="Оставить комментарий" class="glo">
-    </form>
-    <form asp-controller="Booking" asp-action="Booking" method="post" enctype="multipart/form-data">
-        <div hidden class="div-box">
-            <textarea asp-for="Id"></textarea>
-            <span asp-validation-for="Id"></span>
-        </div>
-        <div class="div-box">
-            @if (Model.IsBooking)
-            {
-                <h2>Книги нет в наличии, бронь не возможна</h2>
-            }
-            else
-            {
-                <input type="submit" value="Бронировать" class="glo">
-            }
-        </div>
-    </form>
-</div>
+@if (User.Identity!.IsAuthenticated)
+{
+    <div>
+        <form asp-controller="Book" asp-action="AddComment" method="post" enctype="multipart/form-data">
+            <div class="div-box">
+                <textarea asp-for="CommentText"></textarea>
+                <span asp-validation-for="CommentText"></span>
+            </div>
+            <div hidden class="div-box">
+                <textarea asp-for="Id"></textarea>
+                <span asp-validation-for="Id"></span>
+            </div>
+            <input type="submit" value="Оставить комментарий" class="glo">
+        </form>
+        <form asp-controller="Booking" asp-action="Booking" method="post" enctype="multipart/form-data">
+            <div hidden class="div-box">
+                <textarea asp-for="Id"></textarea>
+                <span asp-validation-for="Id"></span>
+            </div>
+            <div class="div-box">
+                @if (Model.IsBooking)
+                {
+                    <h2>Книги нет в наличии, бронь не возможна</h2>
+                }
+                else
+                {
+                    <input type="submit" value="Бронировать" class="glo">
+                }
+            </div>
+        </form>
+    </div>
+}
+
 <hr>
 <h3 class="H2Title">Комментарии пользователей:</h3>
 <hr>

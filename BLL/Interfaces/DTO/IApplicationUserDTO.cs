@@ -15,6 +15,6 @@ namespace BLL.Interfaces.DTO
         string UserEmail { get; set; }
         string UserName { get; set; }
         ICollection<CommentDTO> Comments { get; set; }
-        ICollection<BookingDTO> Bookings { get; set; }
+        IEnumerable<BookingDTO> Bookings { get; set; }
     }
 }

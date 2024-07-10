@@ -10,7 +10,7 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="book"></param>
         /// <returns></returns>
-        Task CreateBook(BookDTO book);
+        void CreateBook(BookDTO book);
         /// <summary>
         /// Получение книги на основек ИД
         /// </summary>

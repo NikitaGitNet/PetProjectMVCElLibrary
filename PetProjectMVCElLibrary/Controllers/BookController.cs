@@ -128,7 +128,7 @@ namespace PetProjectMVCElLibrary.Controllers
                     if (claim != null)
                     {
                         var userId = claim.Value;
-                        ApplicationUserDTO userDTO = await applicationUserService.GetUser(userId);
+                        ApplicationUserDTO userDTO = await applicationUserService.GetUser(Guid.Parse(userId));
                         CommentDTO commentDTO = new CommentDTO()
                         {
                             CreateOn = DateTime.Now,
