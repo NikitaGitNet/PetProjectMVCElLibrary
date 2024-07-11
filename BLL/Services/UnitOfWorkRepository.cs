@@ -12,11 +12,13 @@ using DAL.Domain.Interfaces.Repository.Book;
 using DAL.Domain.Interfaces.Repository.Comment;
 using DAL.Domain.Interfaces.Repository.User;
 using DAL.Domain.Interfaces.Repository.Booking;
+using DAL.Domain.Interfaces.Repository.Genre;
+using DAL.Domain.Interfaces.Repository.Author;
 
 namespace BLL.Services
 {
     /// <summary>
-    /// Реализация паттерна UnitOfWork
+    /// Реализация паттерна UnitOfWork, суем ссылки на репозитории в одно место, чтоб удобнее было с ними работать
     /// </summary>
     public class UnitOfWorkRepository : IDisposable
     {
@@ -27,6 +29,8 @@ namespace BLL.Services
         public readonly IBookingRepository BookingRepository;
         public readonly ICommentRepository CommentRepository;
         public readonly IApplicationUserRepository ApplicationUserRepository;
+        public readonly IGenreRepository GenreRepository;
+        public readonly IAuthorRepository AuthorRepository;
         public UnitOfWorkRepository(AppDbContext context)
         {
             _context = context;
@@ -34,6 +38,8 @@ namespace BLL.Services
             CommentRepository = new CommentRepository(_context);
             ApplicationUserRepository = new ApplicationUserRepository(_context);
             BookingRepository = new BookingRepository(_context);
+            GenreRepository = new GenreRepository(_context);
+            AuthorRepository = new AuthorRepository(_context);
         }
         private bool disposed = false;
 

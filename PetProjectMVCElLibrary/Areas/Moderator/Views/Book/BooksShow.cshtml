@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BookViewModel>
+@{
+    // TextField textField = ViewBag.TextField;
+}
+<div>
+    <form asp-area="Moderator" asp-controller="Book" asp-action="SearchByName" method="post" enctype="multipart/form-data">
+        <div class="div-box">
+            <h2>Поиск по названию</h2>
+            <div class="inputBox">
+                <input type="text" name="Title">
+            </div>
+            <input style="display: inline-block;" type="submit" class="glo" value="Найти">
+        </div>
+    </form>
+    <h2>Книги:</h2>
+    <div>
+        <ul class="big-image-list">
+            @foreach (var book in Model)
+            {
+                <li>
+                    <img src="~/images/@book.TitleImagePath" alt="" class="left UlImage">
+                    <h4>@book.Title</h4>
+                    <p>@book.AuthorName</p>
+                    <p>@book.GenreName</p>
+                </li>
+                <a class="glo" asp-area="Moderator" asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">Редактировать</a>
+            }
+        </ul>
+    </div>
+</div>
+

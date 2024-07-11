@@ -55,6 +55,11 @@ namespace PetProjectMVCElLibrary.Controllers
             }
             return View(bookViewModels);
         }
+        /// <summary>
+        /// Вывести конкретную книгу и комментарии к ней
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> ShowCurrentBook(BookViewModel book)
         {
@@ -83,6 +88,11 @@ namespace PetProjectMVCElLibrary.Controllers
             }
             return View(bookViewModel);
         }
+        /// <summary>
+        /// Поиск книг по автору
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> SearchBookByAutor(Guid authorId)
         {
@@ -99,6 +109,11 @@ namespace PetProjectMVCElLibrary.Controllers
             }
             return View(bookViewModels);
         }
+        /// <summary>
+        /// Поиск книг по жанру
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> SearchBookByGenre(Guid genreId)
         {
@@ -115,6 +130,12 @@ namespace PetProjectMVCElLibrary.Controllers
             }
             return View(bookViewModels);
         }
+        /// <summary>
+        /// Добавление кооментария к книге
+        /// </summary>
+        /// <param name="commentViewModel"></param>
+        /// <returns></returns>
+        /// <exception cref="ValidationException"></exception>
         [HttpPost]
         public async Task<IActionResult> AddComment(CommentViewModel commentViewModel)
         {
@@ -147,6 +168,11 @@ namespace PetProjectMVCElLibrary.Controllers
             }
             throw new ValidationException("Книга не найдена", "");
         }
+        /// <summary>
+        /// Удаление комментария
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<IActionResult> DeleteComment(CommentViewModel model)
         {
             commentService.DeleteComment(model.Id);

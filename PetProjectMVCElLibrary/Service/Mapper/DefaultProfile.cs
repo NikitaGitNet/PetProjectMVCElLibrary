@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
 using BLL.Models.DTO.ApplicationUser;
+using BLL.Models.DTO.Author;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Booking;
 using BLL.Models.DTO.Comment;
+using BLL.Models.DTO.Genre;
 using DAL.Domain.Entities;
+using PetProjectMVCElLibrary.ViewModel.Author;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Booking;
 using PetProjectMVCElLibrary.ViewModel.Comment;
+using PetProjectMVCElLibrary.ViewModel.Genre;
 using System;
 
 namespace PetProjectMVCElLibrary.Service.Mapper
@@ -37,6 +41,18 @@ namespace PetProjectMVCElLibrary.Service.Mapper
 
             CreateMap<BookingDTO, BookingViewModel>();
             CreateMap<BookingViewModel, BookingDTO>();
+
+            CreateMap<GenreDTO, Genre>();
+            CreateMap<Genre, GenreDTO>();
+
+            CreateMap<GenreDTO, GenreViewModel>();
+            CreateMap<GenreViewModel, GenreDTO>();
+
+            CreateMap<AuthorDTO, Author>();
+            CreateMap<Author, AuthorDTO>();
+
+            CreateMap<AuthorDTO, AuthorViewModel>();
+            CreateMap<AuthorViewModel, AuthorDTO>();
         }
     }
 }
