@@ -72,6 +72,15 @@ namespace BLL.Services
             Database.BookRepository.SaveEntity(book);
         }
         /// <summary>
+        /// Маппим массив ДТО в ентити, массово обновляем книги в БД
+        /// </summary>
+        /// <param name="bookDTOs"></param>
+        public void UpdateBooksRange(IEnumerable<BookDTO> bookDTOs)
+        {
+            IEnumerable<Book> books = _mapper.Map<IEnumerable<Book>>(bookDTOs);
+            Database.BookRepository.UpdateEntityRange(books);
+        }
+        /// <summary>
         /// Получение книг по жанру и мапинг их в ДТО
         /// </summary>
         /// <param name="genreId"></param>

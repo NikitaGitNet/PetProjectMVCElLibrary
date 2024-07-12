@@ -10,5 +10,6 @@ namespace DAL.Domain.Interfaces.Repository.Book
     {
         Task<IEnumerable<DAL.Domain.Entities.Book>> GetEntityesByGenreAsync(Guid genreId);
         Task<IEnumerable<DAL.Domain.Entities.Book>> GetEntityesByAuthorAsync(Guid authorId);
+        void UpdateEntityRange(IEnumerable<DAL.Domain.Entities.Book> books);
     }
 }

@@ -1,0 +1,17 @@
+﻿@model AuthorViewModel
+@{
+    string strTitle = "Добавить автора";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <form asp-area="Moderator" asp-controller="Book" asp-action="AddAuthor" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All"></div>
+        <div class="inputBox">
+            <h2>Имя, фамилия автора</h2>
+            <input asp-for="Name">
+            <span asp-validation-for="Name"></span>
+        </div>
+        <input type="submit" class="glo" value="Сохранить">
+    </form>
+</div>
+

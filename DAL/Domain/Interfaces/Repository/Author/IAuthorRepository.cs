@@ -8,6 +8,6 @@ namespace DAL.Domain.Interfaces.Repository.Author
 {
     public interface IAuthorRepository : IRepository<DAL.Domain.Entities.Author>
     {
-
+        Task<DAL.Domain.Entities.Author?> GetEntityByNameAsync(string name);
     }
 }

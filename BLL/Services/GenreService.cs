@@ -34,7 +34,7 @@ namespace BLL.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public async Task<GenreDTO> GetGenre(Guid id)
+        public async Task<GenreDTO?> GetGenre(Guid id)
         {
             Genre? genre = await Database.GenreRepository.GetEntityByIdAsync(id);
             if (genre != null)
@@ -44,6 +44,16 @@ namespace BLL.Services
             }
             // Если null, выбрасываем исключение "Книга не найдена"
             throw new ValidationException("Жанр не найден", "");
+        }
+        /// <summary>
+        /// Получаем из БД жанр, маппим в ДТО, возвращаем
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<GenreDTO?> GetGenreByName(string name)
+        {
+            Genre? genre = await Database.GenreRepository.GetEntityByNameAsync(name);
+            return _mapper.Map<GenreDTO>(genre);
         }
         /// <summary>
         /// Маппинг ДТО в ентити, сохранение ентити в БД
@@ -61,6 +71,6 @@ namespace BLL.Services
         public void DeleteGenre(Guid bookId)
         {
             Database.GenreRepository.DeleteEntity(bookId);
-        } 
+        }
     }
 }

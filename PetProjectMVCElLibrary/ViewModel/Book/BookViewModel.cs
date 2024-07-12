@@ -17,13 +17,14 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
         public string? Title { get; set; }
         [Display(Name = "Краткое описание книги")]
         public string? SubTitle { get; set; }
-        [Display(Name = "Полное описание книги")]
-        public string? AuthorName { get; set; }
         [Display(Name = "Автор")]
-        public string? GenreName { get; set; }
+        public string? AuthorName { get; set; }
         [Display(Name = "Жанр")]
-        public string? TitleImagePath { get; set; }
+        public string? GenreName { get; set; }
+        [Display(Name = "Полное описание книги")]
         public string? Text { get; set; }
+        [Display(Name = "Обложка книги")]
+        public string? TitleImagePath { get; set; }
         public bool IsBooking { get; set; }
         public string? CommentText { get; set; }
         public DateTime DateAdded { get; set; }

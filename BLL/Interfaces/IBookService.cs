@@ -12,6 +12,11 @@ namespace BLL.Interfaces
         /// <returns></returns>
         void CreateBook(BookDTO book);
         /// <summary>
+        /// Маппим массив ДТО в ентити, массово обновляем книги в БД
+        /// </summary>
+        /// <param name="bookDTOs"></param>
+        void UpdateBooksRange(IEnumerable<BookDTO> bookDTOs);
+        /// <summary>
         /// Получение книги на основек ИД
         /// </summary>
         /// <param name="id"></param>

@@ -1,0 +1,47 @@
+﻿@model BookingViewModel
+@{
+    string strTitle = @Model.BooksTitle ?? "";
+    ViewBag.Title = strTitle;
+}
+@if (Model.IssueBooking)
+{
+    <h2 class="Alert">Книга выдана</h2>
+    <h2 class="BookingAlert">Дата окончания брони: @Model.FinishedOn</h2>
+}
+<p>Название книги: @Model.BooksTitle</p>
+<p>ID книги: @Model.BookId</p>
+<p class="Alert">Код для получения книги: @Model.ReceiptCode</p>
+<p>Дата создания брони: @Model.CreateOn</p>
+@if (!Model.IssueBooking)
+{
+    <p>Дата окончания брони: @Model.FinishedOn</p>
+}
+<p>Email пользователя: @Model.Email</p>
+@if (!Model.IssueBooking)
+{
+    <form style="display: inline-block;" id="form-@Model.Id" asp-area="Moderator" asp-controller="Booking" asp-action="IssueBooking" method="get">
+        <input type="hidden" name="id" value="@Model.Id">
+        <a class="glo" href="#" onclick="document.getElementById('form-@Model.Id').submit();">Выдать</a>
+    </form>
+}
+<div>
+    <form asp-area="Moderator" asp-controller="Booking" asp-action="Delete" enctype="multipart/form-data">
+        <div hidden class="div-box">
+            <textarea asp-for="BookId"></textarea>
+            <span asp-validation-for="BookId"></span>
+        </div>
+        <div hidden class="div-box">
+            <textarea asp-for="Id"></textarea>
+            <span asp-validation-for="Id"></span>
+        </div>
+        @if (Model.IssueBooking)
+        {
+            <input style="display: inline-block;" type="submit" value="Принять книгу, закрыть бронь" class="glo">
+        }
+        else
+        {
+            <input style="display: inline-block;" type="submit" value="Удалить" class="glo">
+        }
+    </form>
+</div>
+

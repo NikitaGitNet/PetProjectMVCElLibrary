@@ -13,6 +13,6 @@ namespace DAL.Domain.Entities
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        ICollection<Book>? Books { get; set; }
+        public ICollection<Book>? Books { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace DAL.Domain.Entities
         /// <summary>
         /// Почта пользователя
         /// </summary>
-        public string? UserEmail { get; set; }
+        public string? Email { get; set; }
         /// <summary>
         /// ИД пользователя
         /// </summary>

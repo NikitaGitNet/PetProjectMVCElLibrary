@@ -5,8 +5,14 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
 {
     public class BookDevViewModel
     {
-        public IEnumerable<BookViewModel>? Books { get; set; }
-        public IEnumerable<GenreViewModel>? Genres { get; set; }
-        public IEnumerable<AuthorViewModel>? Authors { get; set; }
+        public BookDevViewModel()
+        {
+            Books = new List<BookViewModel>();
+            Genres = new List<GenreViewModel>();
+            Authors = new List<AuthorViewModel>();
+        }
+        public IEnumerable<BookViewModel> Books { get; set; }
+        public IEnumerable<GenreViewModel> Genres { get; set; }
+        public IEnumerable<AuthorViewModel> Authors { get; set; }
     }
 }

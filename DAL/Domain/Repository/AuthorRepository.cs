@@ -34,7 +34,16 @@ namespace DAL.Domain.Repository
         /// <returns></returns>
         public async Task<Author?> GetEntityByIdAsync(Guid id)
         {
-            return await _context.Authors.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Authors.Include(x => x.Books).FirstOrDefaultAsync(x => x.Id == id);
+        }
+        /// <summary>
+        /// Получаем автора на основании названия
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<Author?> GetEntityByNameAsync(string name)
+        {
+            return await _context.Authors.FirstOrDefaultAsync(x => (x.Name ?? "").ToUpper() == name.ToUpper());
         }
         /// <summary>
         /// Сохраняем автора в БД
@@ -42,13 +51,14 @@ namespace DAL.Domain.Repository
         /// <param name="entity"></param>
         public void SaveEntity(Author entity)
         {
-            if (entity.Id == default)
+            Author? author = _context.Authors.FirstOrDefault(x => x.Id == entity.Id);
+            if (author != null) 
             {
-                _context.Authors.Add(entity);
+                _context.Authors.Update(entity);
             }
             else
             {
-                _context.Authors.Update(entity);
+                _context.Authors.Add(entity);
             }
             _context.SaveChanges();
         }

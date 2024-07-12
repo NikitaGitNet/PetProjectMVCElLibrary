@@ -14,7 +14,7 @@ namespace BLL.Models.DTO.Comment
         public Guid Id { get; set; }
         public string? CommentText { get; set; }
         public DateTime? CreateOn { get; set; }
-        public string? UserEmail { get; set; }
+        public string? Email { get; set; }
         public string? UserName { get; set; }
         public string? UserId { get; set; }
         public Guid BookId { get; set; }

@@ -48,6 +48,11 @@ namespace BLL.Services
             // Если null, выбрасываем исключение "Книга не найдена"
             throw new ValidationException("Автор не найден", "");
         }
+        public async Task<AuthorDTO?> GetAuthorByName(string name)
+        {
+            Author? author = await Database.AuthorRepository.GetEntityByNameAsync(name);
+            return _mapper.Map<AuthorDTO>(author);
+        }
         /// <summary>
         /// Маппим ДТО в энтити, сохраняем в БД
         /// </summary>

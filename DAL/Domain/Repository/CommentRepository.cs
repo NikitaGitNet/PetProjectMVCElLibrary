@@ -48,13 +48,14 @@ namespace DAL.Domain.Repository
         /// <returns></returns>
         public void SaveEntity(Comment entity)
         {
-            if (entity.Id == default)
+            Comment? comment = _context.Comments.FirstOrDefault(x => x.Id == entity.Id);
+            if (comment != null)
             {
-                _context.Comments.Add(entity);
+                _context.Comments.Update(entity);
             }
             else
             {
-                _context.Comments.Update(entity);
+                _context.Comments.Add(entity);
             }
             _context.SaveChanges();
         }
@@ -76,7 +77,5 @@ namespace DAL.Domain.Repository
             _context.Comments.RemoveRange(entityes);
             _context.SaveChanges();
         }
-
-        
     }
 }

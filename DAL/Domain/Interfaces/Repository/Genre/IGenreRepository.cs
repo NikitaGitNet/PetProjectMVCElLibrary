@@ -8,6 +8,6 @@ namespace DAL.Domain.Interfaces.Repository.Genre
 {
     public interface IGenreRepository : IRepository<DAL.Domain.Entities.Genre>
     {
-
+        Task<DAL.Domain.Entities.Genre?> GetEntityByNameAsync(string name);
     }
 }

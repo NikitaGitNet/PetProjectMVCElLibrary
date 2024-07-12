@@ -12,7 +12,7 @@ namespace BLL.Interfaces.DTO
     internal interface IApplicationUserDTO
     {
         string Id { get; set; }
-        string UserEmail { get; set; }
+        string Email { get; set; }
         string UserName { get; set; }
         ICollection<CommentDTO> Comments { get; set; }
         IEnumerable<BookingDTO> Bookings { get; set; }

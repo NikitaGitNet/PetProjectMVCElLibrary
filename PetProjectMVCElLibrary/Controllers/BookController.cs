@@ -156,7 +156,7 @@ namespace PetProjectMVCElLibrary.Controllers
                             CommentText = commentViewModel.CommentText,
                             UserId = userId,
                             BookId = commentViewModel.Id,
-                            UserEmail = userDTO.UserEmail,
+                            Email = userDTO.Email,
                             UserName = userDTO.UserName,
                         };
                         commentService.CreateComment(commentDTO);

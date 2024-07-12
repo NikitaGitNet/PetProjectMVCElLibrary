@@ -34,7 +34,16 @@ namespace DAL.Domain.Repository
         /// <returns></returns>
         public async Task<Genre?> GetEntityByIdAsync(Guid id)
         {
-            return await _context.Genres.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Genres.Include(x => x.Books).FirstOrDefaultAsync(x => x.Id == id);
+        }
+        /// <summary>
+        /// Получаем жанр из БД на основании названия жанра
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public async Task<Genre?> GetEntityByNameAsync(string name)
+        {
+            return await _context.Genres.FirstOrDefaultAsync(x => (x.Name ?? "").ToUpper() == name.ToUpper());
         }
         /// <summary>
         /// Сохраняем в БД новый жанр
@@ -42,13 +51,14 @@ namespace DAL.Domain.Repository
         /// <param name="entity"></param>
         public void SaveEntity(Genre entity)
         {
-            if (entity.Id == default)
+            Genre? genre = _context.Genres.FirstOrDefault(x => x.Id == entity.Id);
+            if (genre != null) 
             {
-                _context.Genres.Add(entity);
+                _context.Genres.Update(entity);
             }
             else
             {
-                _context.Genres.Update(entity);
+                _context.Genres.Add(entity);
             }
             _context.SaveChanges();
         }
@@ -70,5 +80,7 @@ namespace DAL.Domain.Repository
             _context.Genres.RemoveRange(entityes);
             _context.SaveChanges();
         }
+
+        
     }
 }

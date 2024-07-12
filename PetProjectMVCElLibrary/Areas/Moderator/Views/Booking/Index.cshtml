@@ -1,0 +1,35 @@
+﻿@model IEnumerable<BookingViewModel>
+@{
+    string strTitle = "Все брони";
+    ViewBag.Title = strTitle;
+}
+<div>
+    @if (Model.Any())
+    {
+        <form asp-area="Moderator" asp-controller="Booking" asp-action="Show" method="post" enctype="multipart/form-data">
+            <div class="div-box">
+                <h2>Поиск по коду для выдачи</h2>
+                <div class="inputBox">
+                    <input type="text" name="Id">
+                </div>
+                <input style="display: inline-block;" type="submit" class="glo" value="Найти">
+            </div>
+        </form>
+        <ul>
+            @foreach (var entity in Model)
+            {
+                <li class="liBooking">
+                    <p>Название книги: @entity.BooksTitle</p>
+                    <p>Дата создания брони: @entity.CreateOn</p>
+                    <p>Email пользователя: @entity.Email</p>
+                    <a class="glo" asp-area="Moderator" asp-controller="Booking" asp-action="ShowCurrentBooking" asp-route-id="@entity.Id">Перейти к брони</a>
+                    <hr>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <h2>Броней пока нету</h2>
+    }
+</div>

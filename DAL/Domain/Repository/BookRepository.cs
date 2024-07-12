@@ -62,15 +62,28 @@ namespace DAL.Domain.Repository
         /// <returns></returns>
         public void SaveEntity(Book entity)
         {
-            if (entity.Id == default)
-            {
-                _context.Books.Add(entity);
-            }
-            else
+            Book? book = _context.Books.FirstOrDefault(x => x.Id == entity.Id);
+            if (book != null)
             {
                 _context.Books.Update(entity);
             }
+            else
+            {
+                _context.Books.Add(entity);
+            }
             _context.SaveChanges();
+        }
+        /// <summary>
+        /// Обновление книг на основании массива ентити
+        /// </summary>
+        /// <param name="books"></param>
+        public void UpdateEntityRange(IEnumerable<Book> books)
+        {
+            if (books.Any())
+            {
+                _context.UpdateRange(books);
+                _context.SaveChanges();
+            }
         }
         /// <summary>
         /// Удаление по идентификатору
@@ -90,7 +103,5 @@ namespace DAL.Domain.Repository
             _context.Books.RemoveRange(entityes);
             _context.SaveChanges();
         }
-
-        
     }
 }

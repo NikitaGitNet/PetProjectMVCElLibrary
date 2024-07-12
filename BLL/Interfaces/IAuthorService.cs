@@ -11,7 +11,8 @@ namespace BLL.Interfaces
     public interface IAuthorService
     {
         void CreateAuthor(AuthorDTO book);
-        Task<AuthorDTO> GetAuthor(Guid id);
+        Task<AuthorDTO?> GetAuthor(Guid id);
+        Task<AuthorDTO?> GetAuthorByName(string name);
         Task<IEnumerable<AuthorDTO>> GetAllAuthors();
         void DeleteAuthor(Guid bookId);
     }

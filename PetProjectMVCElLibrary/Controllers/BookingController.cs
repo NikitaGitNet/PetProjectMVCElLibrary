@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
-using BLL.Interfaces.DTO;
 using BLL.Models.DTO.ApplicationUser;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Booking;
@@ -11,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Booking;
-using PetProjectMVCElLibrary.ViewModel.User;
 using System.Security.Claims;
 
 namespace PetProjectMVCElLibrary.Controllers
@@ -88,7 +86,7 @@ namespace PetProjectMVCElLibrary.Controllers
                 {
                     BooksTitle = bookDTO.Title,
                     BookId = model.Id,
-                    UserEmail = applicationUserDTO.UserEmail,
+                    Email = applicationUserDTO.Email,
                     CreateOn = DateTime.Now,
                     FinishedOn = DateTime.Now.AddDays(3),
                     UserId = userId,
@@ -96,7 +94,7 @@ namespace PetProjectMVCElLibrary.Controllers
                 };
                 bookingService.CreateBooking(bookingDTO);
                 bookService.CreateBook(bookDTO);
-                return View(new BookingViewModel { BookId = bookingDTO.BookId, CreateOn = bookingDTO.CreateOn, FinishedOn = bookingDTO.FinishedOn, ReceiptCode = bookingDTO.ReceiptCode, UserEmail = bookingDTO.UserEmail, BooksTitle = bookingDTO.BooksTitle });
+                return View(new BookingViewModel { BookId = bookingDTO.BookId, CreateOn = bookingDTO.CreateOn, FinishedOn = bookingDTO.FinishedOn, ReceiptCode = bookingDTO.ReceiptCode, Email = bookingDTO.Email, BooksTitle = bookingDTO.BooksTitle });
             }
             return View("~/Views/ErrorPage.cshtml", "Превышен лимит броней, максимум броней на одного пользователя: 5");
         }

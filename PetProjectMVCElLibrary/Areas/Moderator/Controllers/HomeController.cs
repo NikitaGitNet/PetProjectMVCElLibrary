@@ -6,7 +6,6 @@ using BLL.Models.DTO.Genre;
 using BLL.Services;
 using DAL.Domain;
 using DAL.Domain.Entities;
-using DAL.Domain.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.ViewModel.Author;

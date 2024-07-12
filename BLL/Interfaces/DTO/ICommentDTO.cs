@@ -11,7 +11,7 @@ namespace BLL.Interfaces.DTO
         Guid Id { get; set; }
         string? CommentText { get; set; }
         DateTime? CreateOn { get; set; }
-        string? UserEmail { get; set; }
+        string? Email { get; set; }
         string? UserName { get; set; }
         string? UserId { get; set; }
         Guid BookId { get; set; }

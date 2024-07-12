@@ -5,12 +5,12 @@
 }
     <h2>@strTitle</h2>
         <div class="div-box">
-            <a class="glo" asp-area="Moderator" asp-controller="Booking" asp-action="Show">Показать брони</a>
+            <a class="glo" asp-area="Moderator" asp-controller="Booking" asp-action="Index">Показать брони</a>
             <a class="glo" asp-area="Moderator" asp-controller="Book" asp-action="BooksShow">Показать Книги</a>
             <hr>
-            <a class="glo" asp-area="Moderator" asp-controller="Books" asp-action="Edit" asp-route-id="">Добавить книгу</a>
-            <a class="glo" asp-area="Moderator" asp-controller="Authors" asp-action="AddAuthor" asp-route-id="">Добавить автора</a>
-            <a class="glo" asp-area="Moderator" asp-controller="Genres" asp-action="AddGenre" asp-route-id="">Добавить жанр</a>
+            <a class="glo" asp-area="Moderator" asp-controller="Book" asp-action="Edit" asp-route-id="">Добавить книгу</a>
+            <a class="glo" asp-area="Moderator" asp-controller="Book" asp-action="AddAuthor" asp-route-id="">Добавить автора</a>
+            <a class="glo" asp-area="Moderator" asp-controller="Book" asp-action="AddGenre" asp-route-id="">Добавить жанр</a>
             <hr>
         </div>
         <h3>Наши книги</h3>
@@ -19,11 +19,11 @@
                 @foreach (var entity in Model.Books)
                 {
                     <div class="OnceBookElement">
-                        <a asp-area="" asp-controller="BooksShow" asp-action="Index" asp-route-id="@entity.Id">
+                    <a asp-area="" asp-controller="Book" asp-action="ShowCurrentBook" asp-route-id="@entity.Id">
                             @($"{entity.Title}")
                         </a> 
-                        <a asp-area="Moderator" asp-controller="Books" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
-                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Moderator" asp-controller="Books" asp-action="Delete" method="post">
+                        <a asp-area="Moderator" asp-controller="Book" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
+                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Moderator" asp-controller="Book" asp-action="DeleteBook" method="post">
                             <input type="hidden" name="id" value="@entity.Id">
                             <a class="Alert" href="#" onclick="document.getElementById('form-@entity.Id').submit();">Удалить</a>
                         </form>
@@ -38,8 +38,8 @@
                 {
                     <div class="OnceBookElement">
                         <a>@entity.Name</a>
-                        <a asp-area="Moderator" asp-controller="Genres" asp-action="AddGenre" asp-route-id="@entity.Id">редактировать</a>
-                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Moderator" asp-controller="Genres" asp-action="WarningDeleteGenre" method="post">
+                        <a asp-area="Moderator" asp-controller="Book" asp-action="AddGenre" asp-route-id="@entity.Id">редактировать</a>
+                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Moderator" asp-controller="Book" asp-action="DeleteGenre" method="post">
                             <input type="hidden" name="id" value="@entity.Id">
                             <a class="Alert" href="#" onclick="document.getElementById('form-@entity.Id').submit();">Удалить</a>
                         </form>
@@ -54,8 +54,8 @@
                 {
                     <div class="OnceBookElement">
                         <a>@entity.Name</a>
-                        <a asp-area="Moderator" asp-controller="Authors" asp-action="AddAuthor" asp-route-id="@entity.Id">редактировать</a>
-                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Moderator" asp-controller="Authors" asp-action="WarningDeleteAuthor" method="post">
+                        <a asp-area="Moderator" asp-controller="Book" asp-action="AddAuthor" asp-route-id="@entity.Id">редактировать</a>
+                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Moderator" asp-controller="Book" asp-action="DeleteAuthor" method="post">
                             <input type="hidden" name="id" value="@entity.Id">
                             <a class="Alert" href="#" onclick="document.getElementById('form-@entity.Id').submit();">Удалить</a>
                         </form>
