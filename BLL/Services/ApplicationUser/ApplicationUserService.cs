@@ -6,14 +6,14 @@ using DAL.Domain;
 using DAL.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace BLL.Services
+namespace BLL.Services.ApplicationUser
 {
     public class ApplicationUserService : IApplicationUserService
     {
         private readonly UnitOfWorkRepository Database;
         private readonly IMapper _mapper;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        public ApplicationUserService(AppDbContext context, SignInManager<ApplicationUser> signInManager, IMapper mapper)
+        private readonly SignInManager<DAL.Domain.Entities.ApplicationUser> _signInManager;
+        public ApplicationUserService(AppDbContext context, SignInManager<DAL.Domain.Entities.ApplicationUser> signInManager, IMapper mapper)
         {
             Database = new UnitOfWorkRepository(context);
             _mapper = mapper;
@@ -21,7 +21,7 @@ namespace BLL.Services
         }
         public async Task<ApplicationUserDTO> GetUser(Guid id)
         {
-            ApplicationUser? user = await Database.ApplicationUserRepository.GetEntityByIdAsync(id);
+            DAL.Domain.Entities.ApplicationUser? user = await Database.ApplicationUserRepository.GetEntityByIdAsync(id);
             if (user != null)
             {
                 return _mapper.Map<ApplicationUserDTO>(user);
@@ -30,22 +30,22 @@ namespace BLL.Services
             throw new ValidationException("Пользователь не найден", "");
         }
         public async Task<ApplicationUserDTO> GetUserByEmail(string email)
-        { 
-            ApplicationUser user = await Database.ApplicationUserRepository.GetUserByEmail(email);
+        {
+            DAL.Domain.Entities.ApplicationUser user = await Database.ApplicationUserRepository.GetUserByEmail(email);
             if (user != null)
             {
-                return _mapper.Map<ApplicationUser, ApplicationUserDTO>(user);
+                return _mapper.Map<DAL.Domain.Entities.ApplicationUser, ApplicationUserDTO>(user);
             }
             throw new ValidationException("Пользователь не найден", "");
         }
         public async Task<IEnumerable<ApplicationUserDTO>> GetAllUsers()
         {
-            IEnumerable<ApplicationUser> users = await Database.ApplicationUserRepository.GetAllEntityesAsync();
-            return _mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<ApplicationUserDTO>>(users);
+            IEnumerable<DAL.Domain.Entities.ApplicationUser> users = await Database.ApplicationUserRepository.GetAllEntityesAsync();
+            return _mapper.Map<IEnumerable<DAL.Domain.Entities.ApplicationUser>, IEnumerable<ApplicationUserDTO>>(users);
         }
         public async Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe)
         {
-            ApplicationUser applicationUser = await Database.ApplicationUserRepository.GetUserByEmail(email);
+            DAL.Domain.Entities.ApplicationUser applicationUser = await Database.ApplicationUserRepository.GetUserByEmail(email);
             if (applicationUser != null)
             {
                 SignInResult result = await _signInManager.PasswordSignInAsync(applicationUser, password, rememberMe, false);
@@ -56,7 +56,7 @@ namespace BLL.Services
         }
         public void CreateUser(ApplicationUserDTO user)
         {
-            ApplicationUser applicationUser = _mapper.Map<ApplicationUserDTO , ApplicationUser>(user);
+            DAL.Domain.Entities.ApplicationUser applicationUser = _mapper.Map<ApplicationUserDTO, DAL.Domain.Entities.ApplicationUser>(user);
             Database.ApplicationUserRepository.SaveEntity(applicationUser);
         }
         public void DeleteUser(string userId)
@@ -68,10 +68,10 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        
 
-        
 
-       
+
+
+
     }
 }

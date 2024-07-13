@@ -14,6 +14,7 @@ using DAL.Domain.Interfaces.Repository.User;
 using DAL.Domain.Interfaces.Repository.Booking;
 using DAL.Domain.Interfaces.Repository.Genre;
 using DAL.Domain.Interfaces.Repository.Author;
+using DAL.Domain.Interfaces.Repository.TextField;
 
 namespace BLL.Services
 {
@@ -31,6 +32,7 @@ namespace BLL.Services
         public readonly IApplicationUserRepository ApplicationUserRepository;
         public readonly IGenreRepository GenreRepository;
         public readonly IAuthorRepository AuthorRepository;
+        public readonly ITextFieldRepository TextFieldRepository;
         public UnitOfWorkRepository(AppDbContext context)
         {
             _context = context;
@@ -40,6 +42,7 @@ namespace BLL.Services
             BookingRepository = new BookingRepository(_context);
             GenreRepository = new GenreRepository(_context);
             AuthorRepository = new AuthorRepository(_context);
+            TextFieldRepository = new TextFieldRepository(_context);
         }
         private bool disposed = false;
 

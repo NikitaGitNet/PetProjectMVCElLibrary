@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BLL.Services.Book;
 using DAL.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;

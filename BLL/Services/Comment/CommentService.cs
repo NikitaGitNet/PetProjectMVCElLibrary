@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Services
+namespace BLL.Services.Comment
 {
     public class CommentService : ICommentService
     {
@@ -32,8 +32,8 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<CommentDTO> GetComment(Guid id)
         {
-            Comment? comment = await Database.CommentRepository.GetEntityByIdAsync(id);
-            if (comment != null) 
+            DAL.Domain.Entities.Comment? comment = await Database.CommentRepository.GetEntityByIdAsync(id);
+            if (comment != null)
             {
                 return _mapper.Map<CommentDTO>(comment);
             }
@@ -46,7 +46,7 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<IEnumerable<CommentDTO>> GetCommentsByBookId(Guid id)
         {
-            IEnumerable<Comment> comments = await Database.CommentRepository.GetEntityesByBookIdAsync(id);
+            IEnumerable<DAL.Domain.Entities.Comment> comments = await Database.CommentRepository.GetEntityesByBookIdAsync(id);
             return _mapper.Map<IEnumerable<CommentDTO>>(comments);
         }
         /// <summary>
@@ -55,7 +55,7 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<IEnumerable<CommentDTO>> GetAllComments()
         {
-            IEnumerable<Comment> comments = await Database.CommentRepository.GetAllEntityesAsync();
+            IEnumerable<DAL.Domain.Entities.Comment> comments = await Database.CommentRepository.GetAllEntityesAsync();
             return _mapper.Map<IEnumerable<CommentDTO>>(comments);
         }
         /// <summary>
@@ -65,7 +65,7 @@ namespace BLL.Services
         /// <returns></returns>
         public void CreateComment(CommentDTO commentDTO)
         {
-            Comment comment = _mapper.Map<Comment>(commentDTO);
+            DAL.Domain.Entities.Comment comment = _mapper.Map<DAL.Domain.Entities.Comment>(commentDTO);
             Database.CommentRepository.SaveEntity(comment);
         }
         /// <summary>
@@ -78,7 +78,7 @@ namespace BLL.Services
         }
         public void DeleteRangeComments(IEnumerable<CommentDTO> commentDTOs)
         {
-            IEnumerable<Comment> comments = _mapper.Map<IEnumerable<Comment>>(commentDTOs);
+            IEnumerable<DAL.Domain.Entities.Comment> comments = _mapper.Map<IEnumerable<DAL.Domain.Entities.Comment>>(commentDTOs);
             Database.CommentRepository.DeleteRangeEntityes(comments);
         }
     }

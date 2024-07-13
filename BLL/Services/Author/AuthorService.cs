@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Services
+namespace BLL.Services.Author
 {
     public class AuthorService : IAuthorService
     {
@@ -28,7 +28,7 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<IEnumerable<AuthorDTO>> GetAllAuthors()
         {
-            IEnumerable<Author> authors = await Database.AuthorRepository.GetAllEntityesAsync();
+            IEnumerable<DAL.Domain.Entities.Author> authors = await Database.AuthorRepository.GetAllEntityesAsync();
             return _mapper.Map<IEnumerable<AuthorDTO>>(authors);
         }
         /// <summary>
@@ -37,9 +37,9 @@ namespace BLL.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public async Task<AuthorDTO> GetAuthor(Guid id)
+        public async Task<AuthorDTO?> GetAuthor(Guid id)
         {
-            Author? author = await Database.AuthorRepository.GetEntityByIdAsync(id);
+            DAL.Domain.Entities.Author? author = await Database.AuthorRepository.GetEntityByIdAsync(id);
             if (author != null)
             {
                 // Если не null, возвращаем DTO
@@ -50,7 +50,7 @@ namespace BLL.Services
         }
         public async Task<AuthorDTO?> GetAuthorByName(string name)
         {
-            Author? author = await Database.AuthorRepository.GetEntityByNameAsync(name);
+            DAL.Domain.Entities.Author? author = await Database.AuthorRepository.GetEntityByNameAsync(name);
             return _mapper.Map<AuthorDTO>(author);
         }
         /// <summary>
@@ -59,7 +59,7 @@ namespace BLL.Services
         /// <param name="genreDTO"></param>
         public void CreateAuthor(AuthorDTO genreDTO)
         {
-            Author author = _mapper.Map<Author>(genreDTO);
+            DAL.Domain.Entities.Author author = _mapper.Map<DAL.Domain.Entities.Author>(genreDTO);
             Database.AuthorRepository.SaveEntity(author);
         }
         /// <summary>

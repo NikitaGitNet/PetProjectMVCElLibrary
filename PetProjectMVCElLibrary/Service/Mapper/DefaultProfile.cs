@@ -5,7 +5,9 @@ using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Booking;
 using BLL.Models.DTO.Comment;
 using BLL.Models.DTO.Genre;
+using BLL.Models.DTO.TextField;
 using DAL.Domain.Entities;
+using PetProjectMVCElLibrary.Areas.Admin.ViewModel.TextField;
 using PetProjectMVCElLibrary.ViewModel.Author;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Booking;
@@ -53,6 +55,12 @@ namespace PetProjectMVCElLibrary.Service.Mapper
 
             CreateMap<AuthorDTO, AuthorViewModel>();
             CreateMap<AuthorViewModel, AuthorDTO>();
+
+            CreateMap<TextField, TextFieldDTO>();
+            CreateMap<TextFieldDTO, TextField>();
+
+            CreateMap<TextFieldDTO, TextFieldViewModel>();
+            CreateMap<TextFieldViewModel, TextFieldDTO>();
         }
     }
 }

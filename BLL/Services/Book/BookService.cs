@@ -12,7 +12,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Services
+namespace BLL.Services.Book
 {
     /// <summary>
     /// Сервис обслуживаюший BookDTO, содержит бизнесс логику для работы с ним
@@ -33,7 +33,7 @@ namespace BLL.Services
         public async Task<IEnumerable<BookDTO>> GetAllBooks()
         {
             // Получаем из базы коллекцию
-            IEnumerable<Book> books = await Database.BookRepository.GetAllEntityesAsync();
+            IEnumerable<DAL.Domain.Entities.Book> books = await Database.BookRepository.GetAllEntityesAsync();
             // Если книг нет, генерим исключение, что книг нету
             if (!books.Any())
             {
@@ -51,7 +51,7 @@ namespace BLL.Services
         public async Task<BookDTO> GetBook(Guid id)
         {
             // Получаем из базы книгу по Id
-            Book? book = await Database.BookRepository.GetEntityByIdAsync(id);
+            DAL.Domain.Entities.Book? book = await Database.BookRepository.GetEntityByIdAsync(id);
             if (book != null)
             {
                 // Если не null, возвращаем DTO
@@ -68,7 +68,7 @@ namespace BLL.Services
         /// <exception cref="ValidationException"></exception>
         public void CreateBook(BookDTO bookDTO)
         {
-            Book? book = _mapper.Map<Book>(bookDTO);
+            DAL.Domain.Entities.Book book = _mapper.Map<DAL.Domain.Entities.Book>(bookDTO);
             Database.BookRepository.SaveEntity(book);
         }
         /// <summary>
@@ -77,7 +77,7 @@ namespace BLL.Services
         /// <param name="bookDTOs"></param>
         public void UpdateBooksRange(IEnumerable<BookDTO> bookDTOs)
         {
-            IEnumerable<Book> books = _mapper.Map<IEnumerable<Book>>(bookDTOs);
+            IEnumerable<DAL.Domain.Entities.Book> books = _mapper.Map<IEnumerable<DAL.Domain.Entities.Book>>(bookDTOs);
             Database.BookRepository.UpdateEntityRange(books);
         }
         /// <summary>
@@ -88,7 +88,7 @@ namespace BLL.Services
         /// <exception cref="ValidationException"></exception>
         public async Task<IEnumerable<BookDTO>> GetBookByGenre(Guid genreId)
         {
-            IEnumerable<Book> books = await Database.BookRepository.GetEntityesByGenreAsync(genreId);
+            IEnumerable<DAL.Domain.Entities.Book> books = await Database.BookRepository.GetEntityesByGenreAsync(genreId);
             // Если книг нет, генерим исключение, что книг нету
             if (!books.Any())
             {
@@ -105,7 +105,7 @@ namespace BLL.Services
         /// <exception cref="ValidationException"></exception>
         public async Task<IEnumerable<BookDTO>> GetBookByAuthor(Guid authorId)
         {
-            IEnumerable<Book> books = await Database.BookRepository.GetEntityesByAuthorAsync(authorId);
+            IEnumerable<DAL.Domain.Entities.Book> books = await Database.BookRepository.GetEntityesByAuthorAsync(authorId);
             // Если книг нет, генерим исключение, что книг нету
             if (!books.Any())
             {
@@ -128,7 +128,7 @@ namespace BLL.Services
         /// <param name="entityes"></param>
         public void DeleteRangeBooks(IEnumerable<BookDTO> entityes)
         {
-            IEnumerable<Book> books = _mapper.Map<IEnumerable<Book>>(entityes);
+            IEnumerable<DAL.Domain.Entities.Book> books = _mapper.Map<IEnumerable<DAL.Domain.Entities.Book>>(entityes);
             Database.BookRepository.DeleteRangeEntityes(books);
         }
     }

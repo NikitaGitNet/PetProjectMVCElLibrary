@@ -3,6 +3,8 @@ using BLL.Interfaces;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Booking;
 using BLL.Services;
+using BLL.Services.Book;
+using BLL.Services.Booking;
 using DAL.Domain;
 using DAL.Domain.Entities;
 using DAL.Domain.Repository;

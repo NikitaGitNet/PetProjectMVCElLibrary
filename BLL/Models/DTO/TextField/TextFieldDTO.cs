@@ -1,22 +1,19 @@
-﻿using System;
+﻿using BLL.Interfaces.DTO;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Domain.Entities
+namespace BLL.Models.DTO.TextField
 {
-    public class TextField
+    public class TextFieldDTO : ITextFieldDTO
     {
         public Guid Id { get; set; }
-        [Required]
         public string? CodeWord { get; set; }
-        [Display(Name = "Название страницы (заголовок)")]
         public string? SubTitle { get; set; }
         public string? TitleImagePath { get; set; }
         public string? Title { get; set; }
-        [Display(Name = "Содержание страницы")]
         public string? Text { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using BLL.Models.DTO.Booking;
 using DAL.Domain;
 using DAL.Domain.Entities;
 
-namespace BLL.Services
+namespace BLL.Services.Booking
 {
     public class BookingService : IBookingService
     {
@@ -22,7 +22,7 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<IEnumerable<BookingDTO>> GetAllBookings()
         {
-            IEnumerable<Booking> bookings = await Database.BookingRepository.GetAllEntityesAsync();
+            IEnumerable<DAL.Domain.Entities.Booking> bookings = await Database.BookingRepository.GetAllEntityesAsync();
             return _mapper.Map<IEnumerable<BookingDTO>>(bookings);
         }
         /// <summary>
@@ -33,7 +33,7 @@ namespace BLL.Services
         /// <exception cref="ValidationException"></exception>
         public async Task<BookingDTO> GetBooking(Guid id)
         {
-            Booking? booking = await Database.BookingRepository.GetEntityByIdAsync(id);
+            DAL.Domain.Entities.Booking? booking = await Database.BookingRepository.GetEntityByIdAsync(id);
             if (booking != null)
             {
                 return _mapper.Map<BookingDTO>(booking);
@@ -47,7 +47,7 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<IEnumerable<BookingDTO>> GetBookingByUserIdAsync(string id)
         {
-            IEnumerable<Booking> bookings = await Database.BookingRepository.GetBookingByUserIdAsync(id);
+            IEnumerable<DAL.Domain.Entities.Booking> bookings = await Database.BookingRepository.GetBookingByUserIdAsync(id);
             return _mapper.Map<IEnumerable<BookingDTO>>(bookings);
         }
         /// <summary>
@@ -56,7 +56,7 @@ namespace BLL.Services
         /// <param name="book"></param>
         public void CreateBooking(BookingDTO bookingDTO)
         {
-            Booking booking = _mapper.Map<Booking>(bookingDTO);
+            DAL.Domain.Entities.Booking booking = _mapper.Map<DAL.Domain.Entities.Booking>(bookingDTO);
             Database.BookingRepository.SaveEntity(booking);
         }
         /// <summary>

@@ -5,7 +5,7 @@ using BLL.Models.DTO.Genre;
 using DAL.Domain;
 using DAL.Domain.Entities;
 
-namespace BLL.Services
+namespace BLL.Services.Genre
 {
     /// <summary>
     /// Сервис обслуживающий GenreDTO, содержит бизнес логику для работы с ним
@@ -25,7 +25,7 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<IEnumerable<GenreDTO>> GetAllGenres()
         {
-            IEnumerable<Genre> genres = await Database.GenreRepository.GetAllEntityesAsync();
+            IEnumerable<DAL.Domain.Entities.Genre> genres = await Database.GenreRepository.GetAllEntityesAsync();
             return _mapper.Map<IEnumerable<GenreDTO>>(genres);
         }
         /// <summary>
@@ -36,7 +36,7 @@ namespace BLL.Services
         /// <exception cref="ValidationException"></exception>
         public async Task<GenreDTO?> GetGenre(Guid id)
         {
-            Genre? genre = await Database.GenreRepository.GetEntityByIdAsync(id);
+            DAL.Domain.Entities.Genre? genre = await Database.GenreRepository.GetEntityByIdAsync(id);
             if (genre != null)
             {
                 // Если не null, возвращаем DTO
@@ -52,7 +52,7 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task<GenreDTO?> GetGenreByName(string name)
         {
-            Genre? genre = await Database.GenreRepository.GetEntityByNameAsync(name);
+            DAL.Domain.Entities.Genre? genre = await Database.GenreRepository.GetEntityByNameAsync(name);
             return _mapper.Map<GenreDTO>(genre);
         }
         /// <summary>
@@ -61,7 +61,7 @@ namespace BLL.Services
         /// <param name="genreDTO"></param>
         public void CreateGenre(GenreDTO genreDTO)
         {
-            Genre genre = _mapper.Map<Genre>(genreDTO);
+            DAL.Domain.Entities.Genre genre = _mapper.Map<DAL.Domain.Entities.Genre>(genreDTO);
             Database.GenreRepository.SaveEntity(genre);
         }
         /// <summary>
