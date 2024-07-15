@@ -15,6 +15,7 @@ using DAL.Domain.Interfaces.Repository.Booking;
 using DAL.Domain.Interfaces.Repository.Genre;
 using DAL.Domain.Interfaces.Repository.Author;
 using DAL.Domain.Interfaces.Repository.TextField;
+using Microsoft.AspNetCore.Identity;
 
 namespace BLL.Services
 {
@@ -33,7 +34,7 @@ namespace BLL.Services
         public readonly IGenreRepository GenreRepository;
         public readonly IAuthorRepository AuthorRepository;
         public readonly ITextFieldRepository TextFieldRepository;
-        public UnitOfWorkRepository(AppDbContext context)
+        public UnitOfWorkRepository(AppDbContext context, SignInManager<ApplicationUser> _signInManager, )
         {
             _context = context;
             BookRepository = new BookRepository(_context);

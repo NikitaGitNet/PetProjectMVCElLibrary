@@ -9,6 +9,8 @@ namespace DAL.Domain.Interfaces.Repository.User
 {
     public interface IApplicationUserRepository : IRepository<ApplicationUser>
     {
-        Task<ApplicationUser> GetUserByEmail(string email);
+        Task<ApplicationUser?> GetUserByEmail(string email);
+        Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe);
+        void ChangePassword(Guid userId, string password);
     }
 }

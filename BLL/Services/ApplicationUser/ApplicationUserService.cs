@@ -45,23 +45,20 @@ namespace BLL.Services.ApplicationUser
         }
         public async Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe)
         {
-            DAL.Domain.Entities.ApplicationUser applicationUser = await Database.ApplicationUserRepository.GetUserByEmail(email);
-            if (applicationUser != null)
-            {
-                SignInResult result = await _signInManager.PasswordSignInAsync(applicationUser, password, rememberMe, false);
-                return result.Succeeded;
-            }
-            // Если null, выбрасываем исключение "Пользователь не найден"
-            throw new ValidationException("Пользователь не найден не найдена", "");
+            return await Database.ApplicationUserRepository.SignInResultSucceeded(email, password, rememberMe);
+        }
+        public void ChangePassword(Guid userId, string password)
+        {
+            Database.ApplicationUserRepository.ChangePassword(userId, password);
         }
         public void CreateUser(ApplicationUserDTO user)
         {
             DAL.Domain.Entities.ApplicationUser applicationUser = _mapper.Map<ApplicationUserDTO, DAL.Domain.Entities.ApplicationUser>(user);
             Database.ApplicationUserRepository.SaveEntity(applicationUser);
         }
-        public void DeleteUser(string userId)
+        public void DeleteUser(Guid userId)
         {
-            throw new NotImplementedException();
+            Database.ApplicationUserRepository.DeleteEntity(userId);
         }
         public void DeleteRangeUsers(IEnumerable<ApplicationUserDTO> users)
         {

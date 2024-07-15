@@ -1,8 +1,10 @@
 ﻿using DAL.Domain.Entities;
 using DAL.Domain.Interfaces.Repository.User;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +17,13 @@ namespace DAL.Domain.Repository
     public class ApplicationUserRepository : IApplicationUserRepository
     {
         private readonly AppDbContext _context;
-        public ApplicationUserRepository(AppDbContext context)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public ApplicationUserRepository(AppDbContext context, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
         /// <summary>
         /// Получаем список всех пользователей
@@ -77,9 +83,29 @@ namespace DAL.Domain.Repository
             _context.SaveChanges();
         }
 
-        public Task<ApplicationUser?> GetUserByEmail(string email)
+        public async Task<ApplicationUser?> GetUserByEmail(string email)
         {
-            return _context.ApplicationUsers.Where(x => x.NormalizedEmail == email.ToUpper()).FirstOrDefaultAsync();
+            return await _context.ApplicationUsers.Where(x => x.NormalizedEmail == email.ToUpper()).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe)
+        {
+            ApplicationUser? applicationUser = await GetUserByEmail(email);
+            if (applicationUser != null)
+            {
+                SignInResult result = await _signInManager.PasswordSignInAsync(applicationUser, password, rememberMe, false);
+                return result.Succeeded;
+            }
+            return false;
+        }
+        public async void ChangePassword(Guid userId, string password)
+        {
+            ApplicationUser? applicationUser = await GetEntityByIdAsync(userId);
+            if (applicationUser != null)
+            {
+                applicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUser, password);
+                await _userManager.UpdateAsync(applicationUser);
+            }
         }
     }
 }

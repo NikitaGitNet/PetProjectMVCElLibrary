@@ -38,76 +38,39 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
             return View(_mapper.Map<IEnumerable<ApplicationUserViewModel>>(applicationUserDTOs));
         }
         [HttpPost]
-        public async IActionResult ShowCurrentUser(string userId)
+        public async Task<IActionResult> ShowCurrentUser(string userId)
         {
             ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUser(Guid.Parse(userId));
             if (applicationUserDTO != null)
             {
-                //if (applicationUserDTO.Bookings.Any())
-                //{
-                //    applicationUserViewModel.Bookings = _mapper.Map<IEnumerable<BookingViewModel>>(applicationUserDTO.Bookings);
-                //}
-                //if (applicationUserDTO.Comments.Any())
-                //{
-                //    applicationUserViewModel.Comments = _mapper.Map<IEnumerable<CommentViewModel>>(applicationUserDTO.Comments);
-                //}
-                return RedirectToAction(nameof(UserController.Show));
+                return View(_mapper.Map<ApplicationUserViewModel>(applicationUserDTO));
             }
             return View("~/Views/ErrorPage.cshtml", "Пользователь не найден");
         }
         [HttpPost]
-        public IActionResult SearchByEmail(string email)
+        public async Task<IActionResult> SearchByEmail(string email)
         {
             if (email != null)
             {
-                IEnumerable<ApplicationUser> users = userRepository.GetAll();
-                var sortUsers = from user in users where user.Email.ToUpper().Contains(model.UserEmail.ToUpper()) select user;
-                List<UserViewModel> userViewModels = new();
-                foreach (var user in sortUsers)
+                ApplicationUserDTO applicationUserDTO = await _applicationUserService.GetUserByEmail(email);
+                if (applicationUserDTO != null) 
                 {
-                    UserViewModel userViewModel = new()
-                    {
-                        Email = user.Email,
-                        UserName = user.UserName,
-                        CreateOn = user.CreateOn,
-                        Id = user.Id
-                    };
-                    userViewModels.Add(userViewModel);
+                    return View("ShowCurrentUser", _mapper.Map<ApplicationUserViewModel>(applicationUserDTO));
                 }
-                return View("UsersShow", new UsersListViewModel { Users = userViewModels });
             }
-            return RedirectToAction(nameof(UsersShowController.UsersShow), nameof(UsersShowController).CutController());
+            return View("~/Views/ErrorPage.cshtml", "Пользователь не найден");
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(UserModel model)
+        public IActionResult Delete(string userId)
         {
-            ApplicationUser user = userRepository.GetById(new Guid(model.Id));
-            if (user.Bookings.Any())
-            {
-                foreach (var booking in user.Bookings)
-                {
-                    Guid bookId = booking.BookId;
-                    Book book = bookRepository.GetById(bookId);
-                    book.IsBooking = false;
-                    bookRepository.Save(book);
-                }
-                bookingRepository.DeleteRange(model.Id);
-            }
-            if (user.Comments.Any())
-            {
-                commentRepository.DeleteRange(model.Id);
-            }
-            await userManager.IsLockedOutAsync(user);
-            await userManager.DeleteAsync(user);
+            _applicationUserService.DeleteUser(Guid.Parse(userId));
             return View("Delete");
         }
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(UserModel model)
+        public IActionResult ChangePassword(string userId, string password)
         {
-            ApplicationUser user = await userManager.FindByIdAsync(model.Id);
-            user.PasswordHash = userManager.PasswordHasher.HashPassword(user, model.Password);
-            await userManager.UpdateAsync(user);
-            return View(new UserModel { Password = model.Password });
+            _applicationUserService.ChangePassword(Guid.Parse(userId), password);
+            return View();
         }
     }
 }
