@@ -6,7 +6,7 @@
 					<h1><a asp-area="" asp-controller="Home" asp-action="Index" id="logo">@Config.CompanyName</a></h1>
 						<nav id="nav">
 							<a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
-							<a asp-area="" asp-controller="BooksShow" asp-action="Index" asp-route-id="">Книги</a>
+							<a asp-area="" asp-controller="Book" asp-action="Index" asp-route-id="">Книги</a>
 							<a asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
 							
 							@if (User.IsInRole("admin"))

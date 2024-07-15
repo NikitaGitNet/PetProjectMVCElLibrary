@@ -24,13 +24,14 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         private readonly TextFieldService textFieldService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public TextFieldController(IHttpContextAccessor httpContextAccessor, IMapper mapper, AppDbContext context)
+        public TextFieldController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _mapper = mapper;
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
             textFieldService = new TextFieldService(context, mapper);
+            _httpContextAccessor = httpContextAccessor;
         }
+        [HttpGet]
         public async Task<IActionResult> Edit(string codeWord)
         {
             TextFieldDTO textFieldDTO = codeWord == default ? new TextFieldDTO() : (await textFieldService.GetTextFieldByCodeWord(codeWord) ?? new TextFieldDTO());

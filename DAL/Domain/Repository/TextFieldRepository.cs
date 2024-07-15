@@ -28,9 +28,9 @@ namespace DAL.Domain.Repository
         {
             return await _context.TextFields.FirstOrDefaultAsync(x => x.CodeWord == codeWord);
         }
-        public async void SaveEntity(TextField entity)
+        public void SaveEntity(TextField entity)
         {
-            TextField? textField = await _context.TextFields.FirstOrDefaultAsync(x => x.Id == entity.Id);
+            TextField? textField = _context.TextFields.FirstOrDefault(x => x.Id == entity.Id);
             if (textField != null)
             {
                 _context.TextFields.Update(entity);
