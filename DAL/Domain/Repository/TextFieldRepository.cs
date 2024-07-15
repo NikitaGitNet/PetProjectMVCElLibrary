@@ -45,12 +45,9 @@ namespace DAL.Domain.Repository
         {
             throw new NotImplementedException();
         }
-
         public void DeleteRangeEntityes(IEnumerable<TextField> entityes)
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }

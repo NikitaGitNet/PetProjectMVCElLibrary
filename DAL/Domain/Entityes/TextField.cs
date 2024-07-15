@@ -13,8 +13,6 @@ namespace DAL.Domain.Entities
         [Required]
         public string? CodeWord { get; set; }
         [Display(Name = "Название страницы (заголовок)")]
-        public string? SubTitle { get; set; }
-        public string? TitleImagePath { get; set; }
         public string? Title { get; set; }
         [Display(Name = "Содержание страницы")]
         public string? Text { get; set; }

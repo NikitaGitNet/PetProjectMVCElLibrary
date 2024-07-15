@@ -11,8 +11,6 @@ namespace BLL.Interfaces.DTO
     {
         Guid Id { get; set; }
         string? CodeWord { get; set; }
-        string? SubTitle { get; set; }
-        string? TitleImagePath { get; set; }
         string? Title { get; set; }
         string? Text { get; set; }
     }

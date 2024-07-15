@@ -11,8 +11,6 @@ namespace BLL.Models.DTO.TextField
     {
         public Guid Id { get; set; }
         public string? CodeWord { get; set; }
-        public string? SubTitle { get; set; }
-        public string? TitleImagePath { get; set; }
         public string? Title { get; set; }
         public string? Text { get; set; }
     }
