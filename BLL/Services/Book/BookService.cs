@@ -48,17 +48,11 @@ namespace BLL.Services.Book
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public async Task<BookDTO> GetBook(Guid id)
+        public async Task<BookDTO?> GetBook(Guid id)
         {
             // Получаем из базы книгу по Id
             DAL.Domain.Entities.Book? book = await Database.BookRepository.GetEntityByIdAsync(id);
-            if (book != null)
-            {
-                // Если не null, возвращаем DTO
-                return _mapper.Map<BookDTO>(book);
-            }
-            // Если null, выбрасываем исключение "Книга не найдена"
-            throw new ValidationException("Книга не найдена", "");
+            return _mapper.Map<BookDTO?>(book);
         }
         /// <summary>
         /// Добавляем книгу в базу

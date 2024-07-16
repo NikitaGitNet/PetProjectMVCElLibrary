@@ -1,16 +1,15 @@
 using AutoMapper;
-using AutoMapper.Internal;
 using DAL.Domain;
 using DAL.Domain.Entities;
-using DAL.Domain.Interfaces.Repository;
-using DAL.Domain.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PetProjectMVCElLibrary.Service;
+using PetProjectMVCElLibrary.Service.Logger;
 using PetProjectMVCElLibrary.Service.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
 builder.Services.AddAutoMapper(typeof(DefaultProfile));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -67,6 +66,12 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
     endpoints.MapControllerRoute("moderator", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
     endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+});
+
+app.Run(async (context) =>
+{
+    app.Logger.LogInformation($"Path: {context.Request.Path}  Time:{DateTime.Now.ToLongTimeString()}");
+    await context.Response.WriteAsync("Hello World!");
 });
 
 app.Run();

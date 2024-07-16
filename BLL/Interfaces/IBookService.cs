@@ -21,7 +21,7 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<BookDTO> GetBook(Guid id);
+        Task<BookDTO?> GetBook(Guid id);
         /// <summary>
         /// Получение всех книг
         /// </summary>

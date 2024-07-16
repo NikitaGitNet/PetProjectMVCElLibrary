@@ -14,8 +14,8 @@ namespace PetProjectMVCElLibrary.Service
         {
             if (context is null) throw new ArgumentNullException(@"Context is null");
             idUser = Guid.Empty;
-            var currentUser = context.HttpContext?.User;
-            var user = currentUser?.Claims.FirstOrDefault(t => t.Type == ClaimTypes.NameIdentifier);
+            ClaimsPrincipal? currentUser = context.HttpContext?.User;
+            Claim? user = currentUser?.Claims.FirstOrDefault(t => t.Type == ClaimTypes.NameIdentifier);
             if (user != null)
             {
                 if (Guid.TryParse(user.Value, out idUser))

@@ -21,24 +21,15 @@ namespace BLL.Services.ApplicationUser
             _signInManager = signInManager;
             _userManager = userManager;
         }
-        public async Task<ApplicationUserDTO> GetUser(Guid id)
+        public async Task<ApplicationUserDTO?> GetUser(Guid id)
         {
             DAL.Domain.Entities.ApplicationUser? user = await Database.ApplicationUserRepository.GetEntityByIdAsync(id);
-            if (user != null)
-            {
-                return _mapper.Map<ApplicationUserDTO>(user);
-            }
-            // Если null, выбрасываем исключение
-            throw new ValidationException("Пользователь не найден", "");
+            return _mapper.Map<ApplicationUserDTO?>(user);
         }
-        public async Task<ApplicationUserDTO> GetUserByEmail(string email)
+        public async Task<ApplicationUserDTO?> GetUserByEmail(string email)
         {
             DAL.Domain.Entities.ApplicationUser? user = await Database.ApplicationUserRepository.GetUserByEmail(email);
-            if (user != null)
-            {
-                return _mapper.Map<DAL.Domain.Entities.ApplicationUser, ApplicationUserDTO>(user);
-            }
-            throw new ValidationException("Пользователь не найден", "");
+            return _mapper.Map<ApplicationUserDTO?>(user);
         }
         public async Task<IEnumerable<ApplicationUserDTO>> GetAllUsers()
         {

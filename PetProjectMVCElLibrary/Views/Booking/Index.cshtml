@@ -5,6 +5,7 @@
 }   
 @if (Model.Any())
 {
+    <h2>@TempData["Message"]</h2>
     <h2>Ваши брони, @Model.Count()/5:</h2>
     @foreach (var booking in Model)
     {

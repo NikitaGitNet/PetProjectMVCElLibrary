@@ -4,6 +4,7 @@
     ViewBag.Title = strTitle;
 }
 <div>
+    <h2>@TempData["Message"]</h2>
     <div class="div-box">
         <a class="glo" asp-controller="Book" asp-action="SearchBookByAutorOfGenre">Поиск по автору</a>
         <a class="glo" asp-controller="Book" asp-action="SearchBookByAutorOfGenre">Поиск по жанру</a>
