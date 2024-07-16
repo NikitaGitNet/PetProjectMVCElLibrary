@@ -13,6 +13,7 @@ using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Booking;
 using PetProjectMVCElLibrary.ViewModel.Comment;
 using PetProjectMVCElLibrary.ViewModel.Genre;
+using PetProjectMVCElLibrary.ViewModel.User;
 using System;
 
 namespace PetProjectMVCElLibrary.Service.Mapper
@@ -37,6 +38,10 @@ namespace PetProjectMVCElLibrary.Service.Mapper
 
             CreateMap<ApplicationUserDTO, ApplicationUser>();
             CreateMap<ApplicationUser, ApplicationUserDTO>();
+
+            CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()
+                .ForMember(x => x.Password, opt => opt.MapFrom(src => ""));
+            CreateMap<ApplicationUserViewModel, ApplicationUserDTO>();
 
             CreateMap<BookingDTO, Booking>();
             CreateMap<Booking, BookingDTO>();

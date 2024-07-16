@@ -1,21 +1,14 @@
-﻿using DAL.Domain.Repository;
-using DAL.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BLL.Interfaces;
-using DAL.Domain.Interfaces.Repository;
-using DAL.Domain.Entities;
-using DAL.Domain.Interfaces.Repository.Book;
-using DAL.Domain.Interfaces.Repository.Comment;
-using DAL.Domain.Interfaces.Repository.User;
-using DAL.Domain.Interfaces.Repository.Booking;
-using DAL.Domain.Interfaces.Repository.Genre;
+﻿using DAL.Domain;
 using DAL.Domain.Interfaces.Repository.Author;
+using DAL.Domain.Interfaces.Repository.Book;
+using DAL.Domain.Interfaces.Repository.Booking;
+using DAL.Domain.Interfaces.Repository.Comment;
+using DAL.Domain.Interfaces.Repository.Genre;
 using DAL.Domain.Interfaces.Repository.TextField;
+using DAL.Domain.Interfaces.Repository.User;
+using DAL.Domain.Repository;
 using Microsoft.AspNetCore.Identity;
+using BLL.Models.DTO.ApplicationUser;
 
 namespace BLL.Services
 {
@@ -34,7 +27,7 @@ namespace BLL.Services
         public readonly IGenreRepository GenreRepository;
         public readonly IAuthorRepository AuthorRepository;
         public readonly ITextFieldRepository TextFieldRepository;
-        public UnitOfWorkRepository(AppDbContext context, SignInManager<ApplicationUser> _signInManager, )
+        public UnitOfWorkRepository(AppDbContext context)
         {
             _context = context;
             BookRepository = new BookRepository(_context);

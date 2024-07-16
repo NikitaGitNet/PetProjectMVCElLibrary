@@ -21,7 +21,7 @@ namespace PetProjectMVCElLibrary.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(AppDbContext context, SignInManager<ApplicationUser> signInManager, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
-            _applicationUserService = new ApplicationUserService(context, signInManager, mapper);
+            _applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _signInManager = signInManager;
             _mapper = mapper;
             _context = context;

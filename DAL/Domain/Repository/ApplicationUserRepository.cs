@@ -17,13 +17,9 @@ namespace DAL.Domain.Repository
     public class ApplicationUserRepository : IApplicationUserRepository
     {
         private readonly AppDbContext _context;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
-        public ApplicationUserRepository(AppDbContext context, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public ApplicationUserRepository(AppDbContext context)
         {
             _context = context;
-            _signInManager = signInManager;
-            _userManager = userManager;
         }
         /// <summary>
         /// Получаем список всех пользователей
@@ -88,24 +84,6 @@ namespace DAL.Domain.Repository
             return await _context.ApplicationUsers.Where(x => x.NormalizedEmail == email.ToUpper()).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe)
-        {
-            ApplicationUser? applicationUser = await GetUserByEmail(email);
-            if (applicationUser != null)
-            {
-                SignInResult result = await _signInManager.PasswordSignInAsync(applicationUser, password, rememberMe, false);
-                return result.Succeeded;
-            }
-            return false;
-        }
-        public async void ChangePassword(Guid userId, string password)
-        {
-            ApplicationUser? applicationUser = await GetEntityByIdAsync(userId);
-            if (applicationUser != null)
-            {
-                applicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUser, password);
-                await _userManager.UpdateAsync(applicationUser);
-            }
-        }
+
     }
 }

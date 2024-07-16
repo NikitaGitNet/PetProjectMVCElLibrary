@@ -26,13 +26,13 @@ namespace PetProjectMVCElLibrary.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public BookingController(AppDbContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor, SignInManager<ApplicationUser> signInManager)
+        public BookingController(AppDbContext context, IMapper mapper, IHttpContextAccessor httpContextAccessor, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
             _signInManager = signInManager;
-            applicationUserService = new ApplicationUserService(context,signInManager, mapper);
+            applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             bookingService = new BookingService(context, mapper);
             bookService = new BookService(context, mapper);
         }

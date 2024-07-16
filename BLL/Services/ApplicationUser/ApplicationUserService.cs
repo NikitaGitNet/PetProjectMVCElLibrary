@@ -13,11 +13,13 @@ namespace BLL.Services.ApplicationUser
         private readonly UnitOfWorkRepository Database;
         private readonly IMapper _mapper;
         private readonly SignInManager<DAL.Domain.Entities.ApplicationUser> _signInManager;
-        public ApplicationUserService(AppDbContext context, SignInManager<DAL.Domain.Entities.ApplicationUser> signInManager, IMapper mapper)
+        private readonly UserManager<DAL.Domain.Entities.ApplicationUser> _userManager;
+        public ApplicationUserService(AppDbContext context, IMapper mapper, SignInManager<DAL.Domain.Entities.ApplicationUser> signInManager, UserManager<DAL.Domain.Entities.ApplicationUser> userManager)
         {
             Database = new UnitOfWorkRepository(context);
             _mapper = mapper;
             _signInManager = signInManager;
+            _userManager = userManager;
         }
         public async Task<ApplicationUserDTO> GetUser(Guid id)
         {
@@ -31,7 +33,7 @@ namespace BLL.Services.ApplicationUser
         }
         public async Task<ApplicationUserDTO> GetUserByEmail(string email)
         {
-            DAL.Domain.Entities.ApplicationUser user = await Database.ApplicationUserRepository.GetUserByEmail(email);
+            DAL.Domain.Entities.ApplicationUser? user = await Database.ApplicationUserRepository.GetUserByEmail(email);
             if (user != null)
             {
                 return _mapper.Map<DAL.Domain.Entities.ApplicationUser, ApplicationUserDTO>(user);
@@ -45,11 +47,26 @@ namespace BLL.Services.ApplicationUser
         }
         public async Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe)
         {
-            return await Database.ApplicationUserRepository.SignInResultSucceeded(email, password, rememberMe);
+            DAL.Domain.Entities.ApplicationUser? applicationUser = await Database.ApplicationUserRepository.GetUserByEmail(email);
+            if (applicationUser != null)
+            {
+                SignInResult result = await _signInManager.PasswordSignInAsync(applicationUser, password, rememberMe, false);
+                return result.Succeeded;
+            }
+            return false;
         }
-        public void ChangePassword(Guid userId, string password)
+        public async Task<bool> ChangePassword(Guid userId, string password)
         {
-            Database.ApplicationUserRepository.ChangePassword(userId, password);
+            bool result = false;
+            DAL.Domain.Entities.ApplicationUser? applicationUser = await Database.ApplicationUserRepository.GetEntityByIdAsync(userId);
+            if (applicationUser != null)
+            {
+                applicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUser, password);
+                var a = await _userManager.UpdateAsync(applicationUser);
+                result = a.Succeeded;
+                return result;
+            }
+            return result;
         }
         public void CreateUser(ApplicationUserDTO user)
         {

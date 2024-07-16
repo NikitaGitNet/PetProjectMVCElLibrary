@@ -29,7 +29,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         private readonly IApplicationUserService applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager)
+        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
@@ -37,7 +37,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
             commentService = new CommentService(context, mapper);
             authorService = new AuthorService(context, mapper);
             genreService = new GenreService(context, mapper);
-            applicationUserService = new ApplicationUserService(context, signInManager, mapper);
+            applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _httpContextAccessor = httpContextAccessor;
         }
         public async Task<IActionResult> Index()

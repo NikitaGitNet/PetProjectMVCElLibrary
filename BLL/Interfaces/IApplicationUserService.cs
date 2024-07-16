@@ -10,7 +10,7 @@ namespace BLL.Interfaces
         Task<IEnumerable<ApplicationUserDTO>> GetAllUsers();
         Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe);
         void CreateUser(ApplicationUserDTO user);
-        void ChangePassword(Guid userId, string password);
+        Task<bool> ChangePassword(Guid userId, string password);
         void DeleteUser(Guid userId);
         void DeleteRangeUsers(IEnumerable<ApplicationUserDTO> users);
     }

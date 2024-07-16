@@ -37,7 +37,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _hostingEnviroment;
-        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnviroment)
+        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnviroment, UserManager<DAL.Domain.Entities.ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
@@ -45,7 +45,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
             commentService = new CommentService(context, mapper);
             authorService = new AuthorService(context, mapper);
             genreService = new GenreService(context, mapper);
-            applicationUserService = new ApplicationUserService(context, signInManager, mapper);
+            applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _httpContextAccessor = httpContextAccessor;
             _hostingEnviroment = hostingEnviroment;
         }

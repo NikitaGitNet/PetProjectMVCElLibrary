@@ -7,7 +7,7 @@ namespace PetProjectMVCElLibrary.Interfaces.User
     public interface IApplicationUserViewModel
     {
         string? Id { get; set; }
-        string? UserEmail { get; set; }
+        string? Email { get; set; }
         string? UserName { get; set; }
         DateTime CreateOn { get; set; }
         IEnumerable<BookingViewModel> Bookings { get; set; }

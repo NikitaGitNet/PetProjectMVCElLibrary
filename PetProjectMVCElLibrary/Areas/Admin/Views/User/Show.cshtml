@@ -1,5 +1,32 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<ApplicationUserViewModel>
 @{
+    string strTitle = "Список пользователей";
+    ViewBag.Title = strTitle;
 }
+<h2>@TempData["Result"]</h2>
+<div>
+    <form asp-area="Admin" asp-controller="UsersShow" asp-action="SearchByEmail" method="post" enctype="multipart/form-data"> 
+        <div class="div-box">
+            <h2>Поиск по адресу почты</h2>
+            <div class="inputBox">
+                <input type="text" name="UserEmail">
+            </div>
+            <input style="display: inline-block;" type="submit" class="glo" value="Найти">
+        </div>
+    </form>
+    <h2>Список пользователей:</h2>
+    <ul>
+        @foreach (var user in Model)
+        {
+            @if (user.UserName != "admin" && user.UserName != "moderator")
+            {
+                <li>
+                <p>Электронная почта: @user.Email</p>
+                <p>Имя пользователя: @user.UserName</p>
+                    <a class="glo" asp-area="Admin" asp-controller="User" asp-action="ShowCurrentUser" asp-route-id="@user.Id">Перейти к пользователю</a>
+                <hr>
+                </li>
+            }   
+        }
+    </ul>
+</div>

@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ApplicationUserViewModel
 @{
+    string strTitle = "Пользователь: " + @Model.UserName;
+    ViewBag.Title = strTitle;
 }
+
+<h2 class="Alert">@TempData["Message"]</h2>
+<h2>Электронная почта: @Model.Email</h2>
+<h2>Имя пользователя: @Model.UserName</h2>
+<h2>Дата регистрации: @Model.CreateOn</h2>
+<hr>
+<div>
+    <form asp-area="Admin" asp-controller="User" asp-action="ChangePassword" method="post">
+        <input type="hidden" name="id" value="@Model.Id">
+        <div class="inputBox">
+            <h2>Новый пароль:</h2>
+            <input asp-for="Password">
+            <span asp-validation-for="Password"></span>
+        </div>
+        <input style="display: inline-block;" type="submit" class="glo" value="Сменить пароль">
+    </form>
+</div>
+<hr>
+<form id="form-@Model.Id" asp-area="Admin" asp-controller="UsersShow" asp-action="Delete" method="post">
+    <input type="hidden" name="id" value="@Model.Id">
+    <a class="glo" href="#" onclick="document.getElementById('form-@Model.Id').submit();">Удалить пользователя</a>
+</form>

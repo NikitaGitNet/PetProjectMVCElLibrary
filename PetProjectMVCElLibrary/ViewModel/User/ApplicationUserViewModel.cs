@@ -12,7 +12,8 @@ namespace PetProjectMVCElLibrary.ViewModel.User
             Comments = new List<CommentViewModel>();
         }
         public string? Id { get; set; }
-        public string? UserEmail { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
         public string? UserName { get; set; }
         public DateTime CreateOn { get; set; }
         public IEnumerable<BookingViewModel> Bookings { get; set; }

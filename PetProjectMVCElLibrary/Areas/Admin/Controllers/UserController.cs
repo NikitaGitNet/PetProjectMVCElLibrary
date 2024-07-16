@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
-using DAL.Domain.Entities;
+using BLL.Models.DTO.ApplicationUser;
+using BLL.Services.ApplicationUser;
+using BLL.Services.Book;
 using DAL.Domain;
+using DAL.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using BLL.Services.ApplicationUser;
-using BLL.Models.DTO.ApplicationUser;
 using PetProjectMVCElLibrary.ViewModel.User;
-using BLL.Services.Book;
-using PetProjectMVCElLibrary.ViewModel.Booking;
-using PetProjectMVCElLibrary.ViewModel.Comment;
 
 namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
 {
@@ -24,7 +22,7 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         private readonly IBookService bookService;
         public UserController(AppDbContext context, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
-            _applicationUserService = new ApplicationUserService(context, signInManager, mapper);
+            _applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             bookService = new BookService(context, mapper);
             _signInManager = signInManager;
             _mapper = mapper;
@@ -37,15 +35,15 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
             IEnumerable<ApplicationUserDTO> applicationUserDTOs = await _applicationUserService.GetAllUsers();
             return View(_mapper.Map<IEnumerable<ApplicationUserViewModel>>(applicationUserDTOs));
         }
-        [HttpPost]
-        public async Task<IActionResult> ShowCurrentUser(string userId)
+        public async Task<IActionResult> ShowCurrentUser(ApplicationUserViewModel applicationUserViewModel)
         {
-            ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUser(Guid.Parse(userId));
+            ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUser(Guid.Parse(applicationUserViewModel.Id ?? ""));
             if (applicationUserDTO != null)
             {
                 return View(_mapper.Map<ApplicationUserViewModel>(applicationUserDTO));
             }
-            return View("~/Views/ErrorPage.cshtml", "Пользователь не найден");
+            TempData["Result"] = "Пользователь не найден";
+            return RedirectToAction(nameof(UserController.Show));
         }
         [HttpPost]
         public async Task<IActionResult> SearchByEmail(string email)
@@ -67,10 +65,16 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
             return View("Delete");
         }
         [HttpPost]
-        public IActionResult ChangePassword(string userId, string password)
+        public async Task<IActionResult> ChangePassword(ApplicationUserViewModel applicationUserViewModel)
         {
-            _applicationUserService.ChangePassword(Guid.Parse(userId), password);
-            return View();
+            bool result = await _applicationUserService.ChangePassword(Guid.Parse(applicationUserViewModel.Id ?? ""), applicationUserViewModel.Password ?? "");
+            if (result)
+            {
+                TempData["Result"] = "Пароль успешно изменен";
+                return RedirectToAction(nameof(UserController.ShowCurrentUser), applicationUserViewModel);
+            }
+            TempData["Result"] = "Неудача, не удалось узменить пароль";
+            return RedirectToAction(nameof(UserController.ShowCurrentUser), applicationUserViewModel);
         }
     }
 }

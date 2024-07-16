@@ -10,13 +10,11 @@ namespace BLL.Models.DTO.ApplicationUser
         {
             Comments = new List<CommentDTO>();
             Bookings = new List<BookingDTO>();
-            Id = "";
-            Email = "";
-            UserName = "";
         }
-        public string Id { get; set; }
-        public string Email { get; set; }
-        public string UserName { get; set; }
+        public string? Id { get; set; }
+        public string? Email { get; set; }
+        public string? UserName { get; set; }
+        public DateTime CreateOn { get; set; }
         public ICollection<CommentDTO> Comments { get; set; }
         public IEnumerable<BookingDTO> Bookings { get; set; }
     }
