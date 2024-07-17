@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models.DTO.ApplicationUser;
-using BLL.Services;
 using BLL.Services.ApplicationUser;
 using DAL.Domain;
 using DAL.Domain.Entities;

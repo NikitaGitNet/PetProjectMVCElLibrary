@@ -89,3 +89,195 @@ Now listening on: http://localhost:5296
 Application started. Press Ctrl+C to shut down.
 Hosting environment: Development
 Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:13:46:57
+Path: /favicon.ico  Time:13:46:59
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:13:47:12
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:13:47:49
+Path: /favicon.ico  Time:13:47:50
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:13:50:37
+Path: /favicon.ico  Time:13:50:40
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:48:15
+Path: /favicon.ico  Time:14:48:21
+Path: /favicon.ico  Time:14:48:39
+Path: /favicon.ico  Time:14:48:41
+Path: /favicon.ico  Time:14:48:42
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:51:10
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:51:22
+Path: /favicon.ico  Time:14:51:22
+Failed executing DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [a].[UserId], [a].[RoleId], [a].[Discriminator]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationUserRole'
+An exception occurred while iterating over the results of a query for context type 'DAL.Domain.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Недопустимое имя столбца "Discriminator".
+Недопустимое имя столбца "Discriminator".
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+ClientConnectionId:1375c9d9-f47b-4c26-9e02-e97ebd1ae740
+Error Number:207,State:1,Class:16
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Failed executing DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [a].[UserId], [a].[RoleId], [a].[Discriminator]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationUserRole'
+An exception occurred while iterating over the results of a query for context type 'DAL.Domain.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Недопустимое имя столбца "Discriminator".
+Недопустимое имя столбца "Discriminator".
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+ClientConnectionId:6488c76f-ed79-4fe9-958f-9be5493f03f3
+Error Number:207,State:1,Class:16
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:51:53
+Path: /favicon.ico  Time:14:51:55
+Path: /favicon.ico  Time:14:51:56
+Failed executing DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [a].[UserId], [a].[RoleId], [a].[Discriminator]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationUserRole'
+An exception occurred while iterating over the results of a query for context type 'DAL.Domain.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Недопустимое имя столбца "Discriminator".
+Недопустимое имя столбца "Discriminator".
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+ClientConnectionId:cec656c5-59a4-446e-b241-18f2df2d9533
+Error Number:207,State:1,Class:16
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Failed executing DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [a].[UserId], [a].[RoleId], [a].[Discriminator]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationUserRole'
+An exception occurred while iterating over the results of a query for context type 'DAL.Domain.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Недопустимое имя столбца "Discriminator".
+Недопустимое имя столбца "Discriminator".
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+ClientConnectionId:c3ca33d5-1046-4cd3-8209-614d7df4f835
+Error Number:207,State:1,Class:16
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:14:52:22
+Path: /favicon.ico  Time:14:52:22
+Path: /favicon.ico  Time:14:52:24
+Path: /favicon.ico  Time:14:52:25
+Failed executing DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [a].[UserId], [a].[RoleId], [a].[Discriminator]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[Discriminator] = N'ApplicationUserRole'
+An exception occurred while iterating over the results of a query for context type 'DAL.Domain.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Недопустимое имя столбца "Discriminator".
+Недопустимое имя столбца "Discriminator".
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+ClientConnectionId:629c03ca-2a03-4332-a472-163b0c5e7ee0
+Error Number:207,State:1,Class:16
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:54:38
+Path: /favicon.ico  Time:14:54:40
+Path: /favicon.ico  Time:14:54:41

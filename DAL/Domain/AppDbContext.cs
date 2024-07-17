@@ -15,6 +15,8 @@ namespace DAL.Domain
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<IdentityRole> IdentityRoles { get; set; }
+        public DbSet<IdentityUserRole<string>> IdentityUserRoles { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -42,6 +42,31 @@ namespace DAL.Domain.Repository
                 .FirstOrDefaultAsync(x => x.Id == id.ToString());
         }
         /// <summary>
+        /// Метод проверки соответсвует ли текущий пользователь заявленной роли
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
+        public async Task<bool> IsUserRoleConfirm(Guid userId, string roleName)
+        { 
+            bool confirm = false;
+            IEnumerable<IdentityRole> roles = await _context.Roles.ToListAsync();
+            IEnumerable<IdentityUserRole<string>> userRoles = await _context.IdentityUserRoles.ToListAsync();
+            IdentityUserRole<string>? userRole = userRoles.FirstOrDefault(x => x.UserId == userId.ToString());
+            if (userRole != null)
+            {
+                IdentityRole? role = roles.FirstOrDefault(x => x.Id == userRole.RoleId);
+                if (role != null) 
+                {
+                    if (role.Name == roleName)
+                    {
+                        confirm = true;
+                    }
+                }
+            }
+            return confirm;
+        }
+        /// <summary>
         /// Добавляем пользователя в БД
         /// </summary>
         /// <param name="entity"></param>
@@ -78,12 +103,14 @@ namespace DAL.Domain.Repository
             _context.ApplicationUsers.RemoveRange(entityes);
             _context.SaveChanges();
         }
-
+        /// <summary>
+        /// Получение пользователя из БД на основании email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public async Task<ApplicationUser?> GetUserByEmail(string email)
         {
             return await _context.ApplicationUsers.Where(x => x.NormalizedEmail == email.ToUpper()).FirstOrDefaultAsync();
         }
-
-
     }
 }

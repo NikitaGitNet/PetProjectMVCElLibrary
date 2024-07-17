@@ -4,5 +4,6 @@
     ViewBag.Title = strTitle;
 }
 <div>
+    <h2>@TempData["Message"]</h2>
     @Html.Raw(Model.Text)
 </div>

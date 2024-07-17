@@ -3,59 +3,82 @@ using BLL.Infrastructure;
 using BLL.Interfaces;
 using BLL.Interfaces.DTO;
 using BLL.Models.DTO.ApplicationUser;
+using BLL.Models.DTO.Author;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Comment;
+using BLL.Models.DTO.Genre;
 using BLL.Services;
 using BLL.Services.ApplicationUser;
+using BLL.Services.Author;
 using BLL.Services.Book;
 using BLL.Services.Comment;
+using BLL.Services.Genre;
 using DAL.Domain;
 using DAL.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.Interfaces.Book;
 using PetProjectMVCElLibrary.Interfaces.Comment;
+using PetProjectMVCElLibrary.Service;
+using PetProjectMVCElLibrary.Service.Logger;
+using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Comment;
 using System.Security.Claims;
 
 namespace PetProjectMVCElLibrary.Controllers
 {
+    /// <summary>
+    /// Контроллер содержащий логику взаимодействия с книгами и комментариями к ним
+    /// </summary>
     public class BookController : Controller
     {
         private readonly AppDbContext _context;
         private readonly IBookService bookService;
         private readonly ICommentService commentService;
+        private readonly IAuthorService authorService;
+        private readonly IGenreService genreService;
         private readonly IApplicationUserService applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private readonly ILogger<FileLogger> _logger;
+        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<FileLogger> logger)
         {
+            _logger = logger;
             _context = context;
             _mapper = mapper;
             bookService = new BookService(context, mapper);
             commentService = new CommentService(context, mapper);
+            authorService = new AuthorService(context, mapper);
+            genreService = new GenreService(context, mapper);
             applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _httpContextAccessor = httpContextAccessor;
         }
         /// <summary>
-        /// Вывести все книги на экран
+        /// Метод вывода всех имеющихся книг на экран
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             IEnumerable<BookViewModel> bookViewModels = new List<BookViewModel>();
+            IEnumerable<BookDTO> bookDTOs = new List<BookDTO>();
             try
             {
-                IEnumerable<BookDTO> bookDTOs = await bookService.GetAllBooks();
+                // Получаем ДТО книг
+                bookDTOs = await bookService.GetAllBooks();
+                // Мапим ДТО во ViewModel
                 bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //_logger.LogError(e.Message);
-                throw;
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                // Сообщаем об ошибке, редиректим на стартовую страницу
+                TempData["Message"] = "При попытке загрузить список книг произошла ошибка!";
+                return RedirectToAction(nameof(HomeController.Index));
             }
+            // Передаем ViewModel в представление, возращаем представление
             return View(bookViewModels);
         }
         /// <summary>
@@ -69,26 +92,23 @@ namespace PetProjectMVCElLibrary.Controllers
             IBookViewModel bookViewModel = new BookViewModel();
             try
             {
-                BookDTO bookDTO = await bookService.GetBook(book.Id);
+                // Получаем ДТО книг
+                BookDTO? bookDTO = await bookService.GetBook(book.Id);
+                // Мапим во ViewModel
                 bookViewModel = _mapper.Map<BookViewModel>(bookDTO);
+                // Получаем ДТО комментариев
                 IEnumerable<CommentDTO> commentDTOs = await commentService.GetCommentsByBookId(book.Id);
+                // Мапим комментарии во ViewModel
                 bookViewModel.Comments = _mapper.Map<IEnumerable<CommentViewModel>>(commentDTOs);
-                HttpContext? httpContent = _httpContextAccessor.HttpContext;
-                if (httpContent != null)
-                {
-                    Claim? claim = httpContent.User.FindFirst(ClaimTypes.NameIdentifier);
-                    if (claim != null)
-                    {
-                        var userId = claim.Value;
-                        bookViewModel.CurentUserId = userId;
-                    }
-                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //_logger.LogError(e.Message);
-                throw;
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                // Сообщаем об ошибке, редиректим на стартовую страницу
+                TempData["Message"] = "При попытке загрузить книгe произошла ошибка!";
+                return RedirectToAction(nameof(BookController.Index));
             }
+            // Передаем ViewModel в представление, возвращаем представление
             return View(bookViewModel);
         }
         /// <summary>
@@ -102,15 +122,31 @@ namespace PetProjectMVCElLibrary.Controllers
             IEnumerable<BookViewModel> bookViewModels = new List<BookViewModel>();
             try
             {
-                IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByAuthor(authorId);
-                bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
+                // Получаем ДТО автора
+                AuthorDTO? authorDTO = await authorService.GetAuthor(authorId);
+                // Если автор найден, выполняем логику
+                if (authorDTO != null)
+                {
+                    // Получаем ДТО книг
+                    IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByAuthor(authorId);
+                    // Мапим во ViewModel
+                    bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
+                    // Выводи сообщение
+                    TempData["Message"] = $"Список книг по запросу: автор - {authorDTO.Name}";
+                }
+                // Выводим сообщение, что автор не найден
+                TempData["Message"] = $"Автор не найден";
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //_logger.LogError(e.Message);
-                throw;
+                // Сообщаем об ошибке, редиректим на стартовую страницу
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке загрузить список книг произошла ошибка!";
+                return RedirectToAction(nameof(BookController.Index));
             }
-            return View(bookViewModels);
+            
+            // Передаем ViewModel в представление, возращаем представление
+            return View("Index", bookViewModels);
         }
         /// <summary>
         /// Поиск книг по жанру
@@ -123,15 +159,27 @@ namespace PetProjectMVCElLibrary.Controllers
             IEnumerable<BookViewModel> bookViewModels = new List<BookViewModel>();
             try
             {
-                IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByGenre(genreId);
-                bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
+                // Получаем ДТО жанра
+                GenreDTO? genreDTO = await genreService.GetGenre(genreId);
+                // Если жанр найден, выполняем логику
+                if (genreDTO != null)
+                {
+                    // Получаем ДТО книг
+                    IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByGenre(genreId);
+                    // Мапим во ViewModel
+                    bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
+                    // Выводи сообщение
+                    TempData["Message"] = $"Список книг по запросу: жанр - {genreDTO.Name}";
+                }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //_logger.LogError(e.Message);
-                throw;
+                // Сообщаем об ошибке, редиректим на стартовую страницу
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке загрузить список книг произошла ошибка!";
+                return RedirectToAction(nameof(BookController.Index));
             }
-            return View(bookViewModels);
+            return View("Index", bookViewModels);
         }
         /// <summary>
         /// Добавление кооментария к книге
@@ -140,47 +188,94 @@ namespace PetProjectMVCElLibrary.Controllers
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddComment(CommentViewModel commentViewModel)
         {
-            HttpContext? httpContent = _httpContextAccessor.HttpContext;
-            BookDTO bookDTO = await bookService.GetBook(commentViewModel.Id);
-            if (bookDTO != null)
+            // Проверям авторизован ли пользователь
+            Guid userId = Guid.Empty;
+            if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
             {
-                if (httpContent != null)
+                // Если авторизован, выполняем логику
+                try
                 {
-                    Claim? claim = httpContent.User.FindFirst(ClaimTypes.NameIdentifier);
-                    if (claim != null)
+                    // Получаем ДТО пользователя
+                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    // Если пользователь найден, получаем ДТО книги
+                    if (userDTO != null)
                     {
-                        var userId = claim.Value;
-                        ApplicationUserDTO userDTO = await applicationUserService.GetUser(Guid.Parse(userId));
-                        CommentDTO commentDTO = new CommentDTO()
+                        // Получаем ДТО книги, если книга найдена
+                        BookDTO? bookDTO = await bookService.GetBook(commentViewModel.Id);
+                        if (bookDTO != null)
                         {
-                            CreateOn = DateTime.Now,
-                            CommentText = commentViewModel.CommentText,
-                            UserId = userId,
-                            BookId = commentViewModel.Id,
-                            Email = userDTO.Email,
-                            UserName = userDTO.UserName,
-                        };
-                        commentService.CreateComment(commentDTO);
-                        //return View("ShowCurrentBook", _mapper.Map<BookViewModel>(bookDTO));
+                            // Генерим ДТО коммента
+                            CommentDTO commentDTO = new CommentDTO()
+                            {
+                                CreateOn = DateTime.Now,
+                                CommentText = commentViewModel.CommentText,
+                                UserId = userId.ToString(),
+                                BookId = commentViewModel.Id,
+                                Email = userDTO.Email,
+                                UserName = userDTO.UserName,
+                            };
+                            // Добавляем комментарий
+                            commentService.CreateComment(commentDTO);
+                        }
+                        // Редиректим на страницу книги
                         return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
                     }
+                    // Если пользователь не найден, отправляем на экран авторизации
+                    return RedirectToAction(nameof(AccountController.Login), new LoginViewModel());
                 }
-                return View("ShowCurrentBook", _mapper.Map<BookViewModel>(bookDTO));
+                catch (Exception ex)
+                {
+                    // Генерим лог с сообщением об ошибке, редиректим на окно выбора книги
+                    _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                    TempData["Message"] = "При попытке добавить комментарий произошла ошибка!";
+                    return RedirectToAction(nameof(BookController.Index));
+                }
             }
-            throw new ValidationException("Книга не найдена", "");
+            // Если пользователь не авторизован, отправляем на экран авторизации
+            return RedirectToAction(nameof(AccountController.Login), new LoginViewModel());
         }
         /// <summary>
-        /// Удаление комментария
+        /// Метод позволяющий пользователю удалить собственный комментарий
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> DeleteComment(CommentViewModel model)
         {
-            commentService.DeleteComment(model.Id);
-            BookDTO bookDTO = await bookService.GetBook(model.BookId);
-            return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
+            // Проверям авторизован ли пользователь
+            Guid userId = Guid.Empty;
+            if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
+            {
+                // Если авторизован, выполняем логику
+                try
+                {
+                    // Получаем ДТО книги
+                    BookDTO? bookDTO = await bookService.GetBook(model.BookId);
+                    // Если книга найдена
+                    if (bookDTO != null)
+                    {
+                        // Удаляем комментарий, редиректим на страницу книги
+                        commentService.DeleteComment(model.Id);
+                        return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
+                    }
+                    // Если не найдена, редиректим на страницу вывода книг, пишем сообщение, что не удалось удалить комментарий
+                    TempData["Message"] = "При попытке удалить комментарий произошла ошибка! Книга не найдена!";
+                    return RedirectToAction(nameof(BookController.Index));
+                }
+                catch (Exception ex)
+                {
+                    // Генерим лог с сообщением об ошибке, редиректим на окно выбора книги
+                    _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                    TempData["Message"] = "При попытке удалить комментарий произошла ошибка!";
+                    return RedirectToAction(nameof(BookController.Index));
+                }
+            }
+            // Если пользователь не авторизован, отправляем на экран авторизации
+            return RedirectToAction(nameof(AccountController.Login), new LoginViewModel());
         }
     }
 }
