@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BLL.Interfaces.DTO;
 using BLL.Models.DTO.ApplicationUser;
 using BLL.Models.DTO.Author;
 using BLL.Models.DTO.Book;
@@ -52,10 +53,33 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         /// <param name="codeWord"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(string codeWord)
         {
-            TextFieldDTO textFieldDTO = codeWord == default ? new TextFieldDTO() : (await textFieldService.GetTextFieldByCodeWord(codeWord) ?? new TextFieldDTO());
-            return View(_mapper.Map<TextFieldViewModel>(textFieldDTO));
+            // Проверям авторизован ли пользователь
+            Guid userId = Guid.Empty;
+            if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
+            {
+                TextFieldDTO? textFieldDTO = new TextFieldDTO();
+                try
+                {
+                    // Получаем TextField ДТО, если код ворд пустой, возращаем пустое ДТО, иначе получаем ДТО по код ворд
+                    textFieldDTO = codeWord == default ? new TextFieldDTO() : (await textFieldService.GetTextFieldByCodeWord(codeWord));
+                    if (textFieldDTO != null)
+                    {
+                        return View(_mapper.Map<TextFieldViewModel>(textFieldDTO));
+                    }
+                    TempData["Message"] = "Не удалось найти текстовое поле для редактирования";
+                }
+                catch (Exception ex)
+                {
+                    // Генерим лог с сообщением об ошибке, редиректим на панель админа
+                    _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                    TempData["Message"] = "При попытке получить текстовое поле произошла ошибка!";
+                    return RedirectToAction(nameof(HomeController.Index));
+                }
+            }
+            return RedirectToAction(nameof(HomeController.Index));
         }
         /// <summary>
         /// Метод принимает ViewModel TextField, сохраняет изменения
@@ -93,7 +117,7 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
                     }
                     catch (Exception ex)
                     {
-                        // Генерим лог с сообщением об ошибке, редиректим на окно выбора книги
+                        // Генерим лог с сообщением об ошибке, редиректим на панель админа
                         _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                         TempData["Message"] = "При попытке изменить текстовое поле произошла ошибка!";
                         return RedirectToAction(nameof(HomeController.Index));

@@ -281,3 +281,57 @@ Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProje
 Path: /favicon.ico  Time:14:54:38
 Path: /favicon.ico  Time:14:54:40
 Path: /favicon.ico  Time:14:54:41
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:8:38:16
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:8:41:13
+Path: /favicon.ico  Time:8:41:17
+Path: /Admin/User/Login  Time:8:41:21
+Path: /favicon.ico  Time:8:41:21
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:27:05
+Path: /favicon.ico  Time:14:27:06
+Path: /favicon.ico  Time:14:27:21
+Path: /favicon.ico  Time:14:27:28
+Path: /favicon.ico  Time:14:27:30
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:28:11
+Path: /favicon.ico  Time:14:28:12
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:14:28:15
+Path: /favicon.ico  Time:14:28:21
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:30:26
+Path: /favicon.ico  Time:14:30:27
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:14:30:29
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:32:35
+Path: /favicon.ico  Time:14:32:37
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:14:32:38
+Path: /favicon.ico  Time:14:32:42
+Path: /favicon.ico  Time:14:32:47
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:33:21
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:33:30
+Path: /favicon.ico  Time:14:33:34
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:14:33:36

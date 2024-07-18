@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BLL.Models.DTO.ApplicationUser;
 using BLL.Models.DTO.Author;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Genre;
@@ -10,9 +11,13 @@ using BLL.Services.Comment;
 using BLL.Services.Genre;
 using DAL.Domain;
 using DAL.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PetProjectMVCElLibrary.Controllers;
+using PetProjectMVCElLibrary.Service;
 using PetProjectMVCElLibrary.ViewModel.Author;
+using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Genre;
 
@@ -29,7 +34,8 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         private readonly IApplicationUserService applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private readonly ILogger _logger;
+        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<HomeController> logger)
         {
             _context = context;
             _mapper = mapper;
@@ -39,22 +45,54 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
             genreService = new GenreService(context, mapper);
             applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
+        /// <summary>
+        /// Метод вывода информации в панель модератора
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            IEnumerable<BookDTO> bookDTOs = await bookService.GetAllBooks();
-            bookDTOs = bookDTOs.OrderBy(x => x.Title);
-            IEnumerable<BookViewModel> bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
+            Guid userId = Guid.Empty;
+            if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
+            {
+                try
+                {
+                    // Получаем ДТО пользователя
+                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    if (userDTO != null)
+                    {
+                        // Проверяем является ли пользователь модератором
+                        if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+                        {
+                            // Получаем дто книг, жанров, авторов, мапим во ViewModel, передаем в представление, возвращаем представление
+                            IEnumerable<BookDTO> bookDTOs = await bookService.GetAllBooks();
+                            bookDTOs = bookDTOs.OrderBy(x => x.Title);
+                            IEnumerable<BookViewModel> bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
 
-            IEnumerable<GenreDTO> genreDTOs = await genreService.GetAllGenres();
-            genreDTOs = genreDTOs.OrderBy(x => x.Name);
-            IEnumerable<GenreViewModel> genreViewModels = _mapper.Map<IEnumerable<GenreViewModel>>(genreDTOs);
+                            IEnumerable<GenreDTO> genreDTOs = await genreService.GetAllGenres();
+                            genreDTOs = genreDTOs.OrderBy(x => x.Name);
+                            IEnumerable<GenreViewModel> genreViewModels = _mapper.Map<IEnumerable<GenreViewModel>>(genreDTOs);
 
-            IEnumerable<AuthorDTO> authorDTOs = await authorService.GetAllAuthors();
-            authorDTOs = authorDTOs.OrderBy(x => x.Name);
-            IEnumerable<AuthorViewModel> authorViewModels = _mapper.Map<IEnumerable<AuthorViewModel>>(authorDTOs);
+                            IEnumerable<AuthorDTO> authorDTOs = await authorService.GetAllAuthors();
+                            authorDTOs = authorDTOs.OrderBy(x => x.Name);
+                            IEnumerable<AuthorViewModel> authorViewModels = _mapper.Map<IEnumerable<AuthorViewModel>>(authorDTOs);
 
-            return View(new BookDevViewModel { Books = bookViewModels, Authors = authorViewModels, Genres = genreViewModels });
+                            return View(new BookDevViewModel { Books = bookViewModels, Authors = authorViewModels, Genres = genreViewModels });
+                        }
+                    }
+                }
+                catch (Exception ex) 
+                {
+                    // Генерим лог с сообщением об ошибке, редиректим на панель модератора
+                    _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                    TempData["Message"] = "При попытке удаления жанра произошла ошибка!";
+                    return RedirectToAction(nameof(HomeController.Index));
+                }
+            }
+            return RedirectToAction(nameof(AccountController.Login), new LoginViewModel());
         }
     }
 }

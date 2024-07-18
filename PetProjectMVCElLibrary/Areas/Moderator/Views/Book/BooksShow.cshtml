@@ -3,6 +3,7 @@
     // TextField textField = ViewBag.TextField;
 }
 <div>
+    <h2>@TempData["Message"]</h2>
     <form asp-area="Moderator" asp-controller="Book" asp-action="SearchByName" method="post" enctype="multipart/form-data">
         <div class="div-box">
             <h2>Поиск по названию</h2>
