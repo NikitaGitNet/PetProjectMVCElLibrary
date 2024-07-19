@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
+    /// <summary>
+    /// Интерфейс бизнес-логики взаимодействия с ДТО брони
+    /// </summary>
     public interface IBookingService
     {
         /// <summary>

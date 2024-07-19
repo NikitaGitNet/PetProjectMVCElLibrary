@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.Areas.Admin.ViewModel.TextField;
 using PetProjectMVCElLibrary.Controllers;
 using PetProjectMVCElLibrary.Service;
+using PetProjectMVCElLibrary.Service.Logger;
 using PetProjectMVCElLibrary.ViewModel.Author;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Genre;
@@ -42,8 +43,8 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _hostingEnviroment;
-        private readonly ILogger _logger;
-        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnviroment, UserManager<DAL.Domain.Entities.ApplicationUser> userManager, ILogger<BookController> logger)
+        private readonly ILogger<FileLogger> _logger;
+        public BookController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnviroment, UserManager<DAL.Domain.Entities.ApplicationUser> userManager, ILogger<FileLogger> logger)
         {
             _context = context;
             _mapper = mapper;

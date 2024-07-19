@@ -1,17 +1,24 @@
 ﻿using BLL.Interfaces.DTO;
 using BLL.Models.DTO.Book;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Models.DTO.Author
 {
+    /// <summary>
+    /// ДТО автора
+    /// </summary>
     public class AuthorDTO : IAuthorDTO
     {
+        /// <summary>
+        /// ИД автора
+        /// </summary>
         public Guid Id { get; set; }
+        /// <summary>
+        /// Наименование
+        /// </summary>
         public string? Name { get; set; }
+        /// <summary>
+        /// Коллекция ДТО связанных книг
+        /// </summary>
         public IEnumerable<BookDTO>? Books { get; set; }
     }
 }

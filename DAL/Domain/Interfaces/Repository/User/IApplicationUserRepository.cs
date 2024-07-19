@@ -1,4 +1,5 @@
 ﻿using DAL.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Domain.Interfaces.Repository.User
 {
+    /// <summary>
+    /// Интерфейс расширяющий логику взаимодействия с энтити пользователя
+    /// </summary>
     public interface IApplicationUserRepository : IRepository<ApplicationUser>
     {
         /// <summary>
@@ -22,5 +26,13 @@ namespace DAL.Domain.Interfaces.Repository.User
         /// <param name="roleName"></param>
         /// <returns></returns>
         Task<bool> IsUserRoleConfirm(Guid userId, string roleName);
+        /// <summary>
+        /// Добавляем пользователя в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="password"></param>
+        /// <param name="userManager"></param>
+        /// <returns></returns>
+        Task<bool> SaveUser(ApplicationUser entity, string password, UserManager<ApplicationUser> userManager);
     }
 }

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.Controllers;
 using PetProjectMVCElLibrary.Service;
+using PetProjectMVCElLibrary.Service.Logger;
 using PetProjectMVCElLibrary.ViewModel.Author;
 using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.Book;
@@ -34,8 +35,8 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         private readonly IApplicationUserService applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger _logger;
-        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<HomeController> logger)
+        private readonly ILogger<FileLogger> _logger;
+        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<FileLogger> logger)
         {
             _context = context;
             _mapper = mapper;

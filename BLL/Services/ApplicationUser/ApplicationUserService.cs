@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
 using BLL.Models.DTO.ApplicationUser;
 using DAL.Domain;
-using DAL.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace BLL.Services.ApplicationUser
@@ -81,6 +79,16 @@ namespace BLL.Services.ApplicationUser
             return false;
         }
         /// <summary>
+        /// Авторизация пользователя в системе
+        /// </summary>
+        /// <param name="applicationUserDTO"></param>
+        /// <returns></returns>
+        public async Task SignIn(ApplicationUserDTO applicationUserDTO)
+        {
+            DAL.Domain.Entities.ApplicationUser applicationUser = _mapper.Map<DAL.Domain.Entities.ApplicationUser>(applicationUserDTO);
+            await _signInManager.SignInAsync(applicationUser, false);
+        }
+        /// <summary>
         /// Метод смены пароля пользователя
         /// </summary>
         /// <param name="userId"></param>
@@ -93,8 +101,8 @@ namespace BLL.Services.ApplicationUser
             if (applicationUser != null)
             {
                 applicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUser, password);
-                var a = await _userManager.UpdateAsync(applicationUser);
-                result = a.Succeeded;
+                IdentityResult? identityResult = await _userManager.UpdateAsync(applicationUser);
+                result = identityResult.Succeeded;
                 return result;
             }
             return result;
@@ -103,10 +111,10 @@ namespace BLL.Services.ApplicationUser
         /// Метод создания/обновления пользователя
         /// </summary>
         /// <param name="user"></param>
-        public void SaveUser(ApplicationUserDTO user)
+        public async Task<bool> SaveUser(ApplicationUserDTO user)
         {
             DAL.Domain.Entities.ApplicationUser applicationUser = _mapper.Map<ApplicationUserDTO, DAL.Domain.Entities.ApplicationUser>(user);
-            Database.ApplicationUserRepository.SaveEntity(applicationUser);
+            return await Database.ApplicationUserRepository.SaveUser(applicationUser, user.Password ?? "", _userManager);
         }
         /// <summary>
         /// Метод удаления пользователя на основании ИД

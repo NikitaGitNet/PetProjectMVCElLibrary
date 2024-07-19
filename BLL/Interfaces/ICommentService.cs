@@ -2,6 +2,9 @@
 
 namespace BLL.Interfaces
 {
+    /// <summary>
+    /// Интерфейс бизнес-логики взаимодействия с ДТО комментария
+    /// </summary>
     public interface ICommentService
     {
         /// <summary>

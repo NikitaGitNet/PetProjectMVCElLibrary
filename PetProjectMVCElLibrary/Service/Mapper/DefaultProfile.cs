@@ -9,6 +9,7 @@ using BLL.Models.DTO.TextField;
 using DAL.Domain.Entities;
 using PetProjectMVCElLibrary.Areas.Admin.ViewModel.TextField;
 using PetProjectMVCElLibrary.ViewModel.Author;
+using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Booking;
 using PetProjectMVCElLibrary.ViewModel.Comment;
@@ -42,6 +43,15 @@ namespace PetProjectMVCElLibrary.Service.Mapper
             CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()
                 .ForMember(x => x.Password, opt => opt.MapFrom(src => ""));
             CreateMap<ApplicationUserViewModel, ApplicationUserDTO>();
+
+            CreateMap<ApplicationUserDTO, RegisterViewModel>()
+                .ForMember(x => x.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(x => x.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(x => x.Password, opt => opt.MapFrom(src => src.Password));
+            CreateMap<RegisterViewModel, ApplicationUserDTO>()
+                .ForMember(x => x.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(x => x.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(x => x.Password, opt => opt.MapFrom(src => src.Password));
 
             CreateMap<BookingDTO, Booking>();
             CreateMap<Booking, BookingDTO>();

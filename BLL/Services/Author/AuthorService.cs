@@ -1,15 +1,7 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
 using BLL.Models.DTO.Author;
-using BLL.Models.DTO.Genre;
 using DAL.Domain;
-using DAL.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services.Author
 {
@@ -39,14 +31,10 @@ namespace BLL.Services.Author
         /// <exception cref="ValidationException"></exception>
         public async Task<AuthorDTO?> GetAuthor(Guid id)
         {
+            // Достаем из БД ентити
             DAL.Domain.Entities.Author? author = await Database.AuthorRepository.GetEntityByIdAsync(id);
-            if (author != null)
-            {
-                // Если не null, возвращаем DTO
-                return _mapper.Map<AuthorDTO>(author);
-            }
-            // Если null, выбрасываем исключение "Книга не найдена"
-            throw new ValidationException("Автор не найден", "");
+            // Мапим, возвращаем DTO
+            return _mapper.Map<AuthorDTO>(author);
         }
         public async Task<AuthorDTO?> GetAuthorByName(string name)
         {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.Domain.Interfaces.Repository
+﻿namespace DAL.Domain.Interfaces.Repository
 {
     /// <summary>
     /// Интерфейс для классической реализации паттерна Repository
+    /// Базовая логика взаимодействия, актуальная для всех энтити
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IRepository<T>

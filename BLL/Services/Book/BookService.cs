@@ -1,16 +1,7 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
-using BLL.Interfaces.DTO;
 using BLL.Models.DTO.Book;
 using DAL.Domain;
-using DAL.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services.Book
 {
@@ -34,13 +25,8 @@ namespace BLL.Services.Book
         {
             // Получаем из базы коллекцию
             IEnumerable<DAL.Domain.Entities.Book> books = await Database.BookRepository.GetAllEntityesAsync();
-            // Если книг нет, генерим исключение, что книг нету
-            if (!books.Any())
-            {
-                throw new ValidationException("Книги не найдены", "");
-            }
-            // Конвертируем в DTO, возвращаем коллекцию DTO
             return _mapper.Map<IEnumerable<BookDTO>>(books);
+
         }
         /// <summary>
         /// Обращаемся к BookRepository, получаем книгу по Id, конвертируем в BookDTO
@@ -83,13 +69,8 @@ namespace BLL.Services.Book
         public async Task<IEnumerable<BookDTO>> GetBookByGenre(Guid genreId)
         {
             IEnumerable<DAL.Domain.Entities.Book> books = await Database.BookRepository.GetEntityesByGenreAsync(genreId);
-            // Если книг нет, генерим исключение, что книг нету
-            if (!books.Any())
-            {
-                throw new ValidationException("Книги не найдены", "");
-            }
-            // Конвертируем в DTO, возвращаем коллекцию DTO
             return _mapper.Map<IEnumerable<BookDTO>>(books);
+
         }
         /// <summary>
         /// Получение  книг по автору и маппинг их в ДТО
@@ -100,13 +81,8 @@ namespace BLL.Services.Book
         public async Task<IEnumerable<BookDTO>> GetBookByAuthor(Guid authorId)
         {
             IEnumerable<DAL.Domain.Entities.Book> books = await Database.BookRepository.GetEntityesByAuthorAsync(authorId);
-            // Если книг нет, генерим исключение, что книг нету
-            if (!books.Any())
-            {
-                throw new ValidationException("Книги не найдены", "");
-            }
-            // Конвертируем в DTO, возвращаем коллекцию DTO
             return _mapper.Map<IEnumerable<BookDTO>>(books);
+
         }
         /// <summary>
         /// Удаление книги из БД, на основании ИД

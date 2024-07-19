@@ -20,6 +20,7 @@ using PetProjectMVCElLibrary.Areas.Admin.ViewModel.TextField;
 using PetProjectMVCElLibrary.Controllers;
 using PetProjectMVCElLibrary.Interfaces.Book;
 using PetProjectMVCElLibrary.Service;
+using PetProjectMVCElLibrary.Service.Logger;
 using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.Book;
 
@@ -36,8 +37,8 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         private readonly IApplicationUserService applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger _logger;
-        public TextFieldController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger logger)
+        private readonly ILogger<FileLogger> _logger;
+        public TextFieldController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<FileLogger> logger)
         {
             _mapper = mapper;
             _context = context;

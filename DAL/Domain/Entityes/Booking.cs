@@ -13,7 +13,7 @@ namespace DAL.Domain.Entities
     public class Booking
     {
         /// <summary>
-        /// ИД брони
+        /// ИД брони, первичный ключ
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
@@ -33,13 +33,13 @@ namespace DAL.Domain.Entities
         /// </summary>
         public string? Email { get; set; }
         /// <summary>
-        /// ИД пользователя
+        /// ИД пользователя, внешний ключ, тип связи один ко многим
         /// </summary>
-        public string? UserId { get; set; }
         [ForeignKey("UserId")]
+        public string? UserId { get; set; }
         public ApplicationUser? User { get; set; }
         /// <summary>
-        /// ИД книги
+        /// ИД книги, внешний ключ, тип связи один ко многим
         /// </summary>
         [ForeignKey("Id")]
         public Guid BookId { get; set; }
@@ -48,6 +48,9 @@ namespace DAL.Domain.Entities
         /// </summary>
         public string? BooksTitle { get; set; }
         public Book? Book { get; set; }
+        /// <summary>
+        /// Уникальный код, согласно бизнес-модели по этому коду бользователь получаем книгу в библиотеки
+        /// </summary>
         public string? ReceiptCode { get; set; }
     }
 }

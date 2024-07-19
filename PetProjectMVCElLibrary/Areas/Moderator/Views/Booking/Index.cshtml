@@ -4,6 +4,7 @@
     ViewBag.Title = strTitle;
 }
 <div>
+    <h2>@TempData["Message"]</h2>
     @if (Model.Any())
     {
         <form asp-area="Moderator" asp-controller="Booking" asp-action="Show" method="post" enctype="multipart/form-data">

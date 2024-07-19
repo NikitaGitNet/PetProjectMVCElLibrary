@@ -21,7 +21,5 @@ namespace PetProjectMVCElLibrary.ViewModel.Authorization
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]
         public string? PasswordConfirm { get; set; }
-        public bool MaxLengthName = false;
-        public bool UniqueName = false;
     }
 }

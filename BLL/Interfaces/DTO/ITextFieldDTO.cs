@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BLL.Interfaces.DTO
+﻿namespace BLL.Interfaces.DTO
 {
+    /// <summary>
+    /// Интерфейс ДТО текстового поля
+    /// </summary>
     public interface ITextFieldDTO
     {
+        /// <summary>
+        /// ИД текстового поля
+        /// </summary>
         Guid Id { get; set; }
+        /// <summary>
+        /// CodeWord текстового поля
+        /// </summary>
         string? CodeWord { get; set; }
+        /// <summary>
+        /// Название текстового поля
+        /// </summary>
         string? Title { get; set; }
+        /// <summary>
+        /// Содержимое текстового поля
+        /// </summary>
         string? Text { get; set; }
     }
 }

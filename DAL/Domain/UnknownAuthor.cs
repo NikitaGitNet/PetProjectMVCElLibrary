@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Domain
 {
+    /// <summary>
+    /// Неизвестный автор, если при создании книги не указать автора, по умолчанию будет этот автор
+    /// </summary>
     static public class UnknownAuthor
     {
         public const string Name = "Неизвестный автор";

@@ -3,6 +3,9 @@ using BLL.Models.DTO.Book;
 
 namespace BLL.Interfaces
 {
+    /// <summary>
+    /// Интерфейс бизнес-логики взаимодействия с ДТО книги
+    /// </summary>
     public interface IBookService
     {
         /// <summary>

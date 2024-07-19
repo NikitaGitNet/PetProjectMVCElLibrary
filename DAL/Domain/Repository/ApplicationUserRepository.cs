@@ -2,12 +2,6 @@
 using DAL.Domain.Interfaces.Repository.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Domain.Repository
 {
@@ -70,18 +64,37 @@ namespace DAL.Domain.Repository
         /// Добавляем пользователя в БД
         /// </summary>
         /// <param name="entity"></param>
+        /// <param name="password"></param>
+        /// <param name="userManager"></param>
         /// <returns></returns>
-        public void SaveEntity(ApplicationUser entity)
+        public async Task<bool> SaveUser(ApplicationUser entity, string password, UserManager<ApplicationUser> userManager)
         {
+            bool result = false;
             if (entity.Id == default)
             {
-                _context.ApplicationUsers.Add(entity);
+                if (password != default)
+                {
+                    IdentityResult? identityResult = await userManager.CreateAsync(entity, password);
+                    if (identityResult != null) 
+                    {
+                        result = identityResult.Succeeded;
+                    }
+                }
             }
             else
             {
-                _context.ApplicationUsers.Update(entity);
+                IdentityResult? identityResult = await userManager.UpdateAsync(entity);
+                if (identityResult != null) 
+                {
+                    result = identityResult.Succeeded;
+                }
             }
             _context.SaveChanges();
+            return result;
+        }
+        public void SaveEntity(ApplicationUser entity)
+        {
+            throw new NotImplementedException();
         }
         /// <summary>
         /// Удаляем пользователя из бд
@@ -112,5 +125,7 @@ namespace DAL.Domain.Repository
         {
             return await _context.ApplicationUsers.Where(x => x.NormalizedEmail == email.ToUpper()).FirstOrDefaultAsync();
         }
+
+        
     }
 }

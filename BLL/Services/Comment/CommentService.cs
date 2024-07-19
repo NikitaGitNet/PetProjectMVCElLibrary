@@ -1,19 +1,13 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
-using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Comment;
 using DAL.Domain;
-using DAL.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services.Comment
 {
+    /// <summary>
+    /// Бизнес-логика взаимодействия с ДТО комментария
+    /// </summary>
     public class CommentService : ICommentService
     {
         private readonly UnitOfWorkRepository Database;
@@ -33,11 +27,7 @@ namespace BLL.Services.Comment
         public async Task<CommentDTO> GetComment(Guid id)
         {
             DAL.Domain.Entities.Comment? comment = await Database.CommentRepository.GetEntityByIdAsync(id);
-            if (comment != null)
-            {
-                return _mapper.Map<CommentDTO>(comment);
-            }
-            throw new ValidationException("Книга не найдена", "");
+            return _mapper.Map<CommentDTO>(comment);
         }
         /// <summary>
         /// Получение комментов для конкретной книги и маппинг их в ДТО
@@ -76,6 +66,11 @@ namespace BLL.Services.Comment
         {
             Database.CommentRepository.DeleteEntity(bookId);
         }
+        /// <summary>
+        /// Массовое удаление комментариев на основании массива ДТО
+        /// Мапим массив ДТО в массив энтити, передаем на слой ниже, удаляем
+        /// </summary>
+        /// <param name="commentDTOs"></param>
         public void DeleteRangeComments(IEnumerable<CommentDTO> commentDTOs)
         {
             IEnumerable<DAL.Domain.Entities.Comment> comments = _mapper.Map<IEnumerable<DAL.Domain.Entities.Comment>>(commentDTOs);

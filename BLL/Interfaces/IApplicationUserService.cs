@@ -1,5 +1,4 @@
 ﻿using BLL.Models.DTO.ApplicationUser;
-using BLL.Models.DTO.Book;
 
 namespace BLL.Interfaces
 {
@@ -34,6 +33,12 @@ namespace BLL.Interfaces
         /// <returns></returns>
         Task<bool> SignInResultSucceeded(string email, string password, bool rememberMe);
         /// <summary>
+        /// Авторизация пользователя в системе
+        /// </summary>
+        /// <param name="applicationUserDTO"></param>
+        /// <returns></returns>
+        Task SignIn(ApplicationUserDTO applicationUserDTO);
+        /// <summary>
         /// Метод проверки соответсвует ли текущий пользователь заявленной роли
         /// </summary>
         /// <param name="userId"></param>
@@ -44,7 +49,7 @@ namespace BLL.Interfaces
         /// Метод создания/обновления пользователя
         /// </summary>
         /// <param name="user"></param>
-        void SaveUser(ApplicationUserDTO user);
+        Task<bool> SaveUser(ApplicationUserDTO user);
         /// <summary>
         /// Метод смены пароля пользователя
         /// </summary>

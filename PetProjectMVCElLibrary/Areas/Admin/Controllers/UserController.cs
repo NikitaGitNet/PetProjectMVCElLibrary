@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.Areas.Admin.ViewModel.TextField;
 using PetProjectMVCElLibrary.Controllers;
 using PetProjectMVCElLibrary.Service;
+using PetProjectMVCElLibrary.Service.Logger;
 using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.User;
 
@@ -28,8 +29,8 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IBookService bookService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger _logger;
-        public UserController(AppDbContext context, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, ILogger logger)
+        private readonly ILogger<FileLogger> _logger;
+        public UserController(AppDbContext context, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, ILogger<FileLogger> logger)
         {
             _applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             bookService = new BookService(context, mapper);

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Domain
 {
+    /// <summary>
+    /// Неизвестный жанр, если при создании книги не указать жанр, по умолчанию будет этот жанр
+    /// </summary>
     public static class UnknownGenre
     {
         public const string Name = "Неизвестный жанр";

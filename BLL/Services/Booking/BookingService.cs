@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
 using BLL.Models.DTO.Booking;
 using DAL.Domain;
-using DAL.Domain.Entities;
 
 namespace BLL.Services.Booking
 {
@@ -31,14 +29,10 @@ namespace BLL.Services.Booking
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public async Task<BookingDTO> GetBooking(Guid id)
+        public async Task<BookingDTO?> GetBooking(Guid id)
         {
             DAL.Domain.Entities.Booking? booking = await Database.BookingRepository.GetEntityByIdAsync(id);
-            if (booking != null)
-            {
-                return _mapper.Map<BookingDTO>(booking);
-            }
-            throw new ValidationException("Бронь не найдена", "");
+            return _mapper.Map<BookingDTO?>(booking);
         }
         /// <summary>
         /// Получение броней по ИД пользователя, маппинг их в ДТО

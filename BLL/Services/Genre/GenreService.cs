@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
 using BLL.Models.DTO.Genre;
 using DAL.Domain;
-using DAL.Domain.Entities;
 
 namespace BLL.Services.Genre
 {
@@ -36,14 +34,10 @@ namespace BLL.Services.Genre
         /// <exception cref="ValidationException"></exception>
         public async Task<GenreDTO?> GetGenre(Guid id)
         {
+            // Достаем из БД ентити
             DAL.Domain.Entities.Genre? genre = await Database.GenreRepository.GetEntityByIdAsync(id);
-            if (genre != null)
-            {
-                // Если не null, возвращаем DTO
-                return _mapper.Map<GenreDTO>(genre);
-            }
-            // Если null, выбрасываем исключение "Книга не найдена"
-            throw new ValidationException("Жанр не найден", "");
+            // Мапим, возвращаем DTO
+            return _mapper.Map<GenreDTO?>(genre);
         }
         /// <summary>
         /// Получаем из БД жанр, маппим в ДТО, возвращаем

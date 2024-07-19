@@ -1,11 +1,6 @@
 ﻿using DAL.Domain.Entities;
 using DAL.Domain.Interfaces.Repository.Genre;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Domain.Repository
 {
@@ -79,8 +74,6 @@ namespace DAL.Domain.Repository
         {
             _context.Genres.RemoveRange(entityes);
             _context.SaveChanges();
-        }
-
-        
+        } 
     }
 }

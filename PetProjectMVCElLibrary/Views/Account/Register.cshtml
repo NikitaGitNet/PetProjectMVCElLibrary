@@ -6,15 +6,8 @@
 <h2>Регистрация нового пользователя</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
+    <p class="Alert">@ViewData["Message"]</p>
     <div class="inputBox">
-        @if (Model.MaxLengthName)
-        {
-            <p class="Alert">Максимальная длинна UserName - 20 символов</p>
-        }
-        @if (Model.UniqueName)
-        {
-            <p class="Alert">Это имя пользователя уже занято</p>
-        }
         <label asp-for="UserName"></label><br />
         <input class="inputBox" asp-for="UserName" />
         <span asp-validation-for="UserName"></span>
