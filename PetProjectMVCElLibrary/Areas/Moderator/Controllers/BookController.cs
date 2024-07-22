@@ -277,6 +277,10 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                 bookDTOs = bookDTOs.Where(x => (x.Title ?? "").ToUpper().Contains(model.Title.ToUpper()));
                                 // Мапим во ViewModel, передаем в представление, возвращаем представление
                                 IEnumerable<BookViewModel> bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
+                                if (!bookViewModels.Any())
+                                {
+                                    TempData["Message"] = "Книги не найдены";
+                                }
                                 return View("BooksShow", bookViewModels);
                             }
                             TempData["Message"] = "При попытке найти книгу произошла ошибка!";

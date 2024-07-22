@@ -33,8 +33,8 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
     public class TextFieldController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly TextFieldService textFieldService;
-        private readonly IApplicationUserService applicationUserService;
+        private readonly TextFieldService _textFieldService;
+        private readonly IApplicationUserService _applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<FileLogger> _logger;
@@ -42,9 +42,9 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         {
             _mapper = mapper;
             _context = context;
-            textFieldService = new TextFieldService(context, mapper);
+            _textFieldService = new TextFieldService(context, mapper);
             _httpContextAccessor = httpContextAccessor;
-            applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
+            _applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _logger = logger;
         }
         /// <summary>
@@ -61,23 +61,32 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
             Guid userId = Guid.Empty;
             if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
             {
-                TextFieldDTO? textFieldDTO = new TextFieldDTO();
-                try
+                // Получем на пальзователя ДТО
+                ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
+                if (userDTO != null)
                 {
-                    // Получаем TextField ДТО, если код ворд пустой, возращаем пустое ДТО, иначе получаем ДТО по код ворд
-                    textFieldDTO = codeWord == default ? new TextFieldDTO() : (await textFieldService.GetTextFieldByCodeWord(codeWord));
-                    if (textFieldDTO != null)
+                    // Проверяем является ли он админом
+                    if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "admin"))
                     {
-                        return View(_mapper.Map<TextFieldViewModel>(textFieldDTO));
+                        TextFieldDTO? textFieldDTO = new TextFieldDTO();
+                        try
+                        {
+                            // Получаем TextField ДТО, если код ворд пустой, возращаем пустое ДТО, иначе получаем ДТО по код ворд
+                            textFieldDTO = codeWord == default ? new TextFieldDTO() : (await _textFieldService.GetTextFieldByCodeWord(codeWord));
+                            if (textFieldDTO != null)
+                            {
+                                return View(_mapper.Map<TextFieldViewModel>(textFieldDTO));
+                            }
+                            TempData["Message"] = "Не удалось найти текстовое поле для редактирования";
+                        }
+                        catch (Exception ex)
+                        {
+                            // Генерим лог с сообщением об ошибке, редиректим на панель админа
+                            _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                            TempData["Message"] = "При попытке получить текстовое поле произошла ошибка!";
+                            return RedirectToAction(nameof(HomeController.Index));
+                        }
                     }
-                    TempData["Message"] = "Не удалось найти текстовое поле для редактирования";
-                }
-                catch (Exception ex)
-                {
-                    // Генерим лог с сообщением об ошибке, редиректим на панель админа
-                    _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                    TempData["Message"] = "При попытке получить текстовое поле произошла ошибка!";
-                    return RedirectToAction(nameof(HomeController.Index));
                 }
             }
             return RedirectToAction(nameof(HomeController.Index));
@@ -100,15 +109,15 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
                     try
                     {
                         // Получаем ДТО пользователя
-                        ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                        ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                         if (userDTO != null)
                         {
-                            if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "admin"))
+                            if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "admin"))
                             {
                                 // Мапим ViewModel в ДТО
                                 TextFieldDTO textFieldDTO = _mapper.Map<TextFieldDTO>(textFieldViewModel);
                                 // Сохраняем изменения
-                                textFieldService.SaveTextField(textFieldDTO);
+                                _textFieldService.SaveTextField(textFieldDTO);
                                 TempData["Message"] = "Текстовое поле успешно изменено";
                                 return RedirectToAction(nameof(HomeController.Index));
                             }

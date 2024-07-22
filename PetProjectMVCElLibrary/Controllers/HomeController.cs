@@ -44,7 +44,7 @@ namespace PetProjectMVCElLibrary.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                throw;
+                return View(new TextFieldViewModel());
             }
             // Если ДТО не null
             if (textFieldDTO != null)

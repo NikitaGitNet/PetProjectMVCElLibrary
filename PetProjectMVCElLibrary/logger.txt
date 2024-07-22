@@ -389,3 +389,182 @@ Hosting environment: Development
 Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
 Path: /favicon.ico  Time:11:38:38
 Path: /favicon.ico  Time:11:38:40
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /  Time:11:26:49
+Path: /  Time:11:26:49
+Path: /favicon.ico  Time:11:26:50
+Path: /favicon.ico  Time:11:26:50
+Path: /  Time:11:27:32
+Path: /favicon.ico  Time:11:27:33
+Path: /  Time:11:27:33
+Path: /favicon.ico  Time:11:27:34
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:11:37:06
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:13:53:15
+Path: /favicon.ico  Time:13:53:17
+Path: /favicon.ico  Time:13:53:33
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:13:55:37
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:13:56:09
+Path: /favicon.ico  Time:13:56:10
+Path: /favicon.ico  Time:13:56:11
+Path: /favicon.ico  Time:13:56:11
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:22:03
+Path: /favicon.ico  Time:14:22:04
+Path: /favicon.ico  Time:14:22:06
+Path: /favicon.ico  Time:14:22:26
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:23:10
+Path: /favicon.ico  Time:14:23:10
+Path: /favicon.ico  Time:14:23:12
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:23:52
+Path: /favicon.ico  Time:14:23:54
+Path: /favicon.ico  Time:14:23:59
+Path: /favicon.ico  Time:14:24:05
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /sass/images/mobileUI-site-nav-opener-bg.svg  Time:15:06:32
+Path: /favicon.ico  Time:15:06:33
+Path: /favicon.ico  Time:15:06:34
+Path: /favicon.ico  Time:15:06:52
+Path: /favicon.ico  Time:15:06:53
+Path: /favicon.ico  Time:15:06:55
+Path: /sass/images/mobileUI-site-nav-opener-bg.svg  Time:15:06:57
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:09:48
+Path: /favicon.ico  Time:15:09:50
+Path: /favicon.ico  Time:15:09:50
+Path: /favicon.ico  Time:15:09:53
+Path: /favicon.ico  Time:15:10:04
+Path: /Admin/Home/Login  Time:15:10:05
+Path: /favicon.ico  Time:15:10:05
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:11:21
+Path: /favicon.ico  Time:15:11:23
+Path: /favicon.ico  Time:15:11:29
+Path: /favicon.ico  Time:15:11:30
+Path: /favicon.ico  Time:15:11:33
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:20:15
+Path: /favicon.ico  Time:15:20:18
+Path: /Book/SearchByName  Time:15:20:20
+Path: /favicon.ico  Time:15:20:20
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:25:02
+Path: /favicon.ico  Time:15:25:05
+Path: /favicon.ico  Time:15:25:06
+Path: /favicon.ico  Time:15:25:08
+Path: /favicon.ico  Time:15:25:09
+Path: /favicon.ico  Time:15:25:24
+Path: /favicon.ico  Time:15:25:25
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:25:42
+Path: /favicon.ico  Time:15:25:44
+Path: /favicon.ico  Time:15:25:46
+Path: /favicon.ico  Time:15:25:55
+Path: /favicon.ico  Time:15:25:56
+22.07.2024 15:25:57
+Ошибка: TextField с ключевым словом PageContacts не найдена!
+Path: /favicon.ico  Time:15:25:57
+Path: /favicon.ico  Time:15:25:58
+22.07.2024 15:25:59
+Ошибка: TextField с ключевым словом PageContacts не найдена!
+Path: /favicon.ico  Time:15:25:59
+Path: /favicon.ico  Time:15:26:00
+Path: /Book/SearchBookByAutorOfGenre  Time:15:26:01
+Path: /favicon.ico  Time:15:26:01
+Path: /favicon.ico  Time:15:26:04
+Path: /Book/SearchBookByAutorOfGenre  Time:15:26:06
+Path: /favicon.ico  Time:15:26:06
+Path: /favicon.ico  Time:15:26:08
+Path: /Book/SearchBookByAutorOfGenre  Time:15:26:14
+Path: /favicon.ico  Time:15:26:14
+Path: /favicon.ico  Time:15:26:17
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:27:12
+Path: /favicon.ico  Time:15:27:14
+Path: /favicon.ico  Time:15:27:19
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:28:51
+Path: /favicon.ico  Time:15:28:58
+Path: /favicon.ico  Time:15:29:02
+Path: /favicon.ico  Time:15:29:06
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:30:26
+Path: /favicon.ico  Time:15:30:27
+The view 'BooksShow' was not found. Searched locations: /Views/Book/BooksShow.cshtml, /Views/Shared/BooksShow.cshtml
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:15:30:35
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:31:06
+Path: /favicon.ico  Time:15:31:08
+Path: /favicon.ico  Time:15:31:12
+Path: /favicon.ico  Time:15:31:20
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:50:22
+Path: /favicon.ico  Time:15:50:24
+Path: /favicon.ico  Time:15:50:26
+Path: /favicon.ico  Time:15:50:28
+Path: /favicon.ico  Time:15:50:45
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:51:29
+Path: /sass/images/mobileUI-site-nav-opener-bg.svg  Time:15:51:29
+Path: /favicon.ico  Time:15:51:31
+Path: /favicon.ico  Time:15:51:37
+Path: /sass/images/mobileUI-site-nav-opener-bg.svg  Time:15:51:45
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:53:13
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:53:47
+Path: /favicon.ico  Time:15:53:49
+Path: /favicon.ico  Time:15:53:50

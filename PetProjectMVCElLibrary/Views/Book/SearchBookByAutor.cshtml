@@ -1,0 +1,16 @@
+﻿@model IEnumerable<IAuthorViewModel>
+@{
+    string strTitle = "Список авторов";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>@TempData["Message"]</h2>
+    @foreach (IAuthorViewModel viewModel in Model)
+    {
+        <li>
+            <a class="glo" asp-area="" asp-controller="Book" asp-action="Show" asp-route-id="@viewModel.Id">
+                <h3>@viewModel.Name</h3>
+            </a>
+        </li>
+    }
+</div>

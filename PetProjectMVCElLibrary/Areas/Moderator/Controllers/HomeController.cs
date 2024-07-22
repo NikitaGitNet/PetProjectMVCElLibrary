@@ -4,16 +4,19 @@ using BLL.Models.DTO.ApplicationUser;
 using BLL.Models.DTO.Author;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Genre;
+using BLL.Models.DTO.TextField;
 using BLL.Services.ApplicationUser;
 using BLL.Services.Author;
 using BLL.Services.Book;
 using BLL.Services.Comment;
 using BLL.Services.Genre;
+using BLL.Services.TextField;
 using DAL.Domain;
 using DAL.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PetProjectMVCElLibrary.Areas.Admin.ViewModel.TextField;
 using PetProjectMVCElLibrary.Controllers;
 using PetProjectMVCElLibrary.Service;
 using PetProjectMVCElLibrary.Service.Logger;
@@ -36,8 +39,11 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<FileLogger> _logger;
-        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<FileLogger> logger)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly TextFieldService _textFieldService;
+        public HomeController(AppDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<FileLogger> logger, TextFieldService textFieldService)
         {
+            _signInManager = signInManager;
             _context = context;
             _mapper = mapper;
             bookService = new BookService(context, mapper);
@@ -47,6 +53,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
             applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
+            _textFieldService = textFieldService;
         }
         /// <summary>
         /// Метод вывода информации в панель модератора
@@ -94,6 +101,29 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 }
             }
             return RedirectToAction(nameof(AccountController.Login), new LoginViewModel());
+        }
+        /// <summary>
+        /// Метод редиректит на стартовую страницу, если проблемы с авторизацией
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> CommonIndex()
+        {
+            await _signInManager.SignOutAsync();
+            // Получаем ДТО с помощью TextFieldService
+            TextFieldViewModel textFieldViewModel = new TextFieldViewModel();
+            try
+            {
+                TextFieldDTO? textFieldDTO = new TextFieldDTO();
+                textFieldDTO = await _textFieldService.GetTextFieldByCodeWord("PageIndex");
+                textFieldViewModel = _mapper.Map<TextFieldViewModel>(textFieldDTO);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке загрузить панель модератора произошла ошибка!";
+            }
+            return View("~/Views/Home/Index.cshtml", textFieldViewModel);
         }
     }
 }

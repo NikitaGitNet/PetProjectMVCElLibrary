@@ -96,12 +96,17 @@ namespace BLL.Services.ApplicationUser
         /// <returns></returns>
         public async Task<bool> ChangePassword(Guid userId, string password)
         {
+            // Флаг успешности завершения смены пароля
             bool result = false;
+            // Получаем пользователя
             DAL.Domain.Entities.ApplicationUser? applicationUser = await Database.ApplicationUserRepository.GetEntityByIdAsync(userId);
             if (applicationUser != null)
             {
+                // Меняем пароль, присваеваем энтити новый хэш пароля
                 applicationUser.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUser, password);
+                // Обновляем пароль
                 IdentityResult? identityResult = await _userManager.UpdateAsync(applicationUser);
+                // Получаем результат
                 result = identityResult.Succeeded;
                 return result;
             }

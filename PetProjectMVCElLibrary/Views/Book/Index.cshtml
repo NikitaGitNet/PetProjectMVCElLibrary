@@ -6,8 +6,8 @@
 <div>
     <h2>@TempData["Message"]</h2>
     <div class="div-box">
-        <a class="glo" asp-controller="Book" asp-action="SearchBookByAutorOfGenre">Поиск по автору</a>
-        <a class="glo" asp-controller="Book" asp-action="SearchBookByAutorOfGenre">Поиск по жанру</a>
+        <a class="glo" asp-controller="Book" asp-action="SearchBookByAutor">Поиск по автору</a>
+        <a class="glo" asp-controller="Book" asp-action="SearchBookByGenre">Поиск по жанру</a>
         <form asp-controller="Book" asp-action="SearchByName" method="post" enctype="multipart/form-data">
             <div class="div-box">
                 <h2>Поиск по названию</h2>

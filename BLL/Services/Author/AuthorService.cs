@@ -36,6 +36,11 @@ namespace BLL.Services.Author
             // Мапим, возвращаем DTO
             return _mapper.Map<AuthorDTO>(author);
         }
+        /// <summary>
+        /// Получаем автора по наименованию, мапим в ДТО возвращаем
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public async Task<AuthorDTO?> GetAuthorByName(string name)
         {
             DAL.Domain.Entities.Author? author = await Database.AuthorRepository.GetEntityByNameAsync(name);

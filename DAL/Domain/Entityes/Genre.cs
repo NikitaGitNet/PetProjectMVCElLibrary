@@ -22,6 +22,6 @@ namespace DAL.Domain.Entities
         /// <summary>
         /// Связанные книги, тип связи один ко многим
         /// </summary>
-        public ICollection<Book>? Books { get; set; }
+        public ICollection<Book> Books { get; set; } = null!;
     }
 }

@@ -14,10 +14,10 @@ namespace DAL.Domain.Entities
         /// <summary>
         /// Комменты пользователя, тип связи один ко многим
         /// </summary>
-        public IEnumerable<Comment>? Comments { get; set; }
+        public IEnumerable<Comment> Comments { get; set; } = null!;
         /// <summary>
         /// Брони пользователя, тип связи один ко многим
         /// </summary>
-        public IEnumerable<Booking>? Bookings { get; set; }
+        public IEnumerable<Booking> Bookings { get; set; } = null!;
     }
 }

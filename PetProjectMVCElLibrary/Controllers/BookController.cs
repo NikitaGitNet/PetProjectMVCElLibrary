@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using BLL.Infrastructure;
 using BLL.Interfaces;
-using BLL.Interfaces.DTO;
 using BLL.Models.DTO.ApplicationUser;
 using BLL.Models.DTO.Author;
 using BLL.Models.DTO.Book;
 using BLL.Models.DTO.Comment;
 using BLL.Models.DTO.Genre;
-using BLL.Services;
 using BLL.Services.ApplicationUser;
 using BLL.Services.Author;
 using BLL.Services.Book;
@@ -19,13 +16,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PetProjectMVCElLibrary.Interfaces.Book;
-using PetProjectMVCElLibrary.Interfaces.Comment;
 using PetProjectMVCElLibrary.Service;
 using PetProjectMVCElLibrary.Service.Logger;
+using PetProjectMVCElLibrary.ViewModel.Author;
 using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Comment;
-using System.Security.Claims;
 
 namespace PetProjectMVCElLibrary.Controllers
 {
@@ -35,11 +31,11 @@ namespace PetProjectMVCElLibrary.Controllers
     public class BookController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IBookService bookService;
-        private readonly ICommentService commentService;
-        private readonly IAuthorService authorService;
-        private readonly IGenreService genreService;
-        private readonly IApplicationUserService applicationUserService;
+        private readonly IBookService _bookService;
+        private readonly ICommentService _commentService;
+        private readonly IAuthorService _authorService;
+        private readonly IGenreService _genreService;
+        private readonly IApplicationUserService _applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<FileLogger> _logger;
@@ -48,11 +44,11 @@ namespace PetProjectMVCElLibrary.Controllers
             _logger = logger;
             _context = context;
             _mapper = mapper;
-            bookService = new BookService(context, mapper);
-            commentService = new CommentService(context, mapper);
-            authorService = new AuthorService(context, mapper);
-            genreService = new GenreService(context, mapper);
-            applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
+            _bookService = new BookService(context, mapper);
+            _commentService = new CommentService(context, mapper);
+            _authorService = new AuthorService(context, mapper);
+            _genreService = new GenreService(context, mapper);
+            _applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _httpContextAccessor = httpContextAccessor;
         }
         /// <summary>
@@ -67,7 +63,7 @@ namespace PetProjectMVCElLibrary.Controllers
             try
             {
                 // Получаем ДТО книг
-                bookDTOs = await bookService.GetAllBooks();
+                bookDTOs = await _bookService.GetAllBooks();
                 // Мапим ДТО во ViewModel
                 bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
             }
@@ -93,11 +89,11 @@ namespace PetProjectMVCElLibrary.Controllers
             try
             {
                 // Получаем ДТО книг
-                BookDTO? bookDTO = await bookService.GetBook(book.Id);
+                BookDTO? bookDTO = await _bookService.GetBook(book.Id);
                 // Мапим во ViewModel
                 bookViewModel = _mapper.Map<BookViewModel>(bookDTO);
                 // Получаем ДТО комментариев
-                IEnumerable<CommentDTO> commentDTOs = await commentService.GetCommentsByBookId(book.Id);
+                IEnumerable<CommentDTO> commentDTOs = await _commentService.GetCommentsByBookId(book.Id);
                 // Мапим комментарии во ViewModel
                 bookViewModel.Comments = _mapper.Map<IEnumerable<CommentViewModel>>(commentDTOs);
             }
@@ -111,24 +107,78 @@ namespace PetProjectMVCElLibrary.Controllers
             // Передаем ViewModel в представление, возвращаем представление
             return View(bookViewModel);
         }
+        [HttpPost]
+        public async Task<IActionResult> SearchByName(string name)
+        {
+            try
+            {
+                // Если называние не null
+                if (name != null)
+                {
+                    // Получаем коллекцию ДТО книг
+                    IEnumerable<BookDTO> bookDTOs = await _bookService.GetAllBooks();
+                    // Ищем книгу с таким же названием
+                    bookDTOs = bookDTOs.Where(x => (x.Title ?? "").ToUpper().Contains(name.ToUpper()));
+                    // Мапим во ViewModel, передаем в представление, возвращаем представление
+                    IEnumerable<BookViewModel> bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
+                    if (!bookViewModels.Any())
+                    {
+                        TempData["Message"] = "Книги не найдены";
+                    }
+                    return View("Index", bookViewModels);
+                }
+                TempData["Message"] = "Для поиска по названию необходимо заполнить поле ввода";
+            }
+            catch (Exception ex)
+            {
+                // Генерим лог с сообщением об ошибке, редиректим в HomeController.Index
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке удалить книгу произошла ошибка!";
+            }
+            return RedirectToAction(nameof(HomeController.Index));
+        }
+        [HttpGet]
+        public async Task<IActionResult> SearchBookByAutor()
+        { 
+            try
+            {
+                IEnumerable<AuthorDTO> authorDTOs = await _authorService.GetAllAuthors();
+                if (authorDTOs.Any())
+                {
+                    authorDTOs = authorDTOs.OrderBy(x => x.Name);
+                }
+                else
+                {
+                    TempData["Message"] = "Авторы не найдены";
+                }
+                return View(_mapper.Map<IEnumerable<AuthorViewModel>>(authorDTOs));
+            }
+            catch (Exception ex)
+            {
+                // Генерим лог с сообщением об ошибке, редиректим в HomeController.Index
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке вывести авторов произошла ошибка!";
+            }
+            return RedirectToAction(nameof(BookController.Index));
+        }
         /// <summary>
         /// Поиск книг по автору
         /// </summary>
         /// <param name="authorId"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> SearchBookByAutor(Guid authorId)
         {
             IEnumerable<BookViewModel> bookViewModels = new List<BookViewModel>();
             try
             {
                 // Получаем ДТО автора
-                AuthorDTO? authorDTO = await authorService.GetAuthor(authorId);
+                AuthorDTO? authorDTO = await _authorService.GetAuthor(authorId);
                 // Если автор найден, выполняем логику
                 if (authorDTO != null)
                 {
                     // Получаем ДТО книг
-                    IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByAuthor(authorId);
+                    IEnumerable<BookDTO> bookDTOs = await _bookService.GetBookByAuthor(authorId);
                     // Мапим во ViewModel
                     bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
                     // Выводи сообщение
@@ -160,12 +210,12 @@ namespace PetProjectMVCElLibrary.Controllers
             try
             {
                 // Получаем ДТО жанра
-                GenreDTO? genreDTO = await genreService.GetGenre(genreId);
+                GenreDTO? genreDTO = await _genreService.GetGenre(genreId);
                 // Если жанр найден, выполняем логику
                 if (genreDTO != null)
                 {
                     // Получаем ДТО книг
-                    IEnumerable<BookDTO> bookDTOs = await bookService.GetBookByGenre(genreId);
+                    IEnumerable<BookDTO> bookDTOs = await _bookService.GetBookByGenre(genreId);
                     // Мапим во ViewModel
                     bookViewModels = _mapper.Map<IEnumerable<BookDTO>, IEnumerable<BookViewModel>>(bookDTOs);
                     // Выводи сообщение
@@ -199,12 +249,12 @@ namespace PetProjectMVCElLibrary.Controllers
                 try
                 {
                     // Получаем ДТО пользователя
-                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                     // Если пользователь найден, получаем ДТО книги
                     if (userDTO != null)
                     {
                         // Получаем ДТО книги, если книга найдена
-                        BookDTO? bookDTO = await bookService.GetBook(commentViewModel.Id);
+                        BookDTO? bookDTO = await _bookService.GetBook(commentViewModel.Id);
                         if (bookDTO != null)
                         {
                             // Генерим ДТО коммента
@@ -218,7 +268,7 @@ namespace PetProjectMVCElLibrary.Controllers
                                 UserName = userDTO.UserName,
                             };
                             // Добавляем комментарий
-                            commentService.CreateComment(commentDTO);
+                            _commentService.CreateComment(commentDTO);
                         }
                         // Редиректим на страницу книги
                         return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
@@ -254,12 +304,12 @@ namespace PetProjectMVCElLibrary.Controllers
                 try
                 {
                     // Получаем ДТО книги
-                    BookDTO? bookDTO = await bookService.GetBook(model.BookId);
+                    BookDTO? bookDTO = await _bookService.GetBook(model.BookId);
                     // Если книга найдена
                     if (bookDTO != null)
                     {
                         // Удаляем комментарий, редиректим на страницу книги
-                        commentService.DeleteComment(model.Id);
+                        _commentService.DeleteComment(model.Id);
                         return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
                     }
                     // Если не найдена, редиректим на страницу вывода книг, пишем сообщение, что не удалось удалить комментарий

@@ -42,7 +42,7 @@ namespace DAL.Domain.Entities
         /// </summary>
         [ForeignKey("AuthorId")]
         public Guid AuthorId { get; set; }
-        public Author? Author { get; set; }
+        public Author Author { get; set; } = null!;
         /// <summary>
         /// Внешний ключ жанра книги, тип связи один ко многим
         /// </summary>
@@ -50,7 +50,7 @@ namespace DAL.Domain.Entities
         public Guid GenreId { get; set; }
         [Display(Name = "Жанр книги")]
         public string? GenreName { get; set; }
-        public Genre? Genre { get; set; }
+        public Genre Genre { get; set; } = null!;
         /// <summary>
         /// Путь к обложке книги, обложки храняться в ~/wwwroot/images/
         /// </summary>
@@ -58,11 +58,11 @@ namespace DAL.Domain.Entities
         /// <summary>
         /// Комменты которые относятся к книге, тип связи, один ко многим
         /// </summary>
-        public ICollection<Comment>? Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; } = null!;
         /// <summary>
         /// Брони книги, тип связи один ко многим.
         /// На текущий момент 1 книга может единовременно иметь только 1 бронь, один ко многим делал с заделом на будующее, если вдруг приспичит добавлять книги не в еденичном экземпляре
         /// </summary>
-        public ICollection<Booking>? Bookings { get; set; }
+        public ICollection<Booking> Bookings { get; set; } = null!;
     }
 }

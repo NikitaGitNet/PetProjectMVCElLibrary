@@ -40,7 +40,7 @@ namespace DAL.Domain
                 Email = "my@email.com",
                 NormalizedEmail = "MY@EMAIL.COM",
                 EmailConfirmed = true,
-                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "superpassword"),
+                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null!, "superpassword"),
                 SecurityStamp = string.Empty,
                 CreateOn = DateTime.Now
             },
@@ -52,7 +52,7 @@ namespace DAL.Domain
                 Email = "moderator@email.com",
                 NormalizedEmail = "MODERATOR@EMAIL.COM",
                 EmailConfirmed = true,
-                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "moderatorpassword"),
+                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null!, "moderatorpassword"),
                 SecurityStamp = string.Empty,
                 CreateOn = DateTime.Now
             });

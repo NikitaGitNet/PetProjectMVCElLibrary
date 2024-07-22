@@ -9,7 +9,9 @@ using PetProjectMVCElLibrary.Service.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Устанавливаем файл для логгирования, настройка логгирования с помошью свойства Logging идет до создания объекта WebApplication
 builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+// Указываем профиль авто маппера
 builder.Services.AddAutoMapper(typeof(DefaultProfile));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options =>

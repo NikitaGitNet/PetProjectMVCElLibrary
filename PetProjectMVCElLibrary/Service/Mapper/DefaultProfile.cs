@@ -19,6 +19,9 @@ using System;
 
 namespace PetProjectMVCElLibrary.Service.Mapper
 {
+    /// <summary>
+    /// Профиль авто мапера
+    /// </summary>
     public class DefaultProfile : Profile
     {
         public DefaultProfile() 

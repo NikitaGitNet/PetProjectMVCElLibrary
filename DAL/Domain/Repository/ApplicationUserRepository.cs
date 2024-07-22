@@ -124,8 +124,6 @@ namespace DAL.Domain.Repository
         public async Task<ApplicationUser?> GetUserByEmail(string email)
         {
             return await _context.ApplicationUsers.Where(x => x.NormalizedEmail == email.ToUpper()).FirstOrDefaultAsync();
-        }
-
-        
+        } 
     }
 }

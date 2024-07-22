@@ -47,7 +47,7 @@ namespace DAL.Domain.Entities
         /// Название книги
         /// </summary>
         public string? BooksTitle { get; set; }
-        public Book? Book { get; set; }
+        public Book Book { get; set; } = null!;
         /// <summary>
         /// Уникальный код, согласно бизнес-модели по этому коду бользователь получаем книгу в библиотеки
         /// </summary>

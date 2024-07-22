@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,12 +38,12 @@ namespace DAL.Domain.Entities
         /// </summary>
         [ForeignKey("UserId")]
         public string? UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; } = null!;
         /// <summary>
         /// Внешний ключ книги, тип связи один ко многим
         /// </summary>
         [ForeignKey("BookId")]
         public Guid BookId { get; set; }
-        public Book Book { get; set; }
+        public Book Book { get; set; } = null!;
     }
 }

@@ -46,6 +46,10 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="entityes"></param>
         void DeleteRangeBookings(IEnumerable<BookingDTO> entityes);
+        /// <summary>
+        /// Создание уникального кода для получение пользователем книги
+        /// </summary>
+        /// <returns></returns>
         string CreateReceiptCode();
     }
 }
