@@ -34,5 +34,13 @@ namespace DAL.Domain.Interfaces.Repository.User
         /// <param name="userManager"></param>
         /// <returns></returns>
         Task<bool> SaveUser(ApplicationUser entity, string password, UserManager<ApplicationUser> userManager);
+        /// <summary>
+        /// Обновляем пользователя в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="password"></param>
+        /// <param name="userManager"></param>
+        /// <returns></returns>
+        Task<bool> UpdateUser(ApplicationUser entity, string password, UserManager<ApplicationUser> userManager);
     }
 }

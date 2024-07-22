@@ -22,6 +22,7 @@ using PetProjectMVCElLibrary.ViewModel.Author;
 using PetProjectMVCElLibrary.ViewModel.Authorization;
 using PetProjectMVCElLibrary.ViewModel.Book;
 using PetProjectMVCElLibrary.ViewModel.Comment;
+using PetProjectMVCElLibrary.ViewModel.Genre;
 
 namespace PetProjectMVCElLibrary.Controllers
 {
@@ -198,12 +199,36 @@ namespace PetProjectMVCElLibrary.Controllers
             // Передаем ViewModel в представление, возращаем представление
             return View("Index", bookViewModels);
         }
+        [HttpGet]
+        public async Task<IActionResult> SearchBookByGenre()
+        {
+            try
+            {
+                IEnumerable<GenreDTO> genreDTOs = await _genreService.GetAllGenres();
+                if (genreDTOs.Any())
+                {
+                    genreDTOs = genreDTOs.OrderBy(x => x.Name);
+                }
+                else
+                {
+                    TempData["Message"] = "Авторы не найдены";
+                }
+                return View(_mapper.Map<IEnumerable<GenreViewModel>>(genreDTOs));
+            }
+            catch (Exception ex)
+            {
+                // Генерим лог с сообщением об ошибке, редиректим в HomeController.Index
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке вывести авторов произошла ошибка!";
+            }
+            return RedirectToAction(nameof(BookController.Index));
+        }
         /// <summary>
         /// Поиск книг по жанру
         /// </summary>
         /// <param name="genreId"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> SearchBookByGenre(Guid genreId)
         {
             IEnumerable<BookViewModel> bookViewModels = new List<BookViewModel>();
@@ -230,6 +255,27 @@ namespace PetProjectMVCElLibrary.Controllers
                 return RedirectToAction(nameof(BookController.Index));
             }
             return View("Index", bookViewModels);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Show(Guid id)
+        {
+            IEnumerable<BookViewModel> bookViewModels = new List<BookViewModel>();
+            try
+            {
+                IEnumerable<BookDTO> bookDTOs = await _bookService.GetBookByAuthor(id);
+                if (!bookDTOs.Any())
+                {
+                    bookDTOs = await _bookService.GetBookByGenre(id);
+                }
+                bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке загрузить список книг произошла ошибка!";
+                return RedirectToAction(nameof(BookController.Index));
+            }
+            return View(bookViewModels);
         }
         /// <summary>
         /// Добавление кооментария к книге

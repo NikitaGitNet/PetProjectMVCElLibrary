@@ -1,0 +1,16 @@
+﻿@model IEnumerable<IGenreViewModel>
+@{
+    string strTitle = "Список жанров";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>@TempData["Message"]</h2>
+    @foreach (IGenreViewModel viewModel in Model)
+    {
+        <li>
+            <a class="glo" asp-area="" asp-controller="Book" asp-action="Show" asp-route-id="@viewModel.Id">
+                <h3>@viewModel.Name</h3>
+            </a>
+        </li>
+    }
+</div>

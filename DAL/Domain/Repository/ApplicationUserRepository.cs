@@ -70,26 +70,25 @@ namespace DAL.Domain.Repository
         public async Task<bool> SaveUser(ApplicationUser entity, string password, UserManager<ApplicationUser> userManager)
         {
             bool result = false;
-            if (entity.Id == default)
+            if (password != default)
             {
-                if (password != default)
-                {
-                    IdentityResult? identityResult = await userManager.CreateAsync(entity, password);
-                    if (identityResult != null) 
-                    {
-                        result = identityResult.Succeeded;
-                    }
-                }
-            }
-            else
-            {
-                IdentityResult? identityResult = await userManager.UpdateAsync(entity);
-                if (identityResult != null) 
+                IdentityResult? identityResult = await userManager.CreateAsync(entity, password);
+                if (identityResult != null)
                 {
                     result = identityResult.Succeeded;
+                    _context.SaveChanges();
                 }
             }
-            _context.SaveChanges();
+            return result;
+        }
+        public async Task<bool> UpdateUser(ApplicationUser entity, string password, UserManager<ApplicationUser> userManager)
+        {
+            bool result = false;
+            IdentityResult? identityResult = await userManager.UpdateAsync(entity);
+            if (identityResult != null)
+            {
+                result = identityResult.Succeeded;
+            }
             return result;
         }
         public void SaveEntity(ApplicationUser entity)

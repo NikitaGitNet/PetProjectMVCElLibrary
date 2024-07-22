@@ -120,6 +120,7 @@ namespace PetProjectMVCElLibrary.Controllers
                         }
                         // Создаем ДТО пользователя на основании ViewModel
                         ApplicationUserDTO newUser = _mapper.Map<ApplicationUserDTO>(model);
+                        newUser.Id = Guid.NewGuid().ToString();
                         // Сохраняем в базу
                         bool result = await _applicationUserService.SaveUser(newUser);
                         if (result)

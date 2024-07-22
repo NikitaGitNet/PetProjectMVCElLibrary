@@ -121,6 +121,11 @@ namespace BLL.Services.ApplicationUser
             DAL.Domain.Entities.ApplicationUser applicationUser = _mapper.Map<ApplicationUserDTO, DAL.Domain.Entities.ApplicationUser>(user);
             return await Database.ApplicationUserRepository.SaveUser(applicationUser, user.Password ?? "", _userManager);
         }
+        public async Task<bool> UpdateUser(ApplicationUserDTO user)
+        {
+            DAL.Domain.Entities.ApplicationUser applicationUser = _mapper.Map<ApplicationUserDTO, DAL.Domain.Entities.ApplicationUser>(user);
+            return await Database.ApplicationUserRepository.UpdateUser(applicationUser, user.Password ?? "", _userManager);
+        }
         /// <summary>
         /// Метод удаления пользователя на основании ИД
         /// </summary>

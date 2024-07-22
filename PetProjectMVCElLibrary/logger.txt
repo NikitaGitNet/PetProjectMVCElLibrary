@@ -568,3 +568,200 @@ Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProje
 Path: /favicon.ico  Time:15:53:47
 Path: /favicon.ico  Time:15:53:49
 Path: /favicon.ico  Time:15:53:50
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:20:50:19
+Path: /favicon.ico  Time:20:50:23
+Path: /favicon.ico  Time:20:50:25
+Path: /favicon.ico  Time:20:50:27
+Path: /Book/Show/2acdaae8-d1ce-4995-bc07-537f77cc74bc  Time:20:50:28
+Path: /favicon.ico  Time:20:50:28
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:20:53:03
+Path: /favicon.ico  Time:20:53:06
+Path: /favicon.ico  Time:20:53:08
+Path: /Book/Show/2acdaae8-d1ce-4995-bc07-537f77cc74bc  Time:20:53:09
+Path: /favicon.ico  Time:20:53:09
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:00:19
+Path: /favicon.ico  Time:22:00:21
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:22:00:24
+Path: /favicon.ico  Time:22:00:29
+Path: /favicon.ico  Time:22:00:29
+Path: /favicon.ico  Time:22:00:45
+22.07.2024 22:01:03
+Unable to track an entity of type 'ApplicationUser' because its primary key property 'Id' is null.
+Path: /Account  Time:22:01:03
+Path: /favicon.ico  Time:22:01:03
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:02:44
+Path: /favicon.ico  Time:22:02:49
+Path: /favicon.ico  Time:22:02:51
+Path: /favicon.ico  Time:22:03:00
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:04:19
+Path: /favicon.ico  Time:22:04:20
+Path: /favicon.ico  Time:22:04:27
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:07:14
+Path: /favicon.ico  Time:22:07:16
+Path: /favicon.ico  Time:22:07:20
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:08:38
+Path: /favicon.ico  Time:22:08:39
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:11:02
+Path: /favicon.ico  Time:22:11:03
+Path: /favicon.ico  Time:22:11:07
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:12:34
+Path: /favicon.ico  Time:22:12:43
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+22.07.2024 22:14:17
+Unable to track an entity of type 'ApplicationUser' because its primary key property 'Id' is null.
+Path: /favicon.ico  Time:22:14:17
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:15:21
+Path: /favicon.ico  Time:22:15:23
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:17:41
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:18:07
+Path: /favicon.ico  Time:22:18:16
+22.07.2024 22:18:38
+Value cannot be null. (Parameter 'value')
+Path: /Account  Time:22:18:38
+Path: /favicon.ico  Time:22:18:38
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:18:56
+Path: /favicon.ico  Time:22:18:59
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:20:50
+Path: /favicon.ico  Time:22:22:25
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:24:36
+Path: /favicon.ico  Time:22:24:36
+Path: /favicon.ico  Time:22:24:38
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:32:32
+Path: /favicon.ico  Time:22:32:33
+Path: /favicon.ico  Time:22:32:55
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:37:18
+Path: /favicon.ico  Time:22:37:20
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:22:37:22
+Path: /favicon.ico  Time:22:37:24
+Path: /favicon.ico  Time:22:37:25
+The view 'Show' was not found. Searched locations: /Views/Book/Show.cshtml, /Views/Shared/Show.cshtml
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:22:37:37
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:41:48
+Path: /favicon.ico  Time:22:41:49
+Path: /favicon.ico  Time:22:41:52
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:42:15
+Path: /favicon.ico  Time:22:42:20
+Path: /favicon.ico  Time:22:42:22
+Path: /favicon.ico  Time:22:42:24
+Now listening on: https://localhost:7125
+Now listening on: http://localhost:5296
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\User\source\repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:22:47:06
+Path: /favicon.ico  Time:22:47:07
+Path: /favicon.ico  Time:22:47:08
+Path: /favicon.ico  Time:22:47:10
+Path: /favicon.ico  Time:22:47:14
+Path: /favicon.ico  Time:22:47:15
+Path: /favicon.ico  Time:22:47:19
+Path: /favicon.ico  Time:22:47:20
+Path: /favicon.ico  Time:22:47:22
+Path: /favicon.ico  Time:22:47:24
+Path: /favicon.ico  Time:22:47:26
+Path: /favicon.ico  Time:22:47:27
+Path: /favicon.ico  Time:22:47:30
+Path: /favicon.ico  Time:22:47:32
+Path: /favicon.ico  Time:22:47:34
