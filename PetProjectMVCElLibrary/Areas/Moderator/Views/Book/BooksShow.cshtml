@@ -1,7 +1,4 @@
 ﻿@model IEnumerable<BookViewModel>
-@{
-    // TextField textField = ViewBag.TextField;
-}
 <div>
     <h2>@TempData["Message"]</h2>
     <form asp-area="Moderator" asp-controller="Book" asp-action="SearchByName" method="post" enctype="multipart/form-data">
@@ -25,6 +22,11 @@
                     <p>@book.GenreName</p>
                 </li>
                 <a class="glo" asp-area="Moderator" asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id">Редактировать</a>
+                <form style="display: inline-block;" id="form-@book.Id" asp-area="Moderator" asp-controller="Book" asp-action="DeleteBook" method="post">
+                    <input type="hidden" name="id" value="@book.Id">
+                    <a class="glo" href="#" onclick="document.getElementById('form-@book.Id').submit();">Удалить</a>
+                </form>
+                <hr/>
             }
         </ul>
     </div>

@@ -16,6 +16,7 @@ using DAL.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PetProjectMVCElLibrary.Areas.Admin.Interfaces.ViewModel;
 using PetProjectMVCElLibrary.Areas.Admin.ViewModel.TextField;
 using PetProjectMVCElLibrary.Controllers;
 using PetProjectMVCElLibrary.Service;
@@ -63,67 +64,28 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
+            // Получаем ИД пользователя
             Guid userId = Guid.Empty;
             if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
             {
                 try
                 {
-                    // Получаем ДТО пользователя
-                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
-                    if (userDTO != null)
+                    // Проверяем является ли пользователь модератором
+                    if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString()), "moderator"))
                     {
-                        // Проверяем является ли пользователь модератором
-                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
-                        {
-                            // Получаем дто книг, жанров, авторов, мапим во ViewModel, передаем в представление, возвращаем представление
-                            IEnumerable<BookDTO> bookDTOs = await _bookService.GetAllBooks();
-                            bookDTOs = bookDTOs.OrderBy(x => x.Title);
-                            IEnumerable<BookViewModel> bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
-
-                            IEnumerable<GenreDTO> genreDTOs = await _genreService.GetAllGenres();
-                            genreDTOs = genreDTOs.OrderBy(x => x.Name);
-                            IEnumerable<GenreViewModel> genreViewModels = _mapper.Map<IEnumerable<GenreViewModel>>(genreDTOs);
-
-                            IEnumerable<AuthorDTO> authorDTOs = await _authorService.GetAllAuthors();
-                            authorDTOs = authorDTOs.OrderBy(x => x.Name);
-                            IEnumerable<AuthorViewModel> authorViewModels = _mapper.Map<IEnumerable<AuthorViewModel>>(authorDTOs);
-
-                            return View(new BookDevViewModel { Books = bookViewModels, Authors = authorViewModels, Genres = genreViewModels });
-                        }
+                        // Возвращаем представление панели модератора
+                        return View();
                     }
                 }
                 catch (Exception ex) 
                 {
-                    // Генерим лог с сообщением об ошибке, редиректим на панель модератора
+                    // Генерим лог с сообщением об ошибке
                     _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                    TempData["Message"] = "При попытке удаления жанра произошла ошибка!";
-                    return RedirectToAction(nameof(HomeController.Index));
                 }
             }
-            return RedirectToAction(nameof(AccountController.Login), new LoginViewModel());
-        }
-        /// <summary>
-        /// Метод редиректит на стартовую страницу, если проблемы с авторизацией
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> CommonIndex()
-        {
-            await _signInManager.SignOutAsync();
-            // Получаем ДТО с помощью TextFieldService
-            TextFieldViewModel textFieldViewModel = new TextFieldViewModel();
-            try
-            {
-                TextFieldDTO? textFieldDTO = new TextFieldDTO();
-                textFieldDTO = await _textFieldService.GetTextFieldByCodeWord("PageIndex");
-                textFieldViewModel = _mapper.Map<TextFieldViewModel>(textFieldDTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                TempData["Message"] = "При попытке загрузить панель модератора произошла ошибка!";
-            }
-            return View("~/Views/Home/Index.cshtml", textFieldViewModel);
+			// Возвращаем представление стартовой страницы, передаем сообщение об ошибке
+			TempData["Message"] = "При открыть панель модератора произошла ошибка!";
+            return View("~/Views/Home/Index.cshtml", new TextFieldViewModel());
         }
     }
 }

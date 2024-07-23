@@ -12,7 +12,7 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
             Comments = new List<CommentViewModel>();
         }
         public Guid Id { get; set; }
-        [Required(ErrorMessage = "Заполните название книги")]
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Display(Name = "Название книги")]
         public string? Title { get; set; }
 		[Required(ErrorMessage = "Поле не заполнено")]
@@ -25,6 +25,7 @@ namespace PetProjectMVCElLibrary.ViewModel.Book
 		[Required(ErrorMessage = "Поле не заполнено")]
 		[Display(Name = "Полное описание книги")]
         public string? Text { get; set; }
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Display(Name = "Обложка книги")]
         public string? TitleImagePath { get; set; }
         public bool IsBooking { get; set; }

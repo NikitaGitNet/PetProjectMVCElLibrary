@@ -1,0 +1,18 @@
+﻿@model IEnumerable<AuthorViewModel>
+<h3>Авторы</h3>
+<div class="BooksShow">
+    <h2>@TempData["Message"]</h2>
+    <div>
+        @foreach (var entity in Model)
+        {
+            <div class="OnceBookElement">
+                <a>@entity.Name</a>
+                <a asp-area="Moderator" asp-controller="Book" asp-action="AddAuthor" asp-route-id="@entity.Id">редактировать</a>
+                <form style="display: inline-block;" id="form-@entity.Id" asp-area="Moderator" asp-controller="Book" asp-action="DeleteAuthor" method="post">
+                    <input type="hidden" name="id" value="@entity.Id">
+                    <a class="Alert" href="#" onclick="document.getElementById('form-@entity.Id').submit();">Удалить</a>
+                </form>
+            </div>
+        }
+    </div>
+</div>

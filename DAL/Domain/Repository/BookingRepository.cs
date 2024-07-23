@@ -75,7 +75,7 @@ namespace DAL.Domain.Repository
             try
             {
                 Booking? booking = _context.Bookings.FirstOrDefault(x => x.Id == entity.Id);
-                if (booking == null)
+                if (booking != null)
                 {
                     _context.Bookings.Update(entity);
                     _context.SaveChanges();

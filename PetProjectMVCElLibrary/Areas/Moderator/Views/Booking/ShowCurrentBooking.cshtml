@@ -25,7 +25,7 @@
     </form>
 }
 <div>
-    <form asp-area="Moderator" asp-controller="Booking" asp-action="Delete" enctype="multipart/form-data">
+    <form asp-area="Moderator" asp-controller="Booking" asp-action="Delete" enctype="multipart/form-data" method="get">
         <div hidden class="div-box">
             <textarea asp-for="BookId"></textarea>
             <span asp-validation-for="BookId"></span>

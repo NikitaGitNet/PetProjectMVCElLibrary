@@ -13,31 +13,28 @@
             <input type="hidden" asp-for="DateAdded">
             <input type="hidden" asp-for="TitleImagePath">
 
-            <div asp-validation-summary="All"></div>
             <div class="div-box">
                 <label asp-for="Title"></label>
                 <input asp-for="Title">
-                <span asp-validation-for="Title"></span>
+                <span asp-validation-for="Title" class="Alert"></span>
             </div>
             <div class="div-box">
                 <label asp-for="SubTitle"></label>
                 <input asp-for="SubTitle">
-                <span asp-validation-for="SubTitle"></span>
+                <span asp-validation-for="SubTitle" class="Alert"></span>
             </div>
             <div class="div-box">
                 <label asp-for="Text"></label>
                 <textarea asp-for="Text"></textarea>
-                <span asp-validation-for="Text"></span>
+                <span asp-validation-for="Text" class="Alert"></span>
             </div>
             <div class="div-box">
                 <label asp-for="AuthorName"></label>
                 <input asp-for="AuthorName">
-                <span asp-validation-for="AuthorName"></span>
             </div>
             <div class="div-box">
                 <label asp-for="GenreName"></label>
                 <input asp-for="GenreName">
-                <span asp-validation-for="GenreName"></span>
             </div>
             <div class="div-box">
                 <label asp-for="TitleImagePath"></label>
@@ -45,6 +42,7 @@
                 <div>
                     <img class="img-block" src="~/images/@Model.TitleImagePath">
                 </div>
+                <span asp-validation-for="TitleImagePath" class="Alert"></span>
             </div>
             <div class="div-box">
                 <input hidden asp-for="IsBooking">
