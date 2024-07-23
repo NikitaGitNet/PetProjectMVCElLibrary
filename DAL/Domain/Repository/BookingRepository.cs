@@ -45,18 +45,48 @@ namespace DAL.Domain.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public void SaveEntity(Booking entity)
+        public bool SaveEntity(Booking entity)
         {
-            Booking? booking = _context.Bookings.FirstOrDefault(x => x.Id == entity.Id);
-            if (booking != null) 
+            bool result = false;
+            try
             {
-                _context.Bookings.Update(entity);
+                Booking? booking = _context.Bookings.FirstOrDefault(x => x.Id == entity.Id);
+                if (booking == null)
+                {
+                    _context.Bookings.Add(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
             }
-            else 
+            catch
             {
-                _context.Bookings.Add(entity);
+                result = false;
             }
-            _context.SaveChanges();
+            return result;
+        }
+        /// <summary>
+        /// Обновление брони в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public bool UpdateEntity(Booking entity)
+        {
+            bool result = false;
+            try
+            {
+                Booking? booking = _context.Bookings.FirstOrDefault(x => x.Id == entity.Id);
+                if (booking == null)
+                {
+                    _context.Bookings.Update(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
         }
         /// <summary>
         /// Удаление брони по идентификатору

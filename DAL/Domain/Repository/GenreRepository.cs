@@ -44,18 +44,47 @@ namespace DAL.Domain.Repository
         /// Сохраняем в БД новый жанр
         /// </summary>
         /// <param name="entity"></param>
-        public void SaveEntity(Genre entity)
+        public bool SaveEntity(Genre entity)
         {
-            Genre? genre = _context.Genres.FirstOrDefault(x => x.Id == entity.Id);
-            if (genre != null) 
+            bool result = false;
+            try
             {
-                _context.Genres.Update(entity);
+                Genre? genre = _context.Genres.FirstOrDefault(x => x.Id == entity.Id);
+                if (genre == null)
+                {
+                    _context.Genres.Add(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
             }
-            else
+            catch
             {
-                _context.Genres.Add(entity);
+                result = false;
             }
-            _context.SaveChanges();
+            return result;
+        }
+        /// <summary>
+        /// Обновляем в БД новый жанр
+        /// </summary>
+        /// <param name="entity"></param>
+        public bool UpdateEntity(Genre entity)
+        {
+            bool result = false;
+            try
+            {
+                Genre? genre = _context.Genres.FirstOrDefault(x => x.Id == entity.Id);
+                if (genre != null)
+                {
+                    _context.Genres.Update(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
         }
         /// <summary>
         /// Удаляем жанр

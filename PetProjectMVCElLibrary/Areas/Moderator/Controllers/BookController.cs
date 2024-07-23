@@ -35,11 +35,11 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
     public class BookController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IBookService bookService;
-        private readonly ICommentService commentService;
-        private readonly IAuthorService authorService;
-        private readonly IGenreService genreService;
-        private readonly IApplicationUserService applicationUserService;
+        private readonly IBookService _bookService;
+        private readonly ICommentService _commentService;
+        private readonly IAuthorService _authorService;
+        private readonly IGenreService _genreService;
+        private readonly IApplicationUserService _applicationUserService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _hostingEnviroment;
@@ -48,11 +48,11 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         {
             _context = context;
             _mapper = mapper;
-            bookService = new BookService(context, mapper);
-            commentService = new CommentService(context, mapper);
-            authorService = new AuthorService(context, mapper);
-            genreService = new GenreService(context, mapper);
-            applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
+            _bookService = new BookService(context, mapper);
+            _commentService = new CommentService(context, mapper);
+            _authorService = new AuthorService(context, mapper);
+            _genreService = new GenreService(context, mapper);
+            _applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
             _httpContextAccessor = httpContextAccessor;
             _hostingEnviroment = hostingEnviroment;
             _logger = logger;
@@ -75,7 +75,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 try
                 {
                     // Получаем ДТО книги, если код ИД пустой, возращаем пустое ДТО, иначе получаем ДТО по ИД
-                    bookDTO = id == default ? new BookDTO() : await bookService.GetBook(id);
+                    bookDTO = id == default ? new BookDTO() : await _bookService.GetBook(id);
                     if (bookDTO != null)
                     {
                         return View(_mapper.Map<BookViewModel>(bookDTO));
@@ -112,11 +112,11 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                     try
                     {
                         // Получаем ДТО пользователя
-                        ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                        ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                         if (userDTO != null)
                         {
                             // Проверяем является ли пользователь модератором
-                            if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+                            if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
                             {
                                 // Мапим ViewModel книги в ДТО
                                 BookDTO bookDTO = _mapper.Map<BookDTO>(bookViewModel);
@@ -133,7 +133,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                 if (bookDTO.AuthorName != null)
                                 {
                                     // Если автор не новый связываем его с книгой
-                                    AuthorDTO? authorDTO = await authorService.GetAuthorByName(bookDTO.AuthorName);
+                                    AuthorDTO? authorDTO = await _authorService.GetAuthorByName(bookDTO.AuthorName);
                                     if (authorDTO != null)
                                     {
                                         bookDTO.AuthorName = authorDTO.Name;
@@ -143,7 +143,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                     {
                                         // Если новый, добавляем его в бд, связываем с книгой
                                         AuthorDTO newAuthorDTO = new() { Name = bookDTO.AuthorName, Id = Guid.NewGuid() };
-                                        authorService.CreateAuthor(newAuthorDTO);
+                                        _authorService.CreateAuthor(newAuthorDTO);
                                         bookDTO.AuthorName = newAuthorDTO.Name;
                                         bookDTO.AuthorId = newAuthorDTO.Id;
                                     }
@@ -158,7 +158,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                 if (bookDTO.GenreName != null)
                                 {
                                     // Получаем ДТО жанра
-                                    GenreDTO? genreDTO = await genreService.GetGenreByName(bookDTO.GenreName);
+                                    GenreDTO? genreDTO = await _genreService.GetGenreByName(bookDTO.GenreName);
                                     // Если жанр найден, связываем его с книгой
                                     if (genreDTO != null)
                                     {
@@ -169,7 +169,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                     {
                                         // Если не найден, добавляем в БД новый жанр, связываем его с книгой
                                         GenreDTO newgenreDTO = new() { Name = bookDTO.GenreName, Id = Guid.NewGuid() };
-                                        genreService.CreateGenre(newgenreDTO);
+                                        _genreService.CreateGenre(newgenreDTO);
                                         bookDTO.GenreName = newgenreDTO.Name;
                                         bookDTO.GenreId = newgenreDTO.Id;
                                     }
@@ -182,7 +182,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                 }
                                 // Указываем дату добавления книги, добавляем/обновляем книгу в БД
                                 bookDTO.DateAdded = DateTime.Now;
-                                bookService.CreateBook(bookDTO);
+                                _bookService.CreateBook(bookDTO);
                                 TempData["Message"] = "Книга успешно добавлена/обновлена";
                                 // Редиректим в панель модератора
                                 return RedirectToAction(nameof(HomeController.Index));
@@ -218,18 +218,18 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 try
                 {
                     // Получаем ДТО пользователя
-                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                     if (userDTO != null)
                     {
                         // Проверяем является ли пользователь модератором
-                        if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
                         {
                             // Получаем ДТО книги
-                            BookDTO? bookDTO = await bookService.GetBook(bookViewModel.Id);
+                            BookDTO? bookDTO = await _bookService.GetBook(bookViewModel.Id);
                             if (bookDTO != null)
                             {
                                 // Если ДТО не null, удаляем книгу
-                                bookService.DeleteBook(bookDTO.Id);
+                                _bookService.DeleteBook(bookDTO.Id);
                             }
                             return RedirectToAction(nameof(HomeController.Index));
                         }
@@ -262,17 +262,17 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 try
                 {
                     // Получаем ДТО пользователя
-                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                     if (userDTO != null)
                     {
                         // Проверяем является ли пользователь модератором
-                        if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
                         {
                             // Если называние не null
                             if (model.Title != null)
                             {
                                 // Получаем коллекцию ДТО книг
-                                IEnumerable<BookDTO> bookDTOs = await bookService.GetAllBooks();
+                                IEnumerable<BookDTO> bookDTOs = await _bookService.GetAllBooks();
                                 // Ищем книгу с таким же названием
                                 bookDTOs = bookDTOs.Where(x => (x.Title ?? "").ToUpper().Contains(model.Title.ToUpper()));
                                 // Мапим во ViewModel, передаем в представление, возвращаем представление
@@ -313,14 +313,14 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 try
                 {
                     // Получаем ДТО пользователя
-                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                     if (userDTO != null)
                     {
                         // Проверяем является ли пользователь модератором
-                        if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
                         {
                             // Получаем ДТО книг, сортируем по названию, мапим во вью модел, передаем в представление
-                            IEnumerable<BookDTO> bookDTOs = await bookService.GetAllBooks();
+                            IEnumerable<BookDTO> bookDTOs = await _bookService.GetAllBooks();
                             bookDTOs = bookDTOs.OrderBy(x => x.Title);
                             IEnumerable<BookViewModel> booksViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
                             return View(booksViewModels);
@@ -347,27 +347,20 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         [Authorize]
         public async Task<IActionResult> AddGenre(Guid id)
         {
-            // Проверям авторизован ли пользователь
-            Guid userId = Guid.Empty;
-            if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
-            {
-                try
-                {
-                    // Если ИД дефолт, возращаем пустое ДТО, если не дефолт, достаем из базы, мапим в ДТО, возвращаем
-                    GenreDTO genreDTO = id == default ? new GenreDTO() : await genreService.GetGenre(id) ?? new GenreDTO();
-                    return View(_mapper.Map<GenreViewModel>(genreDTO));
-                }
-                catch (Exception ex)
-                {
-                    // Генерим лог с сообщением об ошибке, редиректим на панель модератора
-                    _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                    TempData["Message"] = "При попытке получить жанр произошла ошибка!";
-                    return RedirectToAction(nameof(HomeController.Index));
-                }
-            }    
-            // Если пользователь не авторизован, отправляем на экран авторизации
-            return RedirectToAction(nameof(HomeController.Index));
-        }
+			try
+			{
+				// Если ИД дефолт, возращаем пустое ДТО, если не дефолт, достаем из базы, мапим в ДТО, возвращаем
+				GenreDTO genreDTO = id == default ? new GenreDTO() : await _genreService.GetGenre(id) ?? new GenreDTO();
+				return View(_mapper.Map<GenreViewModel>(genreDTO));
+			}
+			catch (Exception ex)
+			{
+				// Генерим лог с сообщением об ошибке, редиректим на панель модератора
+				_logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+				TempData["Message"] = "При попытке получить жанр произошла ошибка!";
+				return RedirectToAction(nameof(HomeController.Index));
+			}
+		}
         /// <summary>
         /// Метод добавления/редактирования жанра
         /// </summary>
@@ -385,34 +378,46 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 {
                     try
                     {
-                        // Получаем ДТО пользователя
-                        ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
-                        if (userDTO != null)
-                        {
-                            // Проверяем является ли пользователь модератором
-                            if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+						// Проверяем является ли пользователь модератором
+						if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString() ?? ""), "moderator"))
+						{
+                            GenreDTO? genreDTO = new GenreDTO();
+                            if (model.Id != default)
                             {
-                                GenreDTO? genreDTO = _mapper.Map<GenreDTO>(model);
-                                // Делаем поиск жанра по имени, если находим, редиректим в панель админа, выводим сообщение
-                                GenreDTO? newGenreDTO = await genreService.GetGenreByName(model.Name ?? "");
-                                if (newGenreDTO != null)
+                                genreDTO = await _genreService.GetGenre(model.Id);
+                                if (genreDTO != null)
                                 {
-                                    TempData["Message"] = "Жанр с таким названием уже существует";
-                                    return RedirectToAction(nameof(BookController.AddGenre), model.Id);
-                                }
+                                    genreDTO.Name = model.Name;
+									if (_genreService.UpdateGenre(genreDTO))
+									{
+										TempData["Message"] = "Жанр успешно обновлен";
+									}
+								}
+                            }
+                            else
+                            {
+								// Делаем поиск жанра по имени, если находим, редиректим в панель админа, выводим сообщение
+								genreDTO = await _genreService.GetGenreByName(model.Name ?? "");
+								if (genreDTO != null)
+								{
+									TempData["Message"] = "Жанр с таким названием уже существует";
+								}
                                 else
                                 {
-                                    // Если не находим, создаем новый жанр
-                                    if (genreDTO != null)
-                                    {
-                                        genreService.CreateGenre(genreDTO);
-                                        TempData["Message"] = "Жанр успешно добавлен/обновлен";
-                                    }
-                                }
-                                return RedirectToAction(nameof(BookController.AddGenre), model.Id);
-                            }
-                        }
-                    }
+									// Мапим ViewModel в ДТО, добавляем в базу
+									genreDTO = _mapper.Map<GenreDTO>(model);
+									if (_genreService.CreateGenre(genreDTO))
+									{
+										TempData["Message"] = "Автор успешно добавлен";
+									}
+									else
+									{
+										TempData["Message"] = "При попытке добавить/обновить жанр произошла ошибка";
+									}
+								}
+							}
+						}
+					}
                     catch (Exception ex)
                     {
                         // Генерим лог с сообщением об ошибке, редиректим на панель модератора
@@ -422,7 +427,6 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                     }
                 }
             }
-            TempData["Message"] = "Поле заполнено не корректно";
             return View(model);
         }
         /// <summary>
@@ -440,14 +444,14 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 try
                 {
                     // Получаем ДТО пользователя
-                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                     if (userDTO != null)
                     {
                         // Проверяем является ли пользователь модератором
-                        if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
                         {
                             // Получаем ДТО жанра
-                            GenreDTO? genreDTO = await genreService.GetGenre(model.Id);
+                            GenreDTO? genreDTO = await _genreService.GetGenre(model.Id);
                             if (genreDTO != null)
                             {
                                 // Если жанр связан с книгами, присваиваем книгам неизвестный жанр, обновляем книги
@@ -459,10 +463,10 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                         bookDTO.GenreId = Guid.Parse(UnknownGenre.Id);
                                         bookDTO.GenreName = UnknownGenre.Name;
                                     }
-                                    bookService.UpdateBooksRange(bookDTOs);
+                                    _bookService.UpdateBooksRange(bookDTOs);
                                 }
                                 // Удаляем жанр
-                                genreService.DeleteGenre(genreDTO.Id);
+                                _genreService.DeleteGenre(genreDTO.Id);
                                 TempData["Message"] = "Удаление жанра прошло успешно";
                             }
                         }
@@ -487,27 +491,20 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
         [Authorize]
         public async Task<IActionResult> AddAuthor(Guid id)
         {
-            // Проверям авторизован ли пользователь
-            Guid userId = Guid.Empty;
-            if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
-            {
-                try
-                {
-                    // Если ИД дефолт, возращаем пустое ДТО, если не дефолт, достаем из базы, мапим в ДТО, возвращаем
-                    AuthorDTO authorDTO = id == default ? new AuthorDTO() : await authorService.GetAuthor(id) ?? new AuthorDTO();
-                    return View(_mapper.Map<AuthorViewModel>(authorDTO));
-                }
-                catch (Exception ex)
-                {
-                    // Генерим лог с сообщением об ошибке, редиректим на панель модератора
-                    _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                    TempData["Message"] = "При попытке получить автора произошла ошибка!";
-                    return RedirectToAction(nameof(HomeController.Index));
-                }
-            }
-            // Если пользователь не авторизован, отправляем на экран авторизации
-            return RedirectToAction(nameof(HomeController.Index));
-        }
+			try
+			{
+				// Если ИД дефолт, возращаем пустое ДТО, если не дефолт, достаем из базы, мапим в ДТО, возвращаем
+				AuthorDTO authorDTO = id == default ? new AuthorDTO() : await _authorService.GetAuthor(id) ?? new AuthorDTO();
+				return View(_mapper.Map<AuthorViewModel>(authorDTO));
+			}
+			catch (Exception ex)
+			{
+				// Генерим лог с сообщением об ошибке, редиректим на панель модератора
+				_logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+				TempData["Message"] = "При попытке получить автора произошла ошибка!";
+				return RedirectToAction(nameof(HomeController.Index));
+			}
+		}
         /// <summary>
         /// Метод добавления/редактирования автора
         /// </summary>
@@ -525,33 +522,48 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 {
                     try
                     {
-                        // Получаем ДТО пользователя
-                        ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
-                        if (userDTO != null)
+                        // Проверяем является ли пользователь модератором
+                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString() ?? ""), "moderator"))
                         {
-                            // Проверяем является ли пользователь модератором
-                            if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+							AuthorDTO? authorDTO = new AuthorDTO();
+                            // Если у ViewModel 
+							if (model.Id != default)
                             {
-                                AuthorDTO? authorDTO = _mapper.Map<AuthorDTO>(model);
-                                // Делаем поиск жанра по имени, если находим, редиректим в панель админа, выводим сообщение
-                                AuthorDTO? newAuthorDTO = await authorService.GetAuthorByName(model.Name ?? "");
-                                if (newAuthorDTO != null)
+                                authorDTO = await _authorService.GetAuthor(model.Id);
+                                if (authorDTO != null)
                                 {
-                                    TempData["Message"] = "Автор с таким названием уже существует";
-                                    return RedirectToAction(nameof(BookController.AddAuthor), model.Id);
-                                }
-                                else
-                                {
-                                    // Если не находим, создаем нового автора
-                                    if (authorDTO != null)
+									authorDTO.Name = model.Name;
+                                    if (_authorService.UpdateAuthor(authorDTO))
                                     {
-                                        authorService.CreateAuthor(authorDTO);
-                                        TempData["Message"] = "Автор успешно добавлен/обновлен";
+										TempData["Message"] = "Автор успешно обновлен";
                                     }
                                 }
-                                return RedirectToAction(nameof(BookController.AddGenre), model.Id);
-                            }
-                        }
+							}
+                            else
+                            {
+								// Делаем поиск автора по имени, если находим, редиректим в панель админа, выводим сообщение
+								authorDTO = await _authorService.GetAuthorByName(model.Name ?? "");
+								if (authorDTO != null)
+								{
+									TempData["Message"] = "Автор с таким названием уже существует";
+									return RedirectToAction(nameof(BookController.AddAuthor), model);
+								}
+                                else
+                                {
+									// Мапим ViewModel в ДТО, добавляем в базу
+									authorDTO = _mapper.Map<AuthorDTO>(model);
+									if (_authorService.CreateAuthor(authorDTO))
+									{
+										TempData["Message"] = "Автор успешно добавлен";
+										return RedirectToAction(nameof(HomeController.Index));
+									}
+                                    else
+                                    {
+										TempData["Message"] = "При попытке добавить/обновить автора произошла ошибка";
+									}
+								}
+							}
+						}
                     }
                     catch (Exception ex)
                     {
@@ -562,7 +574,6 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                     }
                 }
             }
-            TempData["Message"] = "Поле заполнено не корректно";
             return View(model);
         }
         /// <summary>
@@ -581,14 +592,14 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                 try
                 {
                     // Получаем ДТО пользователя
-                    ApplicationUserDTO? userDTO = await applicationUserService.GetUser(userId);
+                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
                     if (userDTO != null)
                     {
                         // Проверяем является ли пользователь модератором
-                        if (await applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
+                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "moderator"))
                         {
                             // Получаем ДТО автора
-                            AuthorDTO? authorDTO = await authorService.GetAuthor(model.Id);
+                            AuthorDTO? authorDTO = await _authorService.GetAuthor(model.Id);
                             if (authorDTO != null)
                             {
                                 // Если не null, смотрим есть связанные с ним книги
@@ -602,10 +613,10 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                         bookDTO.AuthorName = UnknownAuthor.Name;
                                     }
                                     // Обновляем книги
-                                    bookService.UpdateBooksRange(bookDTOs);
+                                    _bookService.UpdateBooksRange(bookDTOs);
                                 }
                                 // Удаляем автора
-                                authorService.DeleteAuthor(model.Id);
+                                _authorService.DeleteAuthor(model.Id);
                             }
                             TempData["Message"] = "Удаление автора прошло успешно";
                         }

@@ -53,10 +53,19 @@ namespace BLL.Services.Genre
         /// Маппинг ДТО в ентити, сохранение ентити в БД
         /// </summary>
         /// <param name="genreDTO"></param>
-        public void CreateGenre(GenreDTO genreDTO)
+        public bool CreateGenre(GenreDTO genreDTO)
         {
             DAL.Domain.Entities.Genre genre = _mapper.Map<DAL.Domain.Entities.Genre>(genreDTO);
-            Database.GenreRepository.SaveEntity(genre);
+            return Database.GenreRepository.SaveEntity(genre);
+        }
+        /// <summary>
+        /// Маппинг ДТО в ентити, обновление ентити в БД
+        /// </summary>
+        /// <param name="genreDTO"></param>
+        public bool UpdateGenre(GenreDTO genreDTO)
+        {
+            DAL.Domain.Entities.Genre genre = _mapper.Map<DAL.Domain.Entities.Genre>(genreDTO);
+            return Database.GenreRepository.UpdateEntity(genre);
         }
         /// <summary>
         /// Удаление ентити на основании ИД

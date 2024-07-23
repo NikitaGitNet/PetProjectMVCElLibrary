@@ -81,6 +81,13 @@ namespace DAL.Domain.Repository
             }
             return result;
         }
+        /// <summary>
+        /// Обновляем пользователя в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="password"></param>
+        /// <param name="userManager"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateUser(ApplicationUser entity, string password, UserManager<ApplicationUser> userManager)
         {
             bool result = false;
@@ -90,10 +97,6 @@ namespace DAL.Domain.Repository
                 result = identityResult.Succeeded;
             }
             return result;
-        }
-        public void SaveEntity(ApplicationUser entity)
-        {
-            throw new NotImplementedException();
         }
         /// <summary>
         /// Удаляем пользователя из бд
@@ -123,6 +126,14 @@ namespace DAL.Domain.Repository
         public async Task<ApplicationUser?> GetUserByEmail(string email)
         {
             return await _context.ApplicationUsers.Where(x => x.NormalizedEmail == email.ToUpper()).FirstOrDefaultAsync();
-        } 
+        }
+        public bool SaveEntity(ApplicationUser entity)
+        {
+            throw new NotImplementedException();
+        }
+        public bool UpdateEntity(ApplicationUser entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -35,25 +35,28 @@ namespace PetProjectMVCElLibrary.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            // Получаем ДТО с помощью TextFieldService
-            TextFieldDTO? textFieldDTO = new TextFieldDTO();
+            TextFieldViewModel textFieldViewModel = new TextFieldViewModel();
             try
             {
-                textFieldDTO = await textFieldService.GetTextFieldByCodeWord("PageIndex");
+                // Получаем ДТО TextField
+                TextFieldDTO? textFieldDTO = await textFieldService.GetTextFieldByCodeWord("PageIndex");
+                // Если ДТО не null
+                if (textFieldDTO != null)
+                {
+                    // Маппим ее во ViewModel, передаем в предстовление
+                    textFieldViewModel = _mapper.Map<TextFieldViewModel>(textFieldDTO);
+                    return View(textFieldViewModel ?? new TextFieldViewModel { Text = "" });
+                }
+                // Если null, генерим лог, что произошла ошибка
+                _logger.LogError($"{DateTime.Now}\r\nОшибка: TextField с ключевым словом PageIndex не найдена!");
             }
             catch (Exception ex)
             {
+                // Генерим лог, выдаем пользователю сообщение, что произошла ошибка, передаем пустую ViewModel в представление
                 _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
+                TempData["Message"] = "При попытке загрузить страницу произошла ошибка!";
                 return View(new TextFieldViewModel());
             }
-            // Если ДТО не null
-            if (textFieldDTO != null)
-            {
-                // Маппим ее во ViewModel, передаем в предстовление
-                return View(_mapper.Map<TextFieldViewModel>(textFieldDTO) ?? new TextFieldViewModel { Text = "" });
-            }
-            // Если null, генерим лог, что произошла ошибка
-            _logger.LogError($"{DateTime.Now}\r\nОшибка: TextField с ключевым словом PageIndex не найдена!");
             // Возвращаем представление с пустым ViewModel
             return View(new TextFieldViewModel());
         }
@@ -64,25 +67,27 @@ namespace PetProjectMVCElLibrary.Controllers
         [HttpGet]
         public async Task<IActionResult> Contacts()
         {
-            // Получаем ДТО с помощью TextFieldService
-            TextFieldDTO? textFieldDTO = new TextFieldDTO();
+            TextFieldViewModel textFieldViewModel = new TextFieldViewModel();
             try
             {
-                textFieldDTO = await textFieldService.GetTextFieldByCodeWord("PageContacts1");
+                // Получаем ДТО с помощью TextFieldService
+                TextFieldDTO? textFieldDTO = await textFieldService.GetTextFieldByCodeWord("PageContacts");
+                // Если ДТО не null
+                if (textFieldDTO != null)
+                {
+                    // Маппим ее во ViewModel, передаем в предстовление
+                    textFieldViewModel = _mapper.Map<TextFieldViewModel>(textFieldDTO);
+                    return View(textFieldViewModel ?? new TextFieldViewModel { Text = "" });
+                }
+                // Если null, генерим лог, что произошла ошибка
+                _logger.LogError($"{DateTime.Now}\r\nОшибка: TextField с ключевым словом PageContacts не найдена!");
             }
             catch (Exception ex)
             {
                 _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                throw;
+                TempData["Message"] = "При попытке загрузить страницу произошла ошибка!";
+                return View(new TextFieldViewModel());
             }
-            // Если ДТО не null
-            if (textFieldDTO != null) 
-            {
-                // Маппим ее во ViewModel, передаем в предстовление
-                return View(_mapper.Map<TextFieldViewModel>(textFieldDTO) ?? new TextFieldViewModel { Text = "" });
-            }
-            // Если null, генерим лог, что произошла ошибка
-            _logger.LogError($"{DateTime.Now}\r\nОшибка: TextField с ключевым словом PageContacts не найдена!");
             // Возвращаем представление с пустым ViewModel
             return View(new TextFieldViewModel());
         }

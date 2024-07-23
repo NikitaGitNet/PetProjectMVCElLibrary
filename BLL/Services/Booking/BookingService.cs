@@ -48,10 +48,20 @@ namespace BLL.Services.Booking
         /// Маппинг брони ДТО в энтити, сохранение энтити в БД
         /// </summary>
         /// <param name="book"></param>
-        public void CreateBooking(BookingDTO bookingDTO)
+        public bool CreateBooking(BookingDTO bookingDTO)
         {
             DAL.Domain.Entities.Booking booking = _mapper.Map<DAL.Domain.Entities.Booking>(bookingDTO);
-            Database.BookingRepository.SaveEntity(booking);
+            return Database.BookingRepository.SaveEntity(booking);
+        }
+        /// <summary>
+        /// Маппинг брони ДТО в энтити, обновление энтити в БД
+        /// </summary>
+        /// <param name="bookingDTO"></param>
+        /// <returns></returns>
+        public bool UpdateBooking(BookingDTO bookingDTO)
+        {
+            DAL.Domain.Entities.Booking booking = _mapper.Map<DAL.Domain.Entities.Booking>(bookingDTO);
+            return Database.BookingRepository.UpdateEntity(booking);
         }
         /// <summary>
         /// Удаление брони из БД

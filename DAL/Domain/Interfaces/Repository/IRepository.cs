@@ -23,7 +23,12 @@
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        void SaveEntity(T entity);
+        bool SaveEntity(T entity);
+        /// <summary>
+        /// Обновление ентити в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        bool UpdateEntity(T entity);
         /// <summary>
         /// Удаление entity из БД на основании Id
         /// </summary>

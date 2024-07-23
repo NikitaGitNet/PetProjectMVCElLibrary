@@ -124,7 +124,7 @@ namespace PetProjectMVCElLibrary.Controllers
                     IEnumerable<BookViewModel> bookViewModels = _mapper.Map<IEnumerable<BookViewModel>>(bookDTOs);
                     if (!bookViewModels.Any())
                     {
-                        TempData["Message"] = "Книги не найдены";
+                        TempData["Message"] = "Книга не найдена";
                     }
                     return View("Index", bookViewModels);
                 }
@@ -134,9 +134,9 @@ namespace PetProjectMVCElLibrary.Controllers
             {
                 // Генерим лог с сообщением об ошибке, редиректим в HomeController.Index
                 _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
-                TempData["Message"] = "При попытке удалить книгу произошла ошибка!";
+                TempData["Message"] = "При попытке найти книгу произошла ошибка!";
             }
-            return RedirectToAction(nameof(HomeController.Index));
+            return RedirectToAction(nameof(BookController.Index));
         }
         [HttpGet]
         public async Task<IActionResult> SearchBookByAutor()
@@ -199,19 +199,25 @@ namespace PetProjectMVCElLibrary.Controllers
             // Передаем ViewModel в представление, возращаем представление
             return View("Index", bookViewModels);
         }
+        /// <summary>
+        /// Вывод всех доступных жанров, по которым можно искать книги
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> SearchBookByGenre()
         {
             try
             {
+                // Получаем ДТО всех жанров
                 IEnumerable<GenreDTO> genreDTOs = await _genreService.GetAllGenres();
                 if (genreDTOs.Any())
                 {
+                    // Если они есть, сортируем по алфавиту
                     genreDTOs = genreDTOs.OrderBy(x => x.Name);
                 }
                 else
                 {
-                    TempData["Message"] = "Авторы не найдены";
+                    TempData["Message"] = "Жанры не найдены";
                 }
                 return View(_mapper.Map<IEnumerable<GenreViewModel>>(genreDTOs));
             }

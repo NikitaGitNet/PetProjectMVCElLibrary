@@ -50,10 +50,19 @@ namespace BLL.Services.Author
         /// Маппим ДТО в энтити, сохраняем в БД
         /// </summary>
         /// <param name="genreDTO"></param>
-        public void CreateAuthor(AuthorDTO genreDTO)
+        public bool CreateAuthor(AuthorDTO genreDTO)
         {
             DAL.Domain.Entities.Author author = _mapper.Map<DAL.Domain.Entities.Author>(genreDTO);
-            Database.AuthorRepository.SaveEntity(author);
+            return Database.AuthorRepository.SaveEntity(author);
+        }
+        /// <summary>
+        /// Маппим ДТО в энтити, обновляем в БД
+        /// </summary>
+        /// <param name="genreDTO"></param>
+        public bool UpdateAuthor(AuthorDTO genreDTO)
+        {
+            DAL.Domain.Entities.Author author = _mapper.Map<DAL.Domain.Entities.Author>(genreDTO);
+            return Database.AuthorRepository.UpdateEntity(author);
         }
         /// <summary>
         /// Удаляем ентити автора из БД на основании ID

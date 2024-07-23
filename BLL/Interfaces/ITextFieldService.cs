@@ -14,10 +14,15 @@ namespace BLL.Interfaces
     public interface ITextFieldService
     {
         /// <summary>
-        /// Сохранение/обновление текстового поля
+        /// Сохранение текстового поля
         /// </summary>
         /// <param name="textFieldDTO"></param>
-        void SaveTextField(TextFieldDTO textFieldDTO);
+        bool SaveTextField(TextFieldDTO textFieldDTO);
+        /// <summary>
+        /// Обновление текстового поля
+        /// </summary>
+        /// <param name="textFieldDTO"></param>
+        bool UpdateTextField(TextFieldDTO textFieldDTO);
         /// <summary>
         /// Получение ДТО текстового поля по ИД
         /// </summary>

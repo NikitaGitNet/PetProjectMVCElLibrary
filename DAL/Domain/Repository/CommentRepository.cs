@@ -45,18 +45,48 @@ namespace DAL.Domain.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public void SaveEntity(Comment entity)
+        public bool SaveEntity(Comment entity)
         {
-            Comment? comment = _context.Comments.FirstOrDefault(x => x.Id == entity.Id);
-            if (comment != null)
+            bool result = false;
+            try
             {
-                _context.Comments.Update(entity);
+                Comment? comment = _context.Comments.FirstOrDefault(x => x.Id == entity.Id);
+                if (comment == null)
+                {
+                    _context.Comments.Add(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
             }
-            else
+            catch
             {
-                _context.Comments.Add(entity);
+                result = false;
             }
-            _context.SaveChanges();
+            return result;
+        }
+        /// <summary>
+        /// Обновление комментария в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public bool UpdateEntity(Comment entity)
+        {
+            bool result = false;
+            try
+            {
+                Comment? comment = _context.Comments.FirstOrDefault(x => x.Id == entity.Id);
+                if (comment != null)
+                {
+                    _context.Comments.Update(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
         }
         /// <summary>
         /// Удаление комментария

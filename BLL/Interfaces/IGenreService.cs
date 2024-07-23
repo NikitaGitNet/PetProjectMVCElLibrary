@@ -8,10 +8,15 @@ namespace BLL.Interfaces
     public interface IGenreService
     {
         /// <summary>
-        /// Сохранение/обновление жанра
+        /// Сохранение жанра
         /// </summary>
         /// <param name="book"></param>
-        void CreateGenre(GenreDTO book);
+        bool CreateGenre(GenreDTO book);
+        /// <summary>
+        /// Обновление жанра
+        /// </summary>
+        /// <param name="book"></param>
+        bool UpdateGenre(GenreDTO book);
         /// <summary>
         /// Получение ДТО жанра по ИД
         /// </summary>

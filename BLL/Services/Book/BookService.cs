@@ -26,7 +26,6 @@ namespace BLL.Services.Book
             // Получаем из базы коллекцию
             IEnumerable<DAL.Domain.Entities.Book> books = await Database.BookRepository.GetAllEntityesAsync();
             return _mapper.Map<IEnumerable<BookDTO>>(books);
-
         }
         /// <summary>
         /// Обращаемся к BookRepository, получаем книгу по Id, конвертируем в BookDTO
@@ -46,10 +45,20 @@ namespace BLL.Services.Book
         /// <param name="bookDTO"></param>
         /// <returns></returns>
         /// <exception cref="ValidationException"></exception>
-        public void CreateBook(BookDTO bookDTO)
+        public bool CreateBook(BookDTO bookDTO)
         {
             DAL.Domain.Entities.Book book = _mapper.Map<DAL.Domain.Entities.Book>(bookDTO);
-            Database.BookRepository.SaveEntity(book);
+            return Database.BookRepository.SaveEntity(book);
+        }
+        /// <summary>
+        /// Обновляем книгу в базе
+        /// </summary>
+        /// <param name="bookDTO"></param>
+        /// <returns></returns>
+        public bool UpdateBook(BookDTO bookDTO)
+        {
+            DAL.Domain.Entities.Book book = _mapper.Map<DAL.Domain.Entities.Book>(bookDTO);
+            return Database.BookRepository.UpdateEntity(book);
         }
         /// <summary>
         /// Маппим массив ДТО в ентити, массово обновляем книги в БД

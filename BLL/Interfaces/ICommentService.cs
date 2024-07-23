@@ -29,7 +29,8 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="comment"></param>
         /// <returns></returns>
-        void CreateComment(CommentDTO comment);
+        bool CreateComment(CommentDTO comment);
+        bool UpdateComment(CommentDTO comment);
         /// <summary>
         /// Удаление книги из БД на основании Id
         /// </summary>

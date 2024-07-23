@@ -44,18 +44,48 @@ namespace DAL.Domain.Repository
         /// Сохраняем автора в БД
         /// </summary>
         /// <param name="entity"></param>
-        public void SaveEntity(Author entity)
+        public bool SaveEntity(Author entity)
         {
-            Author? author = _context.Authors.FirstOrDefault(x => x.Id == entity.Id);
-            if (author != null) 
+            bool result = false;
+            try
             {
-                _context.Authors.Update(entity);
+                Author? author = _context.Authors.FirstOrDefault(x => x.Id == entity.Id);
+                if (author == null)
+                {
+                    _context.Authors.Add(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
             }
-            else
+            catch
             {
-                _context.Authors.Add(entity);
+                result = false;
             }
-            _context.SaveChanges();
+            return result;
+        }
+        /// <summary>
+        /// Обновление автора в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public bool UpdateEntity(Author entity)
+        {
+            bool result = false;
+            try
+            {
+                Author? author = _context.Authors.FirstOrDefault(x => x.Id == entity.Id);
+                if (author != null)
+                {
+                    _context.Authors.Update(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
         }
         /// <summary>
         /// Удаляем автора из БД на основании ИД

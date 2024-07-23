@@ -13,7 +13,13 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="book"></param>
         /// <returns></returns>
-        void CreateBook(BookDTO book);
+        bool CreateBook(BookDTO book);
+        /// <summary>
+        /// Обновление книги в БД на основе ДТО
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
+        bool UpdateBook(BookDTO book);
         /// <summary>
         /// Маппим массив ДТО в ентити, массово обновляем книги в БД
         /// </summary>

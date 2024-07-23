@@ -765,3 +765,148 @@ Path: /favicon.ico  Time:22:47:27
 Path: /favicon.ico  Time:22:47:30
 Path: /favicon.ico  Time:22:47:32
 Path: /favicon.ico  Time:22:47:34
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:9:19:23
+Path: /favicon.ico  Time:9:19:24
+Path: /favicon.ico  Time:9:19:38
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:9:20:35
+Path: /favicon.ico  Time:9:20:39
+Path: /favicon.ico  Time:9:20:44
+Path: /favicon.ico  Time:9:20:45
+Path: /favicon.ico  Time:9:20:50
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:10:06:11
+Path: /favicon.ico  Time:10:06:13
+Path: /favicon.ico  Time:10:06:14
+Path: /favicon.ico  Time:10:06:25
+Path: /favicon.ico  Time:10:06:26
+Path: /favicon.ico  Time:10:06:31
+Path: /favicon.ico  Time:10:06:33
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:10:06:58
+Path: /favicon.ico  Time:10:07:00
+Path: /favicon.ico  Time:10:07:02
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:01:03
+Path: /favicon.ico  Time:14:01:06
+Path: /favicon.ico  Time:14:01:20
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:14:01:22
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:02:15
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:14:02:16
+Path: /favicon.ico  Time:14:03:20
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:14:03:21
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:05:46
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:14:05:46
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:06:10
+Path: /favicon.ico  Time:14:06:11
+Path: /favicon.ico  Time:14:06:11
+Path: /favicon.ico  Time:14:06:20
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:14:06:22
+Path: /favicon.ico  Time:14:06:31
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:08:11
+Path: /favicon.ico  Time:14:08:15
+Path: /favicon.ico  Time:14:08:21
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:14:08:33
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:11:14
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:14:11:19
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:14:11:43
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:14:11:55
+Path: /favicon.ico  Time:14:11:59
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:59:32
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:15:59:33
+Path: /favicon.ico  Time:15:59:40
+Path: /Moderator/Book  Time:15:59:43
+Path: /favicon.ico  Time:15:59:43
+Path: /favicon.ico  Time:15:59:52
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /Moderator/Book  Time:16:00:36
+Path: /favicon.ico  Time:16:00:36
+Path: /favicon.ico  Time:16:00:36
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:16:00:38
+Path: /favicon.ico  Time:16:00:40
+Path: /Moderator/Book  Time:16:00:54
+Path: /favicon.ico  Time:16:00:54
+Path: /favicon.ico  Time:16:00:55
+Path: /Moderator/Book  Time:16:01:37
+Path: /favicon.ico  Time:16:01:37
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:06:06
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:16:06:21
+Path: /favicon.ico  Time:16:06:21
+Path: /favicon.ico  Time:16:06:23
+Path: /favicon.ico  Time:16:06:28
+Path: /favicon.ico  Time:16:06:36
+Path: /favicon.ico  Time:16:06:39
+Path: /favicon.ico  Time:16:06:42
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:08:14
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:16:08:16
+Path: /favicon.ico  Time:16:08:19
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:08:37
+Path: /favicon.ico  Time:16:08:38
+Path: /favicon.ico  Time:16:08:41
+Path: /favicon.ico  Time:16:08:43
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:09:46
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:16:09:48
+Path: /Moderator/Book  Time:16:09:50
+Path: /favicon.ico  Time:16:09:50

@@ -47,14 +47,24 @@ namespace BLL.Services.TextField
             return _mapper.Map<TextFieldDTO?>(textField);
         }
         /// <summary>
-        /// Сохранение/обновление текстового поля
+        /// Сохранение текстового поля
         /// Мапим ДТО в энтити, сохраняем
         /// </summary>
         /// <param name="textFieldDTO"></param>
-        public void SaveTextField(TextFieldDTO textFieldDTO)
+        public bool SaveTextField(TextFieldDTO textFieldDTO)
         {
             DAL.Domain.Entities.TextField textField = _mapper.Map<DAL.Domain.Entities.TextField>(textFieldDTO);
-            Database.TextFieldRepository.SaveEntity(textField);
+            return Database.TextFieldRepository.SaveEntity(textField);
+        }
+        /// <summary>
+        /// Обновление текстового поля
+        /// Мапим ДТО в энтити, сохраняем
+        /// </summary>
+        /// <param name="textFieldDTO"></param>
+        public bool UpdateTextField(TextFieldDTO textFieldDTO)
+        {
+            DAL.Domain.Entities.TextField textField = _mapper.Map<DAL.Domain.Entities.TextField>(textFieldDTO);
+            return Database.TextFieldRepository.SaveEntity(textField);
         }
     }
 }

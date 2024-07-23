@@ -49,14 +49,24 @@ namespace BLL.Services.Comment
             return _mapper.Map<IEnumerable<CommentDTO>>(comments);
         }
         /// <summary>
-        /// Маппинг дто в энтити и с сохранение в БД
+        /// Маппинг дто в энтити и сохранение в БД
         /// </summary>
         /// <param name="commentDTO"></param>
         /// <returns></returns>
-        public void CreateComment(CommentDTO commentDTO)
+        public bool CreateComment(CommentDTO commentDTO)
         {
             DAL.Domain.Entities.Comment comment = _mapper.Map<DAL.Domain.Entities.Comment>(commentDTO);
-            Database.CommentRepository.SaveEntity(comment);
+            return Database.CommentRepository.SaveEntity(comment);
+        }
+        /// <summary>
+        /// Маппинг дто в энтити и обновление в БД
+        /// </summary>
+        /// <param name="commentDTO"></param>
+        /// <returns></returns>
+        public bool UpdateComment(CommentDTO commentDTO)
+        {
+            DAL.Domain.Entities.Comment comment = _mapper.Map<DAL.Domain.Entities.Comment>(commentDTO);
+            return Database.CommentRepository.SaveEntity(comment);
         }
         /// <summary>
         /// Удаление коммента из БД

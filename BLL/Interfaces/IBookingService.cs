@@ -18,7 +18,13 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="book"></param>
         /// <returns></returns>
-        void CreateBooking(BookingDTO book);
+        bool CreateBooking(BookingDTO book);
+        /// <summary>
+        /// Обновление брони в БД на основе ДТО
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
+        bool UpdateBooking(BookingDTO book);
         /// <summary>
         /// Получение брони на основе ИД
         /// </summary>

@@ -47,21 +47,50 @@ namespace DAL.Domain.Repository
             return await _context.TextFields.FirstOrDefaultAsync(x => x.CodeWord == codeWord);
         }
         /// <summary>
-        /// Сохранение/обновление энтити текстового поля в БД
+        /// Сохранение энтити текстового поля в БД
         /// </summary>
         /// <param name="entity"></param>
-        public void SaveEntity(TextField entity)
+        public bool SaveEntity(TextField entity)
         {
-            TextField? textField = _context.TextFields.FirstOrDefault(x => x.Id == entity.Id);
-            if (textField != null)
+            bool result = false;
+            try
             {
-                _context.TextFields.Update(entity);
+                TextField? textField = _context.TextFields.FirstOrDefault(x => x.Id == entity.Id);
+                if (textField == null)
+                {
+                    _context.TextFields.Add(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
             }
-            else
+            catch
             {
-                _context.TextFields.Add(entity);
+                result = false;
             }
-            _context.SaveChanges();
+            return result;
+        }
+        /// <summary>
+        /// Обновление энтити текстового поля в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        public bool UpdateEntity(TextField entity)
+        {
+            bool result = false;
+            try
+            {
+                TextField? textField = _context.TextFields.FirstOrDefault(x => x.Id == entity.Id);
+                if (textField != null)
+                {
+                    _context.TextFields.Update(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
         }
         /// <summary>
         /// Удаление текстового поля из бд

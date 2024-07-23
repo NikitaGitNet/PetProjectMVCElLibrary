@@ -59,18 +59,48 @@ namespace DAL.Domain.Repository
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public void SaveEntity(Book entity)
+        public bool SaveEntity(Book entity)
         {
-            Book? book = _context.Books.FirstOrDefault(x => x.Id == entity.Id);
-            if (book != null)
+            bool result = false;
+            try
             {
-                _context.Books.Update(entity);
+                Book? book = _context.Books.FirstOrDefault(x => x.Id == entity.Id);
+                if (book == null)
+                {
+                    _context.Books.Add(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
             }
-            else
+            catch
             {
-                _context.Books.Add(entity);
+                result = false;
             }
-            _context.SaveChanges();
+            return result;
+        }
+        /// <summary>
+        /// Обновление энтити в БД
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public bool UpdateEntity(Book entity)
+        {
+            bool result = false;
+            try
+            {
+                Book? book = _context.Books.FirstOrDefault(x => x.Id == entity.Id);
+                if (book != null)
+                {
+                    _context.Books.Update(entity);
+                    _context.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
         }
         /// <summary>
         /// Обновление книг на основании массива ентити

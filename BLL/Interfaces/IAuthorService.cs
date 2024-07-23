@@ -8,10 +8,16 @@ namespace BLL.Interfaces
     public interface IAuthorService
     {
         /// <summary>
-        /// Добавление/обновление автора
+        /// Добавление автора
         /// </summary>
         /// <param name="book"></param>
-        void CreateAuthor(AuthorDTO book);
+        bool CreateAuthor(AuthorDTO book);
+        /// <summary>
+        /// Jбновление автора
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
+        bool UpdateAuthor(AuthorDTO book);
         /// <summary>
         /// Получение ДТО автора по ИД
         /// </summary>
