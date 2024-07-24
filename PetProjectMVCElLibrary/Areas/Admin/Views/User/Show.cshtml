@@ -5,11 +5,11 @@
 }
 <h2>@TempData["Message"]</h2>
 <div>
-    <form asp-area="Admin" asp-controller="UsersShow" asp-action="SearchByEmail" method="post" enctype="multipart/form-data"> 
+    <form asp-area="Admin" asp-controller="User" asp-action="SearchByEmail" method="post" enctype="multipart/form-data"> 
         <div class="div-box">
             <h2>Поиск по адресу почты</h2>
             <div class="inputBox">
-                <input type="text" name="UserEmail">
+                <input type="text" name="Email">
             </div>
             <input style="display: inline-block;" type="submit" class="glo" value="Найти">
         </div>

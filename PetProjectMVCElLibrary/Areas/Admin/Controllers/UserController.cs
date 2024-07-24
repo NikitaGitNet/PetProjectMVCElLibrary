@@ -50,31 +50,25 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         public async Task<IActionResult> Show()
         {
             IEnumerable<ApplicationUserDTO> applicationUserDTOs = new List<ApplicationUserDTO>();
-            // Проверям авторизован ли пользователь
+            // Получаем ИД текущего пользователя
             Guid userId = Guid.Empty;
             if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
             {
                 try
                 {
-                    // Получем на пальзователя ДТО
-                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
-                    if (userDTO != null)
-                    {
-                        // Проверяем является ли он админом
-                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "admin"))
-                        {
-                            // Мапим во ViewModel, предаем в представление, возвращаем представление
-                            applicationUserDTOs = await _applicationUserService.GetAllUsers();
-                            return View(_mapper.Map<IEnumerable<ApplicationUserViewModel>>(applicationUserDTOs));
-                        }
-                    }
-                }
+					// Проверяем является ли он админом
+					if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString()), "admin"))
+					{
+						// Мапим во ViewModel, предаем в представление, возвращаем представление
+						applicationUserDTOs = await _applicationUserService.GetAllUsers();
+						return View(_mapper.Map<IEnumerable<ApplicationUserViewModel>>(applicationUserDTOs));
+					}
+				}
                 catch (Exception ex)
                 {
                     // Генерим лог с сообщением об ошибке, редиректим на панель админа
                     _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                     TempData["Message"] = "При попытке вывода списка пользователей произошла ошибка!";
-                    return RedirectToAction(nameof(HomeController.Index));
                 }
             }
             // Редиректим на панель админа
@@ -85,39 +79,31 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         /// </summary>
         /// <param name="applicationUserViewModel"></param>
         /// <returns></returns>
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> ShowCurrentUser(ApplicationUserViewModel applicationUserViewModel)
         {
-            // Проверям авторизован ли пользователь
+            // Получаем текущего ИД пользователя
             Guid userId = Guid.Empty;
             if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
             {
                 try
                 {
-                    // Получем на текущего пальзователя ДТО
-                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
-                    if (userDTO != null)
-                    {
-                        // Проверяем является ли он админом
-                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "admin"))
-                        {
-                            ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUser(Guid.Parse(applicationUserViewModel.Id ?? ""));
-                            if (applicationUserDTO != null)
-                            {
-                                return View(_mapper.Map<ApplicationUserViewModel>(applicationUserDTO));
-                            }
-                            TempData["Result"] = "Пользователь не найден";
-                            return RedirectToAction(nameof(UserController.Show));
-                        }
-                    }
-                }
+					// Проверяем является ли он админом
+					if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString()), "admin"))
+					{
+						ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUser(Guid.Parse(applicationUserViewModel.Id ?? ""));
+						if (applicationUserDTO != null)
+						{
+							return View(_mapper.Map<ApplicationUserViewModel>(applicationUserDTO));
+						}
+						TempData["Result"] = "Пользователь не найден";
+					}
+				}
                 catch (Exception ex)
                 {
                     // Генерим лог с сообщением об ошибке, на окно вывода всех пользователей
                     _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                     TempData["Message"] = "При попытке получения данных о пользователе произошла ошибка!";
-                    return RedirectToAction(nameof(UserController.Show));
                 }
             }
             return RedirectToAction(nameof(UserController.Show));
@@ -129,7 +115,7 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> SearchByEmail(string email)
+        public async Task<IActionResult> SearchByEmail(ApplicationUserViewModel viewModel)
         {
             // Проверям авторизован ли пользователь
             Guid userId = Guid.Empty;
@@ -137,29 +123,26 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
             {
                 try
                 {
-                    // Получем на текущего пальзователя ДТО
-                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
-                    if (userDTO != null)
-                    {
-                        if (email != null)
-                        {
-                            // Ищем пользователя по email, мапим во ViewModel, передаем в предствление, возвращаем представление
-                            ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUserByEmail(email);
-                            if (applicationUserDTO != null)
-                            {
-                                return View("ShowCurrentUser", _mapper.Map<ApplicationUserViewModel>(applicationUserDTO));
-                            }
-                        }
-                        TempData["Message"] = "Пользователь не найден";
-                        return RedirectToAction(nameof(UserController.Show));
-                    }
-                }
+					// Проверяем является ли он админом
+					if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString()), "admin"))
+					{
+						if (viewModel.Email != null)
+						{
+							// Ищем пользователя по email, мапим во ViewModel, передаем в предствление, возвращаем представление
+							ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUserByEmail(viewModel.Email);
+							if (applicationUserDTO != null)
+							{
+								return RedirectToAction(nameof(UserController.ShowCurrentUser), _mapper.Map<ApplicationUserViewModel>(applicationUserDTO));
+							}
+							TempData["Message"] = "Пользователь не найден";
+						}
+					}
+				}
                 catch (Exception ex)
                 {
                     // Генерим лог с сообщением об ошибке, на окно вывода всех пользователей
                     _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                     TempData["Message"] = "При попытке получения данных о пользователе произошла ошибка!";
-                    return RedirectToAction(nameof(UserController.Show));
                 }
             }
             return RedirectToAction(nameof(UserController.Show));
@@ -169,7 +152,6 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Delete(string Id)
         {
@@ -178,23 +160,18 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
             {
                 try
                 {
-                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
-                    if (userDTO != null)
-                    {
-                        // Проверяем является ли он админом
-                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "admin"))
-                        {
-                            _applicationUserService.DeleteUser(Guid.Parse(Id));
-                            return RedirectToAction(nameof(UserController.Show));
-                        }
-                    }
-                }
+					// Проверяем является ли он админом
+					if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString()), "admin"))
+					{
+						_applicationUserService.DeleteUser(Guid.Parse(Id));
+						TempData["Message"] = "Пользователь успешно удален";
+					}
+				}
                 catch (Exception ex)
                 {
                     // Генерим лог с сообщением об ошибке, на окно вывода всех пользователей
                     _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                     TempData["Message"] = "При удалении пользователя произошла ошибка!";
-                    return RedirectToAction(nameof(UserController.Show));
                 }
             }
             return RedirectToAction(nameof(UserController.Show));
@@ -208,35 +185,33 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword(ApplicationUserViewModel applicationUserViewModel)
         {
+            // Получаем ИД пользователя
             Guid userId = Guid.Empty;
             if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
             {
                 try
                 {
-                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
-                    if (userDTO != null)
-                    {
-                        // Проверяем является ли он админом
-                        if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userDTO.Id ?? ""), "admin"))
+					// Проверяем является ли он админом
+					if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString()), "admin"))
+					{
+						// Меняем пароль
+						bool result = await _applicationUserService.ChangePassword(Guid.Parse(applicationUserViewModel.Id ?? ""), applicationUserViewModel.Password ?? "");
+						if (result)
+						{
+							TempData["Message"] = "Пароль успешно изменен";
+						}
+                        else
                         {
-                            // Меняем пароль
-                            bool result = await _applicationUserService.ChangePassword(Guid.Parse(applicationUserViewModel.Id ?? ""), applicationUserViewModel.Password ?? "");
-                            if (result)
-                            {
-                                TempData["Message"] = "Пароль успешно изменен";
-                                return RedirectToAction(nameof(UserController.ShowCurrentUser), applicationUserViewModel);
-                            }
-                            TempData["Message"] = "Неудача, не удалось узменить пароль";
-                            return RedirectToAction(nameof(UserController.ShowCurrentUser), applicationUserViewModel);
-                        }
-                    }
-                }
+							TempData["Message"] = "Неудача! Не удалось узменить пароль";
+						}
+						return RedirectToAction(nameof(UserController.ShowCurrentUser), applicationUserViewModel);
+					}
+				}
                 catch (Exception ex)
                 {
                     // Генерим лог с сообщением об ошибке, на окно вывода всех пользователей
                     _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                     TempData["Message"] = "При попытке изменить пароль произошла ошибка!";
-                    return RedirectToAction(nameof(UserController.Show));
                 }
             }
             return RedirectToAction(nameof(UserController.Show));

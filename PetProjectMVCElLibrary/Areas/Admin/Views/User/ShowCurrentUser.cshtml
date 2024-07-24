@@ -21,7 +21,7 @@
     </form>
 </div>
 <hr>
-<form id="form-@Model.Id" asp-area="Admin" asp-controller="UsersShow" asp-action="Delete" method="post">
+<form id="form-@Model.Id" asp-area="Admin" asp-controller="User" asp-action="Delete">
     <input type="hidden" name="id" value="@Model.Id">
     <a class="glo" href="#" onclick="document.getElementById('form-@Model.Id').submit();">Удалить пользователя</a>
 </form>

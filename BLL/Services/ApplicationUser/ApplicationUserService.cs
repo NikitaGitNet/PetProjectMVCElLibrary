@@ -116,7 +116,7 @@ namespace BLL.Services.ApplicationUser
         /// Метод создания/обновления пользователя
         /// </summary>
         /// <param name="user"></param>
-        public async Task<bool> SaveUser(ApplicationUserDTO user)
+        public async Task<bool> CreateUser(ApplicationUserDTO user)
         {
             DAL.Domain.Entities.ApplicationUser applicationUser = _mapper.Map<ApplicationUserDTO, DAL.Domain.Entities.ApplicationUser>(user);
             return await Database.ApplicationUserRepository.SaveUser(applicationUser, user.Password ?? "", _userManager);

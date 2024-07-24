@@ -160,10 +160,19 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                 bookDTO.GenreName = UnknownGenre.Name;
                                 bookDTO.GenreId = new Guid(UnknownGenre.Id);
                             }
-                            // Указываем дату добавления книги, добавляем/обновляем книгу в БД
-                            bookDTO.DateAdded = DateTime.Now;
-                            _bookService.CreateBook(bookDTO);
-                            TempData["Message"] = "Книга успешно добавлена/обновлена";
+                            // Добавляем/обновляем книгу в БД
+                            if (bookDTO.Id == default)
+                            {
+								bookDTO.DateAdded = DateTime.Now;
+                                bookDTO.Id = Guid.NewGuid();
+								_bookService.CreateBook(bookDTO);
+								TempData["Message"] = "Книга успешно добавлена";
+							}
+                            else
+                            {
+								_bookService.UpdateBook(bookDTO);
+								TempData["Message"] = "Книга успешно обновлена";
+							}
                         }
                     }
                     catch (Exception ex)
@@ -435,6 +444,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                 {
 									// Мапим ViewModel в ДТО, добавляем в базу
 									genreDTO = _mapper.Map<GenreDTO>(model);
+                                    genreDTO.Id = Guid.NewGuid();
 									if (_genreService.CreateGenre(genreDTO))
 									{
 										TempData["Message"] = "Автор успешно добавлен";
@@ -452,7 +462,6 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                         // Генерим лог с сообщением об ошибке, редиректим на панель модератора
                         _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                         TempData["Message"] = "При попытке обновления/добавления жанра произошла ошибка!";
-                        return RedirectToAction(nameof(HomeController.Index));
                     }
                 }
             }
@@ -576,6 +585,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                                 {
 									// Мапим ViewModel в ДТО, добавляем в базу
 									authorDTO = _mapper.Map<AuthorDTO>(model);
+                                    authorDTO.Id = Guid.NewGuid();
 									if (_authorService.CreateAuthor(authorDTO))
 									{
 										TempData["Message"] = "Автор успешно добавлен";
@@ -594,7 +604,6 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
                         // Генерим лог с сообщением об ошибке, редиректим на панель модератора
                         _logger.LogError(DateTime.Now + "\r\n" + ex.Message);
                         TempData["Message"] = "При попытке обновления/добавления автора произошла ошибка!";
-                        return RedirectToAction(nameof(HomeController.Index));
                     }
                 }
             }

@@ -122,7 +122,7 @@ namespace PetProjectMVCElLibrary.Controllers
                         ApplicationUserDTO newUser = _mapper.Map<ApplicationUserDTO>(model);
                         newUser.Id = Guid.NewGuid().ToString();
                         // Сохраняем в базу
-                        bool result = await _applicationUserService.SaveUser(newUser);
+                        bool result = await _applicationUserService.CreateUser(newUser);
                         if (result)
                         {
                             // Если все ОК, авторизуем, редиректим на главную

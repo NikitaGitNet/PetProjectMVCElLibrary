@@ -105,8 +105,12 @@ namespace DAL.Domain.Repository
         /// <exception cref="NotImplementedException"></exception>
         public void DeleteEntity(Guid id)
         {
-            _context.ApplicationUsers.Remove(new ApplicationUser() { Id = id.ToString() });
-            _context.SaveChanges();
+            ApplicationUser? user = _context.Users.Include(x => x.Comments).Include(x => x.Bookings).FirstOrDefault(x => x.Id == id.ToString());
+            if (user != null)
+            {
+				_context.ApplicationUsers.Remove(user);
+				_context.SaveChanges();
+			}
         }
         /// <summary>
         /// Удаление пользователей из бд на основании массива пользователей

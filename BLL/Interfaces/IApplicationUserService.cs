@@ -49,7 +49,7 @@ namespace BLL.Interfaces
         /// Метод создания/обновления пользователя
         /// </summary>
         /// <param name="user"></param>
-        Task<bool> SaveUser(ApplicationUserDTO user);
+        Task<bool> CreateUser(ApplicationUserDTO user);
         /// <summary>
         /// Метод смены пароля пользователя
         /// </summary>
