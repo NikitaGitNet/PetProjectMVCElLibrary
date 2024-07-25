@@ -97,6 +97,11 @@ namespace PetProjectMVCElLibrary.Controllers
                 IEnumerable<CommentDTO> commentDTOs = await _commentService.GetCommentsByBookId(book.Id);
                 // Мапим комментарии во ViewModel
                 bookViewModel.Comments = _mapper.Map<IEnumerable<CommentViewModel>>(commentDTOs);
+                Guid userId = Guid.Empty;
+                if (CheckUser.IsUserTry(_httpContextAccessor, out userId))
+                {
+                    bookViewModel.CurentUserId = userId.ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -355,18 +360,22 @@ namespace PetProjectMVCElLibrary.Controllers
                 // Если авторизован, выполняем логику
                 try
                 {
-                    // Получаем ДТО книги
-                    BookDTO? bookDTO = await _bookService.GetBook(model.BookId);
-                    // Если книга найдена
-                    if (bookDTO != null)
+                    ApplicationUserDTO? userDTO = await _applicationUserService.GetUser(userId);
+                    if (userDTO != null)
                     {
-                        // Удаляем комментарий, редиректим на страницу книги
-                        _commentService.DeleteComment(model.Id);
-                        return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
+                        // Получаем ДТО книги
+                        BookDTO? bookDTO = await _bookService.GetBook(model.BookId);
+                        // Если книга найдена
+                        if (bookDTO != null)
+                        {
+                            // Удаляем комментарий, редиректим на страницу книги
+                            _commentService.DeleteComment(model.Id);
+                            return RedirectToAction(nameof(BookController.ShowCurrentBook), _mapper.Map<BookViewModel>(bookDTO));
+                        }
+                        // Если не найдена, редиректим на страницу вывода книг, пишем сообщение, что не удалось удалить комментарий
+                        TempData["Message"] = "При попытке удалить комментарий произошла ошибка! Книга не найдена!";
+                        return RedirectToAction(nameof(BookController.Index));
                     }
-                    // Если не найдена, редиректим на страницу вывода книг, пишем сообщение, что не удалось удалить комментарий
-                    TempData["Message"] = "При попытке удалить комментарий произошла ошибка! Книга не найдена!";
-                    return RedirectToAction(nameof(BookController.Index));
                 }
                 catch (Exception ex)
                 {

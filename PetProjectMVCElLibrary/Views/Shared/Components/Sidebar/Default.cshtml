@@ -6,7 +6,7 @@
             @foreach (var entity in Model)
             {
                 <li>
-                    <a asp-area="" asp-controller="Book" asp-action="Index" asp-route-id="@entity.Id">
+                <a asp-area="" asp-controller="Book" asp-action="ShowCurrentBook" asp-route-id="@entity.Id">
                         <img src="~/images/@entity.TitleImagePath" alt="" class="left UlImage">
                     </a>
                     <h4>

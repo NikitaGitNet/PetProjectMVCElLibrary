@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models.DTO.ApplicationUser;
+using BLL.Models.DTO.Book;
 using BLL.Models.DTO.TextField;
 using BLL.Services.ApplicationUser;
 using BLL.Services.Book;
+using BLL.Services.Booking;
+using BLL.Services.Comment;
 using BLL.Services.TextField;
 using DAL.Domain;
 using DAL.Domain.Entities;
@@ -26,14 +29,18 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMapper _mapper;
         private readonly IApplicationUserService _applicationUserService;
+        private readonly IBookingService _bookingService;
+        private readonly ICommentService _commentService;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IBookService bookService;
+        private readonly IBookService _bookService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<FileLogger> _logger;
         public UserController(AppDbContext context, IMapper mapper, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, ILogger<FileLogger> logger)
         {
             _applicationUserService = new ApplicationUserService(context, mapper, signInManager, userManager);
-            bookService = new BookService(context, mapper);
+            _bookingService = new BookingService(context, mapper);
+            _bookService = new BookService(context, mapper);
+            _commentService = new CommentService(context, mapper);
             _signInManager = signInManager;
             _mapper = mapper;
             _context = context;
@@ -163,9 +170,35 @@ namespace PetProjectMVCElLibrary.Areas.Admin.Controllers
 					// Проверяем является ли он админом
 					if (await _applicationUserService.IsUserRoleConfirm(Guid.Parse(userId.ToString()), "admin"))
 					{
-						_applicationUserService.DeleteUser(Guid.Parse(Id));
-						TempData["Message"] = "Пользователь успешно удален";
-					}
+                        if (Id != null)
+                        {
+                            ApplicationUserDTO? applicationUserDTO = await _applicationUserService.GetUser(Guid.Parse(Id));
+                            if (applicationUserDTO != null)
+                            {
+                                if (applicationUserDTO.Bookings.Any())
+                                {
+                                    IEnumerable<BookDTO> bookDTOs = await _bookService.GetAllBooks();
+                                    bookDTOs = bookDTOs.Where(x => applicationUserDTO.Bookings.Select(x => x.BookId).Contains(x.Id));
+                                    foreach (BookDTO bookDTO in bookDTOs)
+                                    {
+                                        bookDTO.IsBooking = false;
+                                    }
+                                    _bookService.UpdateBooksRange(bookDTOs);
+                                    _bookingService.DeleteRangeBookings(applicationUserDTO.Bookings);
+                                }
+                                if (applicationUserDTO.Comments.Any())
+                                {
+                                    _commentService.DeleteRangeComments(applicationUserDTO.Comments);
+                                }
+                                _applicationUserService.DeleteUser(Guid.Parse(Id));
+                                TempData["Message"] = "Пользователь успешно удален";
+                            }
+                        }
+                        else
+                        {
+                            TempData["Message"] = "При удалении пользователя произошла ошибка!";
+                        }
+                    }
 				}
                 catch (Exception ex)
                 {
