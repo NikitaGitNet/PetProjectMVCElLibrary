@@ -1613,3 +1613,307 @@ Path: /favicon.ico  Time:16:07:17
 Application started. Press Ctrl+C to shut down.
 Hosting environment: Development
 Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:13:02
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:14:47
+Path: /favicon.ico  Time:15:14:52
+Path: /favicon.ico  Time:15:14:54
+Path: /favicon.ico  Time:15:15:11
+Path: /favicon.ico  Time:15:15:12
+Path: /favicon.ico  Time:15:15:13
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:16:08
+Path: /favicon.ico  Time:15:16:09
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:39:57
+Path: /favicon.ico  Time:15:39:59
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:00
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:01
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:02
+The method or operation is not implemented.
+25.07.2024 15:40:03
+The method or operation is not implemented.
+25.07.2024 15:40:03
+The method or operation is not implemented.
+25.07.2024 15:40:03
+The method or operation is not implemented.
+25.07.2024 15:40:03
+The method or operation is not implemented.
+25.07.2024 15:40:03
+The method or operation is not implemented.
+25.07.2024 15:40:03
+The method or operation is not implemented.
+25.07.2024 15:40:03
+The method or operation is not implemented.
+Path: /favicon.ico  Time:15:40:07
+25.07.2024 15:40:08
+The method or operation is not implemented.
+25.07.2024 15:40:08
+The method or operation is not implemented.
+25.07.2024 15:40:08
+The method or operation is not implemented.
+25.07.2024 15:40:08
+The method or operation is not implemented.
+25.07.2024 15:40:08
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:09
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:10
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+25.07.2024 15:40:11
+The method or operation is not implemented.
+Path: /favicon.ico  Time:15:40:14
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:40:55
+Path: /favicon.ico  Time:15:40:55
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:44:30
+Path: /favicon.ico  Time:15:44:32
+Path: /favicon.ico  Time:15:44:39
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:45:30
+Path: /favicon.ico  Time:15:45:31
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:47:56
+Path: /favicon.ico  Time:15:48:01
+Path: /favicon.ico  Time:15:48:06
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:48:49
+Path: /favicon.ico  Time:15:48:51
+Path: /favicon.ico  Time:15:48:53
+Path: /favicon.ico  Time:15:48:54
+Path: /favicon.ico  Time:15:48:57
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:15:49:00
+Path: /favicon.ico  Time:15:49:02
+Path: /favicon.ico  Time:15:49:02
+Path: /favicon.ico  Time:15:49:05
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:51:06
+Path: /favicon.ico  Time:15:51:08
+Path: /favicon.ico  Time:15:51:09
+Path: /favicon.ico  Time:15:51:10
+Path: /favicon.ico  Time:15:51:15
+Path: /favicon.ico  Time:15:51:20
+Path: /favicon.ico  Time:15:51:21
+Path: /favicon.ico  Time:15:51:25
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:52:24
+Path: /favicon.ico  Time:15:52:26
+Path: /favicon.ico  Time:15:52:27
+Path: /favicon.ico  Time:15:52:28
+Path: /favicon.ico  Time:15:52:30
+Path: /favicon.ico  Time:15:52:33
+Path: /favicon.ico  Time:15:52:34
+Path: /favicon.ico  Time:15:52:35
+Path: /favicon.ico  Time:15:52:36
+Path: /favicon.ico  Time:15:52:38
+Path: /favicon.ico  Time:15:52:39
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:15:56:09
+Path: /favicon.ico  Time:15:56:10
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:02:53
+Path: /favicon.ico  Time:16:02:55
+Path: /favicon.ico  Time:16:02:56
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:03:14
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:16:11:40
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:16:13:09
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:16:14:58
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:16:37
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:17:02
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+An unhandled exception has occurred while executing the request.
+Path: /favicon.ico  Time:16:17:15
+Application started. Press Ctrl+C to shut down.
+Hosting environment: Development
+Content root path: C:\Users\nikitaL\Source\Repos\PetProjectMVCElLibrary\PetProjectMVCElLibrary
+Path: /favicon.ico  Time:16:17:36
+Path: /favicon.ico  Time:16:17:39
+Path: /favicon.ico  Time:16:17:39
+Path: /favicon.ico  Time:16:17:41
+Path: /favicon.ico  Time:16:17:41
+Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+Path: /favicon.ico  Time:16:17:43

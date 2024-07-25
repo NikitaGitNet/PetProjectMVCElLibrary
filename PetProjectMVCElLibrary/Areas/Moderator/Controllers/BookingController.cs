@@ -61,6 +61,7 @@ namespace PetProjectMVCElLibrary.Areas.Moderator.Controllers
 					{
 						// Получаем коллекцию ДТО всех броней, мапим во ViewModel, возвращаем
 						IEnumerable<BookingDTO> bookingDTOs = await bookingService.GetAllBookings();
+                        bookingDTOs = await CheckBookingEnd.DeletingExpired(bookingDTOs, bookingService, bookService);
 						return View(_mapper.Map<IEnumerable<BookingViewModel>>(bookingDTOs));
 					}
 				}

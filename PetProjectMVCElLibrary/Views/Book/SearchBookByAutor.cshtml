@@ -5,10 +5,18 @@
 }
 <div>
     <h2>@TempData["Message"]</h2>
-    @foreach (IAuthorViewModel viewModel in Model)
+    @if (Model.Any())
     {
-        <a class="glo" asp-area="" asp-controller="Book" asp-action="Show" asp-route-id="@viewModel.Id">
-            <h3>@viewModel.Name</h3>
-        </a>
+        @foreach (IAuthorViewModel viewModel in Model)
+        {
+            <a class="glo" asp-area="" asp-controller="Book" asp-action="Show" asp-route-id="@viewModel.Id">
+                <h3>@viewModel.Name</h3>
+            </a>
+        }
     }
+    else
+    {
+        <h2>Ничего не найдено</h2>
+    }
+    
 </div>

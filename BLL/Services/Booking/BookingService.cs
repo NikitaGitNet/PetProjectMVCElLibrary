@@ -73,7 +73,8 @@ namespace BLL.Services.Booking
         }
         public void DeleteRangeBookings(IEnumerable<BookingDTO> entityes)
         {
-            throw new NotImplementedException();
+            IEnumerable<DAL.Domain.Entities.Booking> books = _mapper.Map<IEnumerable<DAL.Domain.Entities.Booking>>(entityes);
+            Database.BookingRepository.DeleteRangeEntityes(books);
         }
         /// <summary>
         /// Создание уникального кода для получения книги

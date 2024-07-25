@@ -22,6 +22,7 @@
                 <li class="liBooking">
                     <p>Название книги: @entity.BooksTitle</p>
                     <p>Дата создания брони: @entity.CreateOn</p>
+                    <p>Дата окончания брони брони: @entity.FinishedOn</p>
                     <p>Email пользователя: @entity.Email</p>
                     <a class="glo" asp-area="Moderator" asp-controller="Booking" asp-action="ShowCurrentBooking" asp-route-id="@entity.Id">Перейти к брони</a>
                     <hr>

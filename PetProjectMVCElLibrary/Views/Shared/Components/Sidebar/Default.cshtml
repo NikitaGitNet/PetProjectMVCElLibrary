@@ -1,12 +1,12 @@
-﻿@* @model BooksListViewModel
+﻿@model IEnumerable<IBookViewModel>
 
     <section>
         <h2>Новинки</h2>
         <ul class="small-image-list">
-            @foreach (var entity in Model.Books)
+            @foreach (var entity in Model)
             {
                 <li>
-                    <a asp-area="" asp-controller="BooksShow" asp-action="Index" asp-route-id="@entity.Id">
+                    <a asp-area="" asp-controller="Book" asp-action="Index" asp-route-id="@entity.Id">
                         <img src="~/images/@entity.TitleImagePath" alt="" class="left UlImage">
                     </a>
                     <h4>
@@ -19,4 +19,3 @@
             }
         </ul>
     </section>
- *@

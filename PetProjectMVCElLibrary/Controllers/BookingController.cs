@@ -68,6 +68,7 @@ namespace PetProjectMVCElLibrary.Controllers
 						// Если пользователь найден
 						// Получаем брони пользователя, маппим их во ViewModel
 						IEnumerable<BookingViewModel> bookings = new List<BookingViewModel>();
+						applicationUserDTO.Bookings = await CheckBookingEnd.DeletingExpired(applicationUserDTO.Bookings, bookingService, bookService);
 						bookings = _mapper.Map<IEnumerable<BookingViewModel>>(applicationUserDTO.Bookings);
 						// Передаем ViewModel в представление, выводим все брони пользователя
 						return View(bookings);
