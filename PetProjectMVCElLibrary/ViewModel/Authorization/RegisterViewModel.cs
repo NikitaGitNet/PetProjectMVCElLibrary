@@ -14,6 +14,7 @@ namespace PetProjectMVCElLibrary.ViewModel.Authorization
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Поле не заполнено")]
+        [StringLength(10, MinimumLength = 6, ErrorMessage = "Минимум 6 символов")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string? Password { get; set; }
